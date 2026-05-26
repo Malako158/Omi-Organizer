@@ -1,6 +1,14 @@
 # Workflow
 
-_Last updated: 2026-05-23_
+_Last updated: 2026-05-26_
+
+---
+
+## 2026-05-25
+[[Omi Collection/2026/05/25/2026-05-25|Source]]
+
+- **Production Workflow Formalized** — Full workflow documented: preproduction → shoot day → post-production setup → editing → internal review → client revisions → delivery → biweekly payment for approved videos. Canon C-Log footage color grading being confirmed before committing to videographer's camera setup.
+- **Monday Voice Brief** — Recurring Monday voice brief proposed as a check-in format for operational updates.
 
 ---
 

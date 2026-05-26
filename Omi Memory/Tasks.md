@@ -1,6 +1,6 @@
 # Tasks
 
-_Last updated: 2026-05-24_
+_Last updated: 2026-05-26_
 
 ---
 
@@ -47,6 +47,21 @@ _Synced: 2026-05-24 21:30_
 - [ ] Find videographer (Start with Indeed Postings) _(High)_
 - [ ] Oakville Chamber Edit _(High)_
 - [ ] Send Reference Video / Raw Footage to Potential Video Editor.
+
+---
+
+## 2026-05-25
+[[Omi Collection/2026/05/25/2026-05-25|Source]]
+
+- [ ] Review revised contract (videographer / Pixel City Visuals)
+- [ ] Send contract for review (videographer)
+- [ ] Send WhatsApp number to videographer
+- [ ] Send drone registration and pilot certificate links to videographer
+- [ ] Schedule weekly Monday noon check-ins with videographer
+- [ ] Confirm whether you can color grade Canon C-Log footage
+- [ ] Adjust Joe calendar event to end at 10:00 PM
+- [ ] Update the project list
+- [ ] Do research on ancient history
 
 ---
 

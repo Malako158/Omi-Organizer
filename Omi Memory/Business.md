@@ -1,6 +1,14 @@
 # Business
 
-_Last updated: 2026-05-21_
+_Last updated: 2026-05-26_
+
+---
+
+## 2026-05-25
+[[Omi Collection/2026/05/25/2026-05-25|Source]]
+
+- **Cofounder Reliability Issue** — Chris keeps rescheduling, which sets bad expectations and signals unreliability. Team agreed: expectations need to be set clearly; repeated cancellations are a business problem, not just a scheduling issue.
+- **Videographer Contract Finalized** — Agreement reached with Pixel City Visuals (new videographer): 1-month training period, $100/project minimum, referral commissions, brand exclusivity, weekly Monday noon check-ins. Signing call scheduled Thursday at 12PM.
 
 ---
 

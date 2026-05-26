@@ -1,6 +1,15 @@
 # Projects
 
-_Last updated: 2026-05-23_
+_Last updated: 2026-05-26_
+
+---
+
+## 2026-05-25
+[[Omi Collection/2026/05/25/2026-05-25|Source]]
+
+- **Real Estate Client (AI Work)** — Wednesday meeting scheduled with a real estate client who wants AI-related work. Revisions already sent; awaiting client response.
+- **Homebuilder Content (James / 653 Castlegard Burlington)** — Discussed off-site-built backyard unit install: ~10 weeks fabrication, ~3 weeks site work, unit flown in over the house. Strong cinematic content opportunity.
+- **Production** — Videographer (Pixel City Visuals) confirmed for upcoming work: weekly gym YouTube shoots, real estate, home-building, and potential long-form cinematic projects.
 
 ---
 

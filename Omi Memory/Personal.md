@@ -1,6 +1,14 @@
 # Personal
 
-_Last updated: 2026-05-21_
+_Last updated: 2026-05-26_
+
+---
+
+## 2026-05-25
+[[Omi Collection/2026/05/25/2026-05-25|Source]]
+
+- **Hangout with Joe** — Casual evening hangout. Calendar event updated to end at 10:00 PM.
+- **Personal Conversation (Social/Political)** — Wide-ranging discussion on identity politics, social division, and focusing on personal independence over labels. Side note: interest in researching ancient history came up.
 
 ---
 

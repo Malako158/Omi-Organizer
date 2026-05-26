@@ -1,6 +1,13 @@
 # Hiring & Team
 
-_Last updated: 2026-05-22_
+_Last updated: 2026-05-26_
+
+---
+
+## 2026-05-25
+[[Omi Collection/2026/05/25/2026-05-25|Source]]
+
+- **Videographer Contract Finalized (Pixel City Visuals)** — Key terms agreed: 1-month training period based on performance, $100/project minimum, business name on contract, referral commissions, on-project credit, weekly Monday noon check-ins, brand exclusivity. Signing call Thursday 12PM. Currently on Canon, plans to buy Sony. Drone registration/licensing next steps — needs to send registration links and pilot cert info.
 
 ---
 

@@ -28,7 +28,7 @@ or just keeping us busy?"
 | -------------- | -------------------------------------------------- |
 | **Ayden**      | Co-founder — delivery, operations, systems, hiring |
 | **Chris**      | Co-founder — sales and lead generation             |
-| **Ryan**       | Videographer                                       |
+| **Ryan (Pixel City Visuals)** | Videographer — contract being finalized, signing call Thu 12PM |
 | **Maverick**   | Short-form editor                                  |
 | **Ahmed**      | YouTube editor (leads India-based editing team)    |
 | **Helen**      | Editor (contract being finalized)                  |
@@ -87,8 +87,8 @@ Escalation Media/
 
 ## Current Status
 
-> **Last updated:** 2026-05-23
-> **Status:** Active — videographer being onboarded, production workflow standards being set.
+> **Last updated:** 2026-05-26
+> **Status:** Active — videographer (Pixel City Visuals) contract terms agreed, signing call Thursday 12PM. Production workflow formalized. Wednesday meeting with real estate client (AI work).
 
 Open action items:
 - [ ] Create team profiles for Ryan, Maverick, Ahmed, Chris
@@ -104,3 +104,9 @@ Open action items:
 - [ ] Set up editor for Greening Homes ClickUp project
 - [ ] Fix Omi screen capture
 - [ ] Build daily task and calendar UI
+- [ ] Review revised videographer contract (Pixel City Visuals)
+- [ ] Send contract for signing — signing call Thursday 12PM
+- [ ] Send WhatsApp number to videographer
+- [ ] Send drone registration and pilot certificate links to videographer
+- [ ] Lock in weekly Monday noon check-ins with videographer
+- [ ] Confirm Canon C-Log footage can be color graded before committing to Canon workflow

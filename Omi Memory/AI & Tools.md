@@ -1,6 +1,13 @@
 # AI & Tools
 
-_Last updated: 2026-05-23_
+_Last updated: 2026-05-26_
+
+---
+
+## 2026-05-24
+[[Omi Collection/2026/05/24/2026-05-24|Source]]
+
+- **Claude Plugin for Small Business** — New Claude plugin released with 31 skills across common business apps and workflows. Highlights: business pulse, call lists, Canva creator, contract review, CRM cleanup. Connectors for QuickBooks, PayPal, HubSpot, and Stripe. Downloaded via Claude desktop app → Plugins → Small Business.
 
 ---
 
