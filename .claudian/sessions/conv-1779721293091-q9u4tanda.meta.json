@@ -4,8 +4,8 @@
   "title": "Investigate missing omni-organizer",
   "titleGenerationStatus": "success",
   "createdAt": 1779721293092,
-  "updatedAt": 1779754589540,
-  "lastResponseAt": 1779754589540,
+  "updatedAt": 1779756185564,
+  "lastResponseAt": 1779756185564,
   "sessionId": "77d3ca3b-1c8d-41d7-a143-c96ade1ba559",
   "providerState": {
     "providerSessionId": "77d3ca3b-1c8d-41d7-a143-c96ade1ba559"
@@ -14,11 +14,11 @@
   "usage": {
     "model": "sonnet",
     "inputTokens": 3,
-    "cacheCreationInputTokens": 571,
-    "cacheReadInputTokens": 44179,
+    "cacheCreationInputTokens": 183,
+    "cacheReadInputTokens": 47916,
     "contextWindow": 200000,
-    "contextTokens": 44753,
-    "percentage": 22,
+    "contextTokens": 48102,
+    "percentage": 24,
     "contextWindowIsAuthoritative": true
   }
 }
