@@ -1,0 +1,7920 @@
+/* ========================================
+   OMI DESIGN TOKENS
+   Inspired by Material 3 design system
+   ======================================== */
+:root {
+    /* Timing */
+    --omi-duration-short: 100ms;
+    --omi-duration-medium: 200ms;
+    --omi-duration-long: 400ms;
+    --omi-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+    --omi-easing-emphasized: cubic-bezier(0.2, 0, 0, 1);
+
+    /* Spacing scale */
+    --omi-spacing-xs: 4px;
+    --omi-spacing-sm: 8px;
+    --omi-spacing-md: 12px;
+    --omi-spacing-lg: 16px;
+    --omi-spacing-xl: 24px;
+
+    /* Border radius */
+    --omi-radius-sm: 4px;
+    --omi-radius-md: 8px;
+    --omi-radius-lg: 12px;
+    --omi-radius-full: 9999px;
+
+    /* Purple Accent System (Primary Brand Color) */
+    --omi-purple-primary: #8B5CF6;
+    --omi-purple-secondary: #A855F7;
+    --omi-purple-accent: #7C3AED;
+    --omi-purple-deep: #6D28D9;
+    --omi-purple-light: #C4B5FD;
+    --omi-purple-pink: #D946EF;
+
+    /* Semantic Colors */
+    --omi-color-info: #3B82F6;
+    --omi-color-success: #10B981;
+    --omi-color-warning: #F59E0B;
+    --omi-color-error: #EF4444;
+
+    /* Accent Colors */
+    --omi-color-coral: #FF6B6B;
+    --omi-color-mint: #4ECDC4;
+    --omi-color-teal: #00897B;
+
+    /* Status colors */
+    --omi-status-pending: var(--omi-color-warning);
+    --omi-status-completed: var(--omi-color-success);
+    --omi-status-overdue: var(--omi-color-error);
+}
+
+/* ========================================
+   OMI ACCENT OVERRIDES
+   Apply purple accent to all Omi Hub elements
+   ======================================== */
+.omi-hub-container,
+.omi-tasks-container,
+.omi-conversations-container,
+.omi-stats-container {
+    --interactive-accent: var(--omi-purple-primary);
+    --interactive-accent-hover: var(--omi-purple-accent);
+    --interactive-accent-rgb: 139, 92, 246;
+    --text-accent: var(--omi-purple-primary);
+}
+
+.omi-stats-container {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    padding: var(--omi-spacing-md);
+}
+
+/* ========================================
+   OMI TASKS VIEW STYLING
+   ======================================== */
+.omi-tasks-container {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.omi-tasks-header h2 {
+    margin: 0 0 16px 0;
+    font-size: 1.4em;
+    font-weight: 600;
+}
+
+.omi-tasks-toolbar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+    flex-shrink: 0;
+}
+
+.omi-tasks-search {
+    flex: 1;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid var(--background-modifier-border);
+    background: var(--background-primary);
+    color: var(--text-normal);
+    font-size: 14px;
+}
+
+.omi-tasks-search:focus {
+    outline: none;
+    border-color: var(--interactive-accent);
+    box-shadow: 0 0 0 2px var(--interactive-accent-hover);
+}
+
+.omi-tasks-sync-btn,
+.omi-tasks-add-btn {
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: none;
+    background: var(--interactive-accent);
+    color: var(--text-on-accent);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.15s ease;
+}
+
+.omi-tasks-sync-btn:hover,
+.omi-tasks-add-btn:hover {
+    background: var(--interactive-accent-hover);
+}
+
+/* ========================================
+   PROGRESS INDICATOR
+   Shows today's task completion progress
+   ======================================== */
+.omi-progress-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    background: var(--background-secondary);
+    border-radius: var(--omi-radius-full);
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-left: auto;
+    white-space: nowrap;
+}
+
+.omi-progress-indicator.complete {
+    background: rgba(16, 185, 129, 0.15);
+    color: var(--omi-color-success);
+}
+
+.omi-progress-text {
+    font-weight: 500;
+}
+
+.omi-progress-overdue {
+    color: var(--omi-status-overdue);
+    font-size: 12px;
+}
+
+.omi-progress-bar {
+    width: 60px;
+    height: 6px;
+    background: var(--background-modifier-border);
+    border-radius: var(--omi-radius-full);
+    overflow: hidden;
+}
+
+.omi-progress-fill {
+    height: 100%;
+    background: var(--omi-purple-primary);
+    border-radius: var(--omi-radius-full);
+    transition: width 0.4s var(--omi-easing-emphasized);
+}
+
+.omi-progress-fill.good {
+    background: var(--omi-color-info);
+}
+
+.omi-progress-fill.complete {
+    background: var(--omi-color-success);
+}
+
+/* Animate progress bar on load */
+@keyframes progress-grow {
+    from { width: 0; }
+}
+
+.omi-progress-fill {
+    animation: progress-grow 0.6s var(--omi-easing-emphasized);
+}
+
+.omi-tasks-section {
+    margin-bottom: 12px;
+}
+
+.omi-tasks-section-header {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    padding: 4px 0;
+    user-select: none;
+    color: var(--text-muted);
+}
+
+.omi-tasks-section-header:hover {
+    color: var(--text-normal);
+}
+
+.omi-tasks-collapse-btn {
+    font-size: 10px;
+    opacity: 0.6;
+    width: 16px;
+    height: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    transition: all 0.15s ease;
+}
+
+.omi-tasks-section-header:hover .omi-tasks-collapse-btn {
+    opacity: 1;
+    background: var(--background-modifier-hover);
+}
+
+.omi-tasks-list {
+    margin-top: 2px;
+}
+
+.omi-tasks-empty {
+    color: var(--text-muted);
+    font-style: italic;
+    padding: 8px 0;
+    font-size: 13px;
+}
+
+.omi-task-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    margin-bottom: 2px;
+    background: transparent;
+    border: 1px solid transparent;
+    transition: all var(--omi-duration-short) ease;
+}
+
+.omi-task-row:hover {
+    background: var(--background-secondary);
+    border-color: var(--background-modifier-border);
+}
+
+.omi-task-row input[type="checkbox"] {
+    margin: 0;
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+}
+
+/* Task content wrapper for description + date subtitle */
+.omi-task-content {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+}
+
+.omi-task-description {
+    padding: 2px 4px;
+    border-radius: 4px;
+    line-height: 1.3;
+    cursor: text;
+    flex: 1;
+}
+
+.omi-task-description:focus {
+    outline: none;
+    background: var(--background-modifier-form-field);
+    box-shadow: 0 0 0 2px var(--interactive-accent-hover);
+}
+
+/* Date subtitle (inline with task) */
+.omi-task-date-subtitle {
+    font-size: 11px;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: var(--background-modifier-hover);
+    flex-shrink: 0;
+    transition: all var(--omi-duration-short) ease;
+}
+
+.omi-task-date-subtitle:hover {
+    color: var(--text-normal);
+}
+
+.omi-task-date-subtitle.overdue {
+    color: var(--omi-status-overdue, #dc3545);
+    font-weight: 500;
+}
+
+.omi-task-date-subtitle.add-date {
+    color: var(--text-faint);
+}
+
+.omi-task-date-subtitle.add-date:hover {
+    color: var(--interactive-accent);
+}
+
+.omi-task-due-pill {
+    padding: 2px 8px;
+    font-size: 12px;
+    background: var(--background-modifier-hover);
+    border-radius: 12px;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background-color 0.1s ease;
+}
+
+.omi-task-due-pill:hover {
+    background: var(--background-modifier-border);
+}
+
+.omi-task-add-date {
+    font-size: 12px;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 4px;
+    flex-shrink: 0;
+    transition: all 0.1s ease;
+}
+
+.omi-task-add-date:hover {
+    color: var(--text-normal);
+    background: var(--background-modifier-hover);
+}
+
+.omi-task-source {
+    opacity: 0.6;
+    font-size: 14px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    transition: opacity 0.1s ease;
+}
+
+.omi-task-source:hover {
+    opacity: 1;
+}
+
+/* Conversation source tooltip */
+.omi-task-source-tooltip {
+    position: fixed;
+    background: var(--background-primary);
+    border: 1px solid var(--background-modifier-border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    z-index: 10000;
+    max-width: 280px;
+    min-width: 200px;
+    animation: tooltip-fade-in 0.15s ease;
+}
+
+@keyframes tooltip-fade-in {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.omi-tooltip-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+
+.omi-tooltip-emoji {
+    font-size: 18px;
+}
+
+.omi-tooltip-title {
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--text-normal);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.omi-tooltip-meta {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+.omi-tooltip-overview {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-style: italic;
+    line-height: 1.4;
+    margin-bottom: 8px;
+}
+
+.omi-tooltip-hint {
+    font-size: 10px;
+    color: var(--text-faint);
+    text-align: right;
+}
+
+.omi-task-delete {
+    opacity: 0.3;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 0;
+    transition: all 0.1s ease;
+}
+
+.omi-task-row:hover .omi-task-delete,
+.omi-task-delete:focus {
+    opacity: 0.6;
+}
+
+.omi-task-delete:hover,
+.omi-task-delete:active {
+    opacity: 1;
+    background: var(--background-modifier-error);
+}
+
+/* Modal styling */
+.omi-add-task-modal,
+.omi-date-picker-modal,
+.omi-edit-task-modal,
+.omi-confirm-modal {
+    padding: 8px 0;
+}
+
+.omi-add-task-modal h3,
+.omi-date-picker-modal h3,
+.omi-edit-task-modal h3,
+.omi-confirm-modal h3 {
+    margin: 0 0 16px 0;
+    font-size: 1.2em;
+}
+
+.omi-modal-textarea {
+    resize: vertical;
+    min-height: 60px;
+    font-family: inherit;
+    line-height: 1.5;
+}
+
+.omi-modal-field {
+    margin-bottom: 16px;
+}
+
+.omi-modal-field label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.omi-modal-input {
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid var(--background-modifier-border);
+    background: var(--background-primary);
+    color: var(--text-normal);
+    font-size: 14px;
+}
+
+.omi-modal-input:focus {
+    outline: none;
+    border-color: var(--interactive-accent);
+    box-shadow: 0 0 0 2px var(--interactive-accent-hover);
+}
+
+.modal-button-container {
+    display: flex;
+    gap: 8px;
+    margin-top: 20px;
+    justify-content: flex-end;
+}
+
+.modal-button-container button {
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: 1px solid var(--background-modifier-border);
+    background: var(--background-primary);
+    color: var(--text-normal);
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.1s ease;
+}
+
+.modal-button-container button:hover {
+    background: var(--background-secondary);
+}
+
+.modal-button-container button.mod-cta {
+    background: var(--interactive-accent);
+    color: var(--text-on-accent);
+    border: none;
+}
+
+.modal-button-container button.mod-cta:hover {
+    background: var(--interactive-accent-hover);
+}
+
+/* Confirmation modal */
+.omi-confirm-modal p {
+    margin: 0 0 20px 0;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+.omi-modal-buttons {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+}
+
+.omi-modal-buttons button {
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: 1px solid var(--background-modifier-border);
+    background: var(--background-primary);
+    color: var(--text-normal);
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.1s ease;
+}
+
+.omi-modal-buttons button:hover {
+    background: var(--background-secondary);
+}
+
+.omi-modal-buttons button.mod-cta {
+    background: var(--interactive-accent);
+    color: var(--text-on-accent);
+    border: none;
+}
+
+.omi-modal-buttons button.mod-cta:hover {
+    background: var(--interactive-accent-hover);
+}
+
+/* Sync mode options */
+.omi-sync-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+    padding: 12px;
+    background: var(--background-secondary);
+    border-radius: 8px;
+}
+
+.omi-sync-option {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+.omi-sync-option:hover {
+    background: var(--background-modifier-hover);
+}
+
+.omi-sync-option input[type="radio"] {
+    margin: 3px 0 0 0;
+    flex-shrink: 0;
+}
+
+.omi-option-label {
+    font-weight: 500;
+    color: var(--text-normal);
+    flex: 1;
+    min-width: 150px;
+}
+
+.omi-option-desc {
+    width: 100%;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-left: 22px;
+}
+
+/* ========================================
+   VIEW MODE TABS
+   ======================================== */
+.omi-tasks-view-tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid var(--background-modifier-border);
+    padding-bottom: 8px;
+    flex-shrink: 0;
+}
+
+.omi-view-tab {
+    padding: 6px 12px;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 13px;
+    transition: all 0.15s ease;
+}
+
+.omi-view-tab:hover {
+    background: var(--background-modifier-hover);
+    color: var(--text-normal);
+}
+
+.omi-view-tab.active {
+    background: var(--interactive-accent);
+    color: var(--text-on-accent);
+}
+
+/* More dropdown for secondary views */
+.omi-view-more-container {
+    position: relative;
+    margin-left: auto;
+}
+
+.omi-view-more-btn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.omi-view-more-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 4px;
+    background: var(--background-primary);
+    border: 1px solid var(--background-modifier-border);
+    border-radius: var(--omi-radius-md);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    min-width: 140px;
+    z-index: 100;
+    animation: dropdown-appear 0.15s var(--omi-easing-standard);
+}
+
+@keyframes dropdown-appear {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.omi-view-more-item {
+    display: block;
+    width: 100%;
+    padding: 8px 12px;
+    border: none;
+    background: transparent;
+    color: var(--text-normal);
+    font-size: 13px;
+    text-align: left;
+    cursor: pointer;
+    transition: all var(--omi-duration-short) ease;
+}
+
+.omi-view-more-item:first-child {
+    border-radius: var(--omi-radius-md) var(--omi-radius-md) 0 0;
+}
+
+.omi-view-more-item:last-child {
+    border-radius: 0 0 var(--omi-radius-md) var(--omi-radius-md);
+}
+
+.omi-view-more-item:hover {
+    background: var(--background-modifier-hover);
+}
+
+.omi-view-more-item.active {
+    background: rgba(139, 92, 246, 0.1);
+    color: var(--omi-purple-primary);
+}
+
+/* ========================================
+   KANBAN BOARD
+   ======================================== */
+
+.omi-layout-toggle-btn {
+    padding: 4px 10px;
+    border: 1px solid var(--background-modifier-border);
+    background: var(--background-primary);
+    color: var(--text-muted);
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 12px;
+    transition: all 0.15s ease;
+}
+
+.omi-layout-toggle-btn:hover {
+    background: var(--background-modifier-hover);
+    color: var(--text-normal);
+}
+
+.omi-layout-toggle-btn.active {
+    background: var(--interactive-accent);
+    color: var(--text-on-accent);
+    border-color: var(--interactive-accent);
+}
+
+.omi-kanban-board {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    flex: 1;
+    min-height: 0;
+}
+
+.omi-kanban-column {
+    flex: 1;
+    min-width: 200px;
+    background: var(--background-secondary);
+    border-radius: 8px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.omi-kanban-column-header {
+    font-weight: 600;
+    font-size: 13px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.omi-kanban-task-list {
+    flex: 1;
+    min-height: 100px;
+    transition: background-color 0.2s ease;
+    border-radius: 4px;
+}
+
+.omi-kanban-task-list.drag-over {
+    background: rgba(var(--interactive-accent-rgb, 99, 102, 241), 0.1);
+    border: 2px dashed var(--interactive-accent);
+    border-radius: var(--omi-radius-sm);
+}
+
+.omi-kanban-empty {
+    color: var(--text-muted);
+    font-size: 12px;
+    font-style: italic;
+    text-align: center;
+    padding: 16px 8px;
+}
+
+.omi-kanban-card {
+    background: var(--background-primary);
+    border-radius: var(--omi-radius-md);
+    padding: 10px;
+    margin-bottom: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform var(--omi-duration-medium) var(--omi-easing-standard),
+                box-shadow var(--omi-duration-medium) var(--omi-easing-standard);
+    display: flex;
+    align-items: flex-start;
+    gap: var(--omi-spacing-sm);
+}
+
+.omi-kanban-card:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.omi-kanban-card.dragging {
+    opacity: 0.6;
+    transform: rotate(2deg) scale(1.02);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    cursor: grabbing;
+}
+
+.omi-kanban-card.completed {
+    opacity: 0.6;
+}
+
+.omi-kanban-card.completed .omi-kanban-card-desc {
+    text-decoration: line-through;
+    color: var(--text-muted);
+}
+
+.omi-kanban-card input[type="checkbox"] {
+    margin: 0;
+    margin-top: 2px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.omi-kanban-card-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.omi-kanban-card-desc {
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.omi-kanban-card-date {
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.omi-kanban-card-date.overdue {
+    color: var(--omi-status-overdue, #dc3545);
+    font-weight: 500;
+}
+
+.omi-kanban-card-due {
+    width: 100%;
+    margin-top: var(--omi-spacing-xs);
+    font-size: 11px;
+    color: var(--text-muted);
+    background: var(--background-modifier-hover);
+    padding: 2px 6px;
+    border-radius: var(--omi-radius-full);
+    display: inline-block;
+}
+
+/* ========================================
+   CALENDAR VIEW
+   ======================================== */
+.omi-calendar-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    flex-shrink: 0;
+}
+
+.omi-calendar-view-toggle {
+    display: flex;
+    gap: 4px;
+}
+
+.omi-calendar-completed-toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.omi-calendar-completed-toggle input[type="checkbox"] {
+    margin: 0;
+    cursor: pointer;
+}
+
+.omi-calendar-completed-toggle label {
+    cursor: pointer;
+}
+
+.omi-calendar-toggle-btn {
+    padding: 4px 10px;
+    border: 1px solid var(--background-modifier-border);
+    background: var(--background-primary);
+    color: var(--text-muted);
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 12px;
+    transition: all 0.15s ease;
+}
+
+.omi-calendar-toggle-btn:hover {
+    background: var(--background-modifier-hover);
+    color: var(--text-normal);
+}
+
+.omi-calendar-toggle-btn.active {
+    background: var(--interactive-accent);
+    color: var(--text-on-accent);
+    border-color: var(--interactive-accent);
+}
+
+.omi-calendar-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    flex-shrink: 0;
+}
+
+.omi-calendar-nav-btn {
+    padding: 6px 10px;
+    border-radius: 4px;
+    border: 1px solid var(--background-modifier-border);
+    background: var(--background-primary);
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.15s ease;
+}
+
+.omi-calendar-nav-btn:hover {
+    background: var(--background-modifier-hover);
+}
+
+.omi-calendar-nav-label {
+    font-weight: 600;
+    font-size: 14px;
+    min-width: 150px;
+    text-align: center;
+}
+
+.omi-calendar-today-btn {
+    padding: 6px 12px;
+    background: var(--interactive-accent);
+    color: var(--text-on-accent);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 500;
+    transition: all 0.15s ease;
+}
+
+.omi-calendar-today-btn:hover {
+    background: var(--interactive-accent-hover);
+}
+
+/* Monthly Calendar */
+.omi-calendar-grid-monthly {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.omi-calendar-header-row {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    font-weight: 600;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--background-modifier-border);
+    flex-shrink: 0;
+}
+
+.omi-calendar-body {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    gap: 4px;
+    flex: 1;
+    min-height: 0;
+}
+
+.omi-calendar-day-cell {
+    padding: 6px;
+    background: var(--background-secondary);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.omi-calendar-day-cell:hover {
+    background: var(--background-modifier-hover);
+}
+
+.omi-calendar-day-cell.today {
+    border: 2px solid var(--interactive-accent);
+}
+
+.omi-calendar-day-cell.other-month {
+    opacity: 0.4;
+}
+
+.omi-calendar-day-number {
+    font-weight: 600;
+    font-size: 12px;
+    margin-bottom: 4px;
+}
+
+.omi-calendar-day-tasks {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.omi-calendar-task-pill {
+    font-size: 10px;
+    padding: 2px 4px;
+    background: var(--interactive-accent);
+    color: var(--text-on-accent);
+    border-radius: 3px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: opacity 0.15s ease;
+}
+
+.omi-calendar-task-pill:hover {
+    opacity: 0.8;
+}
+
+.omi-calendar-task-pill.completed {
+    background: var(--background-modifier-success);
+    text-decoration: line-through;
+    opacity: 0.7;
+}
+
+.omi-calendar-more-tasks {
+    font-size: 10px;
+    color: var(--text-muted);
+    padding: 2px 4px;
+}
+
+/* Weekly Calendar */
+.omi-calendar-grid-weekly {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    flex: 1;
+    min-height: 0;
+}
+
+.omi-calendar-week-day {
+    flex: 1;
+    min-width: 100px;
+    background: var(--background-secondary);
+    border-radius: 6px;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.omi-calendar-week-day.today {
+    border: 2px solid var(--interactive-accent);
+}
+
+.omi-calendar-week-day-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    font-size: 12px;
+    margin-bottom: 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.omi-calendar-week-day-num {
+    font-size: 16px;
+}
+
+.omi-calendar-week-day-tasks {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.omi-calendar-week-task {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    padding: 6px;
+    background: var(--background-primary);
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.omi-calendar-week-task input[type="checkbox"] {
+    margin: 0;
+    flex-shrink: 0;
+}
+
+.omi-calendar-week-task span {
+    flex: 1;
+    line-height: 1.3;
+    cursor: pointer;
+}
+
+.omi-calendar-week-task span.completed {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+
+.omi-calendar-add-task {
+    width: 100%;
+    margin-top: 8px;
+    padding: 4px;
+    font-size: 16px;
+    background: transparent;
+    border: 1px dashed var(--background-modifier-border);
+    border-radius: 4px;
+    cursor: pointer;
+    color: var(--text-muted);
+    transition: all 0.15s ease;
+}
+
+.omi-calendar-add-task:hover {
+    background: var(--background-modifier-hover);
+    color: var(--text-normal);
+    border-color: var(--text-muted);
+}
+
+/* ========================================
+   LOADING SKELETON
+   ======================================== */
+.omi-tasks-skeleton {
+    padding: 8px 0;
+}
+
+.omi-skeleton-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 8px;
+    margin-bottom: 4px;
+}
+
+.omi-skeleton-checkbox {
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
+    background: linear-gradient(90deg,
+        var(--background-secondary) 25%,
+        var(--background-modifier-hover) 50%,
+        var(--background-secondary) 75%);
+    background-size: 200% 100%;
+    animation: skeleton-pulse 1.5s infinite;
+    flex-shrink: 0;
+}
+
+.omi-skeleton-text {
+    flex: 1;
+    height: 14px;
+    border-radius: 4px;
+    background: linear-gradient(90deg,
+        var(--background-secondary) 25%,
+        var(--background-modifier-hover) 50%,
+        var(--background-secondary) 75%);
+    background-size: 200% 100%;
+    animation: skeleton-pulse 1.5s infinite;
+}
+
+.omi-skeleton-date {
+    width: 80px;
+    height: 14px;
+    border-radius: 4px;
+    background: linear-gradient(90deg,
+        var(--background-secondary) 25%,
+        var(--background-modifier-hover) 50%,
+        var(--background-secondary) 75%);
+    background-size: 200% 100%;
+    animation: skeleton-pulse 1.5s infinite;
+    flex-shrink: 0;
+}
+
+@keyframes skeleton-pulse {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* ========================================
+   EMPTY STATE
+   ======================================== */
+.omi-tasks-empty-state {
+    text-align: center;
+    padding: 40px 16px;
+    color: var(--text-muted);
+}
+
+.omi-empty-icon {
+    font-size: 40px;
+    margin-bottom: 12px;
+}
+
+.omi-tasks-empty-state h3 {
+    margin: 0 0 8px 0;
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--text-normal);
+}
+
+.omi-tasks-empty-state p {
+    margin: 0;
+    font-size: 13px;
+}
+
+/* Celebratory empty state (all tasks done!) */
+.omi-tasks-empty-state.celebratory {
+    background: linear-gradient(135deg,
+        rgba(16, 185, 129, 0.05) 0%,
+        rgba(139, 92, 246, 0.08) 50%,
+        rgba(16, 185, 129, 0.05) 100%);
+    border-radius: var(--omi-radius-lg);
+    padding: 48px 24px;
+    animation: celebratory-glow 3s ease-in-out infinite;
+}
+
+@keyframes celebratory-glow {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(16, 185, 129, 0.1);
+    }
+    50% {
+        box-shadow: 0 0 40px rgba(16, 185, 129, 0.2), 0 0 60px rgba(139, 92, 246, 0.1);
+    }
+}
+
+.omi-tasks-empty-state.celebratory h3 {
+    color: var(--omi-color-success);
+    font-size: 18px;
+}
+
+.omi-empty-icon.large {
+    font-size: 56px;
+    animation: bounce-celebrate 1s ease-in-out;
+}
+
+@keyframes bounce-celebrate {
+    0%, 100% { transform: scale(1); }
+    25% { transform: scale(1.15) rotate(-5deg); }
+    50% { transform: scale(1.1) rotate(5deg); }
+    75% { transform: scale(1.05) rotate(-3deg); }
+}
+
+.omi-empty-streak {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(135deg, #FF6B35, #FF8C42);
+    color: white;
+    padding: 8px 16px;
+    border-radius: var(--omi-radius-full);
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 16px;
+    box-shadow: 0 2px 8px rgba(255, 107, 53, 0.3);
+    animation: streak-pulse 2s ease-in-out infinite;
+}
+
+@keyframes streak-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+}
+
+.omi-empty-action {
+    margin-top: 20px;
+}
+
+.omi-empty-action button {
+    padding: 10px 20px;
+    background: var(--omi-purple-primary);
+    color: white;
+    border: none;
+    border-radius: var(--omi-radius-md);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--omi-duration-short) ease;
+}
+
+.omi-empty-action button:hover {
+    background: var(--omi-purple-accent);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+}
+
+/* ========================================
+   BATCH OPERATIONS (Multi-select)
+   ======================================== */
+.omi-tasks-select-btn {
+    padding: 6px 12px;
+    border: 1px solid var(--background-modifier-border);
+    border-radius: var(--omi-radius-sm);
+    background: var(--background-secondary);
+    color: var(--text-muted);
+    font-size: 13px;
+    cursor: pointer;
+    transition: all var(--omi-duration-short) ease;
+}
+
+.omi-tasks-select-btn:hover {
+    background: var(--background-modifier-hover);
+    color: var(--text-normal);
+}
+
+.omi-tasks-select-btn.active {
+    background: var(--omi-purple-primary);
+    color: white;
+    border-color: var(--omi-purple-primary);
+}
+
+/* Batch action bar */
+.omi-batch-action-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 12px;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(139, 92, 246, 0.05));
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    border-radius: var(--omi-radius-md);
+    margin-bottom: 12px;
+    animation: batch-bar-enter 0.2s var(--omi-easing-standard);
+}
+
+@keyframes batch-bar-enter {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.omi-batch-count {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.omi-batch-select-all {
+    padding: 4px 10px;
+    border: 1px solid var(--background-modifier-border);
+    border-radius: var(--omi-radius-sm);
+    background: var(--background-primary);
+    color: var(--text-muted);
+    font-size: 12px;
+    cursor: pointer;
+    transition: all var(--omi-duration-short) ease;
+}
+
+.omi-batch-select-all:hover {
+    background: var(--background-modifier-hover);
+    color: var(--text-normal);
+}
+
+.omi-batch-count-text {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.omi-batch-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.omi-batch-btn {
+    padding: 6px 12px;
+    border: none;
+    border-radius: var(--omi-radius-sm);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--omi-duration-short) ease;
+}
+
+.omi-batch-complete {
+    background: var(--omi-color-success);
+    color: white;
+}
+
+.omi-batch-complete:hover {
+    background: #059669;
+    transform: translateY(-1px);
+}
+
+.omi-batch-reschedule {
+    background: var(--omi-purple-primary);
+    color: white;
+}
+
+.omi-batch-reschedule:hover {
+    background: var(--omi-purple-accent);
+    transform: translateY(-1px);
+}
+
+.omi-batch-delete {
+    background: var(--background-secondary);
+    color: var(--text-muted);
+}
+
+.omi-batch-delete:hover {
+    background: var(--omi-color-error);
+    color: white;
+    transform: translateY(-1px);
+}
+
+/* Batch reschedule menu */
+.omi-batch-reschedule-menu {
+    background: var(--background-primary);
+    border: 1px solid var(--background-modifier-border);
+    border-radius: var(--omi-radius-md);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    padding: 6px;
+    min-width: 140px;
+    animation: picker-appear 0.15s var(--omi-easing-standard);
+}
+
+.omi-batch-menu-btn {
+    display: block;
+    width: 100%;
+    padding: 8px 12px;
+    border: none;
+    border-radius: var(--omi-radius-sm);
+    background: transparent;
+    color: var(--text-normal);
+    font-size: 13px;
+    text-align: left;
+    cursor: pointer;
+    transition: all var(--omi-duration-short) ease;
+}
+
+.omi-batch-menu-btn:hover {
+    background: var(--omi-purple-primary);
+    color: white;
+}
+
+/* Selection checkbox in task row */
+.omi-task-select-checkbox {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+    accent-color: var(--omi-purple-primary);
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+/* Selected task row highlight */
+.omi-task-row.selected {
+    background: rgba(139, 92, 246, 0.08);
+    border-left: 3px solid var(--omi-purple-primary);
+    padding-left: 9px;
+}
+
+/* ========================================
+   OVERDUE HIGHLIGHTING
+   ======================================== */
+.omi-task-due-pill.overdue {
+    background: #dc3545;
+    color: #ffffff;
+    font-weight: 500;
+}
+
+.omi-kanban-card.overdue {
+    border-left: 3px solid #dc3545;
+}
+
+.omi-calendar-task-pill.overdue {
+    background: #dc3545;
+    color: #ffffff;
+}
+
+/* ========================================
+   TASK COMPLETION ANIMATION
+   Enhanced with wave strikethrough, particles, and celebration
+   ======================================== */
+.omi-task-row.completing {
+    animation: task-complete 0.5s var(--omi-easing-emphasized);
+}
+
+@keyframes task-complete {
+    0% {
+        background: transparent;
+        transform: scale(1);
+    }
+    30% {
+        background: rgba(16, 185, 129, 0.15);
+        transform: scale(1.02);
+    }
+    60% {
+        background: rgba(16, 185, 129, 0.25);
+        transform: scale(1.01);
+    }
+    100% {
+        background: transparent;
+        transform: scale(1);
+    }
+}
+
+/* Wave strikethrough animation */
+.omi-task-row.completed .omi-task-description {
+    position: relative;
+    opacity: 0.6;
+    text-decoration: none;
+}
+
+.omi-task-row.completed .omi-task-description::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    height: 2px;
+    background: var(--text-muted);
+    animation: strikethrough-wave 0.4s var(--omi-easing-emphasized) forwards;
+}
+
+@keyframes strikethrough-wave {
+    0% { width: 0; }
+    100% { width: 100%; }
+}
+
+/* Particle burst container */
+.omi-task-checkbox-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Checkmark burst particles */
+.omi-checkbox-particles {
+    position: absolute;
+    pointer-events: none;
+    width: 40px;
+    height: 40px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.omi-checkbox-particle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--omi-color-success);
+    left: 50%;
+    top: 50%;
+    opacity: 0;
+}
+
+.omi-checkbox-particles.burst .omi-checkbox-particle {
+    animation: particle-burst 0.6s var(--omi-easing-emphasized) forwards;
+}
+
+.omi-checkbox-particle:nth-child(1) { --angle: 0deg; --distance: 18px; }
+.omi-checkbox-particle:nth-child(2) { --angle: 45deg; --distance: 16px; }
+.omi-checkbox-particle:nth-child(3) { --angle: 90deg; --distance: 18px; }
+.omi-checkbox-particle:nth-child(4) { --angle: 135deg; --distance: 16px; }
+.omi-checkbox-particle:nth-child(5) { --angle: 180deg; --distance: 18px; }
+.omi-checkbox-particle:nth-child(6) { --angle: 225deg; --distance: 16px; }
+.omi-checkbox-particle:nth-child(7) { --angle: 270deg; --distance: 18px; }
+.omi-checkbox-particle:nth-child(8) { --angle: 315deg; --distance: 16px; }
+
+@keyframes particle-burst {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) rotate(var(--angle)) translateY(0) scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: translate(-50%, -50%) rotate(var(--angle)) translateY(calc(var(--distance) * -0.7)) scale(1.2);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) rotate(var(--angle)) translateY(calc(var(--distance) * -1)) scale(0);
+    }
+}
+
+/* Enhanced checkbox pop with checkmark morph */
+.omi-task-row input[type="checkbox"]:checked {
+    animation: checkbox-pop-enhanced 0.35s var(--omi-easing-emphasized);
+}
+
+@keyframes checkbox-pop-enhanced {
+    0% { transform: scale(1); }
+    25% { transform: scale(0.85); }
+    50% { transform: scale(1.25); }
+    75% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+/* Checkmark SVG animation (when using custom checkbox) */
+.omi-checkbox-check {
+    stroke-dasharray: 20;
+    stroke-dashoffset: 20;
+    transition: stroke-dashoffset 0.3s var(--omi-easing-emphasized);
+}
+
+.omi-task-row input[type="checkbox"]:checked + .omi-checkbox-check {
+    stroke-dashoffset: 0;
+}
+
+/* Success glow on completion */
+.omi-task-row.completing input[type="checkbox"] {
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.3);
+    transition: box-shadow 0.3s ease;
+}
+
+/* Celebration message popup */
+.omi-task-celebration {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, var(--omi-color-success), var(--omi-color-mint));
+    color: white;
+    padding: 4px 12px;
+    border-radius: var(--omi-radius-full);
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+    animation: celebration-popup 1s var(--omi-easing-emphasized) forwards;
+    pointer-events: none;
+    z-index: 100;
+}
+
+@keyframes celebration-popup {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(10px) scale(0.8);
+    }
+    20% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0) scale(1.1);
+    }
+    40% {
+        transform: translateX(-50%) translateY(0) scale(1);
+    }
+    80% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-10px);
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .omi-task-row.completing,
+    .omi-task-row input[type="checkbox"]:checked,
+    .omi-checkbox-particles.burst .omi-checkbox-particle,
+    .omi-task-celebration,
+    .omi-task-row.completed .omi-task-description::after {
+        animation: none;
+    }
+
+    .omi-task-row.completed .omi-task-description::after {
+        width: 100%;
+    }
+}
+
+/* ========================================
+   SMART DASHBOARD VIEW
+   Today-focused unified view with progress ring
+   ======================================== */
+.omi-dashboard {
+    display: flex;
+    flex-direction: column;
+    gap: var(--omi-spacing-xl);
+    padding: var(--omi-spacing-md);
+    overflow-y: auto;
+    flex: 1;
+}
+
+/* Hero Section - Progress Ring + Message */
+.omi-dashboard-hero {
+    display: flex;
+    align-items: center;
+    gap: var(--omi-spacing-xl);
+    padding: var(--omi-spacing-xl);
+    background: linear-gradient(135deg,
+        rgba(139, 92, 246, 0.08),
+        rgba(168, 85, 247, 0.05)
+    );
+    border-radius: var(--omi-radius-lg);
+    border: 1px solid rgba(139, 92, 246, 0.15);
+}
+
+/* Progress Ring */
+.omi-progress-ring-container {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    flex-shrink: 0;
+}
+
+.omi-progress-ring {
+    transform: rotate(-90deg);
+}
+
+.omi-progress-ring-circle {
+    transition: stroke-dashoffset 1s var(--omi-easing-emphasized);
+    animation: ring-fill 1s var(--omi-easing-emphasized) forwards;
+}
+
+@keyframes ring-fill {
+    from { stroke-dashoffset: var(--circumference, 345); }
+    to { stroke-dashoffset: var(--target-offset, 0); }
+}
+
+.omi-progress-ring-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-normal);
+}
+
+.omi-progress-ring-text.celebration {
+    font-size: 32px;
+    animation: celebration-bounce 0.6s var(--omi-easing-emphasized);
+}
+
+@keyframes celebration-bounce {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(1.2); }
+}
+
+/* Encouragement Message */
+.omi-dashboard-encouragement {
+    flex: 1;
+}
+
+.omi-dashboard-message {
+    margin: 0 0 4px 0;
+    font-size: 1.5em;
+    font-weight: 600;
+    color: var(--text-normal);
+}
+
+.omi-dashboard-subtitle {
+    margin: 0;
+    font-size: 1em;
+    color: var(--text-muted);
+}
+
+/* Streak Badge */
+.omi-streak-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: var(--omi-spacing-sm);
+    padding: 4px 10px;
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(239, 68, 68, 0.1));
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    border-radius: var(--omi-radius-full);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--omi-color-warning);
+    animation: streak-glow 2s ease-in-out infinite;
+}
+
+@keyframes streak-glow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
+    50% { box-shadow: 0 0 8px 2px rgba(245, 158, 11, 0.2); }
+}
+
+/* Confetti Canvas */
+.omi-confetti-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 10000;
+}
+
+/* Dashboard Sections */
+.omi-dashboard-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--omi-spacing-sm);
+}
+
+.omi-dashboard-section-title {
+    margin: 0;
+    font-size: 1em;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.omi-dashboard-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Dashboard Tasks */
+.omi-dashboard-tasks {
+    display: flex;
+    flex-direction: column;
+    gap: var(--omi-spacing-xs);
+}
+
+.omi-dashboard-task {
+    display: flex;
+    align-items: center;
+    gap: var(--omi-spacing-md);
+    padding: var(--omi-spacing-md) var(--omi-spacing-lg);
+    background: var(--background-secondary);
+    border-radius: var(--omi-radius-md);
+    border: 1px solid var(--background-modifier-border);
+    transition: all var(--omi-duration-short) ease;
+    position: relative;
+}
+
+.omi-dashboard-task:hover {
+    background: var(--background-primary);
+    border-color: rgba(139, 92, 246, 0.3);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.omi-dashboard-task--overdue {
+    border-left: 3px solid var(--omi-status-overdue);
+}
+
+.omi-dashboard-task--today {
+    border-left: 3px solid var(--omi-purple-primary);
+}
+
+.omi-dashboard-task--completed {
+    opacity: 0.6;
+}
+
+.omi-dashboard-task.completed .omi-dashboard-task-desc {
+    text-decoration: line-through;
+}
+
+.omi-dashboard-task-content {
+    flex: 1;
+    cursor: pointer;
+    min-width: 0;
+}
+
+.omi-dashboard-task-desc {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.omi-dashboard-task-time {
+    font-size: 12px;
+    color: var(--text-muted);
+    white-space: nowrap;
+}
+
+.omi-dashboard-task-time.overdue {
+    color: var(--omi-status-overdue);
+    font-weight: 500;
+}
+
+/* Task Actions Container */
+.omi-dashboard-task-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--omi-spacing-sm);
+    flex-shrink: 0;
+}
+
+/* Snooze Buttons */
+.omi-snooze-buttons {
+    display: flex;
+    gap: 4px;
+    opacity: 0;
+    transition: opacity var(--omi-duration-short) ease;
+}
+
+.omi-dashboard-task:hover .omi-snooze-buttons {
+    opacity: 1;
+}
+
+.omi-snooze-btn {
+    padding: 2px 8px;
+    font-size: 11px;
+    font-weight: 500;
+    border: 1px solid var(--background-modifier-border);
+    border-radius: var(--omi-radius-sm);
+    background: var(--background-primary);
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all var(--omi-duration-short) ease;
+    white-space: nowrap;
+}
+
+.omi-snooze-btn:hover {
+    background: var(--omi-purple-primary);
+    border-color: var(--omi-purple-primary);
+    color: white;
+}
+
+.omi-snooze-btn:active {
+    transform: scale(0.95);
+}
+
+/* ========================================
+   INLINE DATE PICKER
+   Dropdown popover for quick date selection
+   ======================================== */
+.omi-inline-date-picker {
+    position: fixed;
+    z-index: 1000;
+    background: var(--background-primary);
+    border: 1px solid var(--background-modifier-border);
+    border-radius: var(--omi-radius-lg);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    padding: var(--omi-spacing-md);
+    min-width: 200px;
+    animation: picker-appear 0.15s var(--omi-easing-standard);
+}
+
+@keyframes picker-appear {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.omi-date-shortcuts {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.omi-date-shortcuts-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 4px;
+}
+
+.omi-date-shortcut-btn {
+    padding: 8px 12px;
+    border: none;
+    border-radius: var(--omi-radius-sm);
+    background: var(--background-secondary);
+    color: var(--text-normal);
+    font-size: 13px;
+    cursor: pointer;
+    text-align: left;
+    transition: all var(--omi-duration-short) ease;
+}
+
+.omi-date-shortcut-btn:hover {
+    background: var(--omi-purple-primary);
+    color: white;
+}
+
+.omi-date-shortcut-btn.clear {
+    color: var(--text-muted);
+}
+
+.omi-date-shortcut-btn.clear:hover {
+    background: var(--background-modifier-error);
+    color: white;
+}
+
+.omi-date-picker-divider {
+    height: 1px;
+    background: var(--background-modifier-border);
+    margin: var(--omi-spacing-sm) 0;
+}
+
+.omi-date-custom {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.omi-date-input,
+.omi-time-input {
+    flex: 1;
+    min-width: 0;
+    padding: 6px 10px;
+    border: 1px solid var(--background-modifier-border);
+    border-radius: var(--omi-radius-sm);
+    background: var(--background-primary);
+    color: var(--text-normal);
+    font-size: 13px;
+}
+
+.omi-date-input:focus,
+.omi-time-input:focus {
+    outline: none;
+    border-color: var(--omi-purple-primary);
+    box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
+}
+
+.omi-date-apply-btn {
+    padding: 6px 14px;
+    border: none;
+    border-radius: var(--omi-radius-sm);
+    background: var(--omi-purple-primary);
+    color: white;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background var(--omi-duration-short) ease;
+}
+
+.omi-date-apply-btn:hover {
+    background: var(--omi-purple-accent);
+}
+
+/* Completed section - more muted */
+.omi-dashboard-completed {
+    opacity: 0.7;
+}
+
+.omi-dashboard-completed:hover {
+    opacity: 1;
+}
+
+/* Week at a Glance Strip */
+.omi-week-strip {
+    display: flex;
+    gap: var(--omi-spacing-xs);
+}
+
+.omi-week-day {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: var(--omi-spacing-sm) var(--omi-spacing-xs);
+    background: var(--background-secondary);
+    border-radius: var(--omi-radius-md);
+    border: 1px solid var(--background-modifier-border);
+    cursor: pointer;
+    transition: all var(--omi-duration-short) ease;
+    min-width: 0;
+}
+
+.omi-week-day:hover {
+    background: var(--background-primary);
+    border-color: var(--omi-purple-light);
+    transform: translateY(-2px);
+}
+
+.omi-week-day.today {
+    background: rgba(139, 92, 246, 0.1);
+    border-color: var(--omi-purple-primary);
+}
+
+.omi-week-day-name {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+.omi-week-day.today .omi-week-day-name {
+    color: var(--omi-purple-primary);
+}
+
+.omi-week-day-number {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-normal);
+}
+
+.omi-week-day-indicator {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--omi-purple-primary);
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.omi-week-day-indicator.all-done {
+    background: var(--omi-color-success);
+}
+
+.omi-week-day-indicator.busy {
+    background: var(--omi-color-warning);
+}
+
+/* Reduced motion for dashboard */
+@media (prefers-reduced-motion: reduce) {
+    .omi-progress-ring-circle,
+    .omi-progress-ring-text.celebration {
+        animation: none;
+    }
+
+    .omi-progress-ring-circle {
+        stroke-dashoffset: var(--target-offset);
+    }
+}
+
+/* ========================================
+   RESPONSIVE / MOBILE
+   ======================================== */
+
+/* Tablet */
+@media (max-width: 900px) {
+    .omi-kanban-column {
+        min-width: 160px;
+    }
+
+    .omi-calendar-day-cell {
+        min-height: 60px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .omi-task-delete {
+        opacity: 0.5;
+        padding: 8px 12px;
+        min-width: 44px;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .omi-task-add-date {
+        padding: 8px 12px;
+        min-height: 44px;
+    }
+
+    .omi-task-due-pill {
+        padding: 6px 12px;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+    }
+}
+
+@media (max-width: 600px) {
+    .omi-kanban-board {
+        flex-direction: column;
+    }
+
+    .omi-kanban-column {
+        max-width: 100%;
+        min-width: 100%;
+    }
+
+    .omi-calendar-grid-monthly .omi-calendar-day-cell {
+        min-height: 50px;
+    }
+
+    .omi-calendar-task-pill {
+        font-size: 9px;
+        padding: 1px 3px;
+    }
+
+    .omi-calendar-grid-weekly {
+        flex-direction: column;
+    }
+
+    .omi-calendar-week-day {
+        min-width: 100%;
+    }
+}
+
+/* Small mobile */
+@media (max-width: 400px) {
+    .omi-tasks-toolbar {
+        flex-direction: column;
+    }
+
+    .omi-tasks-search {
+        width: 100%;
+    }
+
+    .omi-tasks-sync-btn {
+        width: 100%;
+    }
+}
+
+/* ========================================
+   STATUS DOT (TaskNotes Inspired)
+   ======================================== */
+.omi-task__status {
+    width: 10px;
+    height: 10px;
+    border-radius: var(--omi-radius-full);
+    flex-shrink: 0;
+    margin-top: 5px;
+    transition: all var(--omi-duration-medium) var(--omi-easing-standard);
+}
+
+.omi-task__status--pending {
+    background: var(--omi-status-pending);
+    box-shadow: 0 0 0 2px rgba(230, 167, 0, 0.2);
+}
+
+.omi-task__status--completed {
+    background: var(--omi-status-completed);
+}
+
+.omi-task__status--overdue {
+    background: var(--omi-status-overdue);
+    animation: status-pulse 2s infinite;
+}
+
+@keyframes status-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.4); }
+    50% { box-shadow: 0 0 0 4px rgba(220, 53, 69, 0); }
+}
+
+/* ========================================
+   METADATA PILLS (TaskNotes Inspired)
+   ======================================== */
+.omi-task__metadata {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--omi-spacing-xs);
+    margin-top: var(--omi-spacing-xs);
+    margin-left: 26px;
+}
+
+.omi-task__pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    font-size: 11px;
+    border-radius: var(--omi-radius-full);
+    background: var(--background-modifier-hover);
+    color: var(--text-muted);
+    transition: all var(--omi-duration-short) var(--omi-easing-standard);
+}
+
+.omi-task__pill:hover {
+    background: var(--background-modifier-border);
+}
+
+.omi-task__pill--overdue {
+    background: rgba(220, 53, 69, 0.15);
+    color: var(--omi-status-overdue);
+}
+
+.omi-task__pill--today {
+    background: rgba(230, 167, 0, 0.15);
+    color: var(--omi-status-pending);
+}
+
+.omi-task__pill--source {
+    cursor: pointer;
+}
+
+.omi-task__pill--source:hover {
+    color: var(--interactive-accent);
+}
+
+/* ========================================
+   CHECKBOX ANIMATION (TaskNotes Inspired)
+   ======================================== */
+.omi-task-row input[type="checkbox"]:checked {
+    animation: checkbox-pop 0.3s var(--omi-easing-emphasized);
+}
+
+@keyframes checkbox-pop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+/* ========================================
+   LOADING SPINNER
+   ======================================== */
+.omi-loading-spinner {
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--background-modifier-border);
+    border-top-color: var(--interactive-accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ========================================
+   FOCUS VISIBLE STATES (Accessibility)
+   ======================================== */
+.omi-task-row:focus-visible,
+.omi-kanban-card:focus-visible,
+.omi-view-tab:focus-visible,
+.omi-tasks-sync-btn:focus-visible,
+.omi-tasks-add-btn:focus-visible,
+.omi-calendar-day-cell:focus-visible {
+    outline: 2px solid var(--interactive-accent);
+    outline-offset: 2px;
+}
+
+.omi-task-description:focus-visible {
+    outline: 2px solid var(--interactive-accent);
+    outline-offset: 1px;
+}
+
+/* ========================================
+   REDUCED MOTION (Accessibility)
+   ======================================== */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ========================================
+   OMI HUB VIEW
+   ======================================== */
+.omi-hub-container {
+    padding: 16px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.omi-hub-header {
+    flex-shrink: 0;
+}
+
+.omi-hub-header h2 {
+    margin: 0 0 16px 0;
+    font-size: 1.5em;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--omi-purple-primary), var(--omi-purple-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ========================================
+   HUB TAB NAVIGATION
+   ======================================== */
+.omi-hub-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--background-modifier-border);
+    flex-shrink: 0;
+}
+
+.omi-hub-tab {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    transition: all var(--omi-duration-short) var(--omi-easing-standard);
+}
+
+.omi-hub-tab:hover {
+    color: var(--text-normal);
+    background: var(--background-modifier-hover);
+}
+
+.omi-hub-tab.active {
+    color: var(--interactive-accent);
+    border-bottom-color: var(--interactive-accent);
+}
+
+.omi-hub-tab-badge {
+    padding: 2px 8px;
+    border-radius: var(--omi-radius-full);
+    background: var(--interactive-accent);
+    color: var(--text-on-accent);
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.omi-hub-tab.active .omi-hub-tab-badge {
+    background: var(--interactive-accent);
+    color: var(--text-on-accent);
+}
+
+/* ========================================
+   CONVERSATIONS TAB
+   ======================================== */
+.omi-conversations-container {
+    padding: 0;
+}
+
+.omi-conversations-sync-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding: 16px;
+    background: var(--background-secondary);
+    border-radius: var(--omi-radius-md);
+}
+
+.omi-sync-status {
+    flex: 1;
+    min-width: 200px;
+}
+
+.omi-sync-status > div:first-child {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+}
+
+.omi-sync-count {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-normal);
+}
+
+.omi-sync-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.omi-sync-new-btn,
+.omi-full-resync-btn {
+    padding: 8px 16px;
+    border-radius: var(--omi-radius-md);
+    border: 1px solid var(--background-modifier-border);
+    background: var(--background-primary);
+    color: var(--text-normal);
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all var(--omi-duration-short) var(--omi-easing-standard);
+}
+
+.omi-sync-new-btn:hover,
+.omi-full-resync-btn:hover {
+    background: var(--background-modifier-hover);
+}
+
+.omi-sync-new-btn {
+    background: var(--interactive-accent);
+    color: var(--text-on-accent);
+    border: none;
+}
+
+.omi-sync-new-btn:hover {
+    background: var(--interactive-accent-hover);
+}
+
+.omi-sync-new-btn:disabled,
+.omi-full-resync-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Conversations List */
+.omi-conversations-list {
+    max-height: calc(100vh - 300px);
+    overflow-y: auto;
+}
+
+.omi-conversations-empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-muted);
+}
+
+.omi-conversations-empty .omi-empty-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+}
+
+.omi-conversations-empty h3 {
+    margin: 0 0 8px 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-normal);
+}
+
+.omi-conversations-empty p {
+    margin: 0;
+    font-size: 14px;
+}
+
+/* Conversation Date Groups */
+.omi-conversation-date-group {
+    margin-bottom: 24px;
+}
+
+.omi-conversation-date-header {
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--background-modifier-border);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Conversation Items */
+.omi-conversation-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: var(--omi-radius-md);
+    cursor: pointer;
+    transition: background-color var(--omi-duration-short) var(--omi-easing-standard);
+    margin-bottom: 4px;
+}
+
+.omi-conversation-item:hover {
+    background: var(--background-modifier-hover);
+}
+
+.omi-conversation-item:focus-visible {
+    outline: 2px solid var(--interactive-accent);
+    outline-offset: -2px;
+}
+
+.omi-conversation-emoji {
+    font-size: 20px;
+    flex-shrink: 0;
+    width: 28px;
+    text-align: center;
+}
+
+.omi-conversation-title {
+    flex: 1;
+    font-size: 14px;
+    color: var(--text-normal);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.omi-conversation-time {
+    font-size: 12px;
+    color: var(--text-muted);
+    flex-shrink: 0;
+}
+
+/* Mobile Responsive */
+@media (max-width: 600px) {
+    .omi-hub-tabs {
+        overflow-x: auto;
+    }
+
+    .omi-hub-tab {
+        padding: 10px 16px;
+        font-size: 13px;
+    }
+
+    .omi-conversations-sync-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .omi-sync-buttons {
+        justify-content: stretch;
+    }
+
+    .omi-sync-new-btn,
+    .omi-full-resync-btn {
+        flex: 1;
+    }
+}
+
+/* ========================================
+   CONVERSATIONS VIEW MODE TABS
+   ======================================== */
+.omi-conversations-view-tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+}
+
+.omi-conv-view-tab {
+    padding: 6px 12px;
+    border: 1px solid var(--background-modifier-border);
+    background: var(--background-primary);
+    color: var(--text-muted);
+    cursor: pointer;
+    border-radius: var(--omi-radius-md);
+    font-size: 13px;
+    transition: all var(--omi-duration-short) var(--omi-easing-standard);
+}
+
+.omi-conv-view-tab:hover {
+    background: var(--background-modifier-hover);
+    color: var(--text-normal);
+}
+
+.omi-conv-view-tab.active {
+    background: var(--interactive-accent);
+    color: var(--text-on-accent);
+    border-color: var(--interactive-accent);
+}
+
+/* ========================================
+   TIME RANGE TOGGLE
+   ======================================== */
+.omi-conversations-time-toggle {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 16px;
+}
+
+.omi-time-toggle-btn {
+    padding: 4px 12px;
+    border: 1px solid var(--background-modifier-border);
+    background: var(--background-primary);
+    color: var(--text-muted);
+    cursor: pointer;
+    border-radius: var(--omi-radius-sm);
+    font-size: 12px;
+    transition: all var(--omi-duration-short) var(--omi-easing-standard);
+}
+
+.omi-time-toggle-btn:hover {
+    background: var(--background-modifier-hover);
+    color: var(--text-normal);
+}
+
+.omi-time-toggle-btn.active {
+    background: var(--interactive-accent);
+    color: var(--text-on-accent);
+    border-color: var(--interactive-accent);
+}
+
+/* ========================================
+   ENHANCED CONVERSATION CARDS
+   ======================================== */
+.omi-conversation-card {
+    padding: 16px;
+    background: var(--background-secondary);
+    border-radius: var(--omi-radius-md);
+    cursor: pointer;
+    margin-bottom: 12px;
+    transition: all var(--omi-duration-short) var(--omi-easing-standard);
+    border: 1px solid transparent;
+}
+
+.omi-conversation-card:hover {
+    background: var(--background-modifier-hover);
+    border-color: var(--background-modifier-border);
+    transform: translateY(-1px);
+}
+
+.omi-conversation-card:focus-visible {
+    outline: 2px solid var(--interactive-accent);
+    outline-offset: 2px;
+}
+
+/* Time row - top left for easy scanning */
+.omi-conversation-time-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 4px;
+}
+
+.omi-conversation-time-row .omi-conversation-time {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.omi-conversation-time-row .omi-conversation-duration {
+    font-size: 12px;
+    color: var(--text-faint);
+}
+
+/* Title row */
+.omi-conversation-card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.omi-conversation-card-header .omi-conversation-emoji {
+    font-size: 22px;
+}
+
+.omi-conversation-card-header .omi-conversation-title {
+    flex: 1;
+    font-weight: 500;
+    font-size: 15px;
+}
+
+/* Meta Row */
+.omi-conversation-card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.omi-conversation-meta-item {
+    font-size: 12px;
+    color: var(--text-muted);
+    background: var(--background-primary);
+    padding: 2px 8px;
+    border-radius: var(--omi-radius-full);
+}
+
+.omi-conversation-category {
+    font-size: 11px;
+    color: var(--text-muted);
+    background: var(--background-modifier-hover);
+    padding: 2px 8px;
+    border-radius: var(--omi-radius-full);
+    text-transform: capitalize;
+}
+
+/* Overview Snippet */
+.omi-conversation-overview {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-style: italic;
+    line-height: 1.5;
+    border-left: 2px solid var(--background-modifier-border);
+    padding-left: 12px;
+    margin-top: 8px;
+}
+
+/* Week Groups */
+.omi-conversation-week-group {
+    margin-bottom: 32px;
+}
+
+.omi-conversation-week-header {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text-normal);
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--interactive-accent);
+}
+
+.omi-conversation-week-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 16px;
+    padding: 12px;
+    background: var(--background-secondary);
+    border-radius: var(--omi-radius-md);
+}
+
+.omi-conversation-week-stats > span {
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.omi-conversation-week-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 12px;
+}
+
+/* ========================================
+   SPLIT PANE LAYOUT
+   ======================================== */
+.omi-conversations-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--omi-spacing-lg);
+    height: calc(100vh - 320px);
+    min-height: 400px;
+}
+
+.omi-conversations-list-pane {
+    overflow-y: auto;
+    padding-right: var(--omi-spacing-sm);
+}
+
+.omi-conversations-detail-pane {
+    background: var(--background-secondary);
+    border-radius: var(--omi-radius-lg);
+    padding: var(--omi-spacing-lg);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid var(--background-modifier-border);
+}
+
+/* Selected card indicator */
+.omi-conversation-card.selected {
+    border-left: 3px solid var(--interactive-accent);
+    background: var(--background-secondary-alt);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* ========================================
+   DETAIL PANEL
+   ======================================== */
+.omi-detail-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding-bottom: var(--omi-spacing-sm);
+    border-bottom: 1px solid var(--background-modifier-border);
+    margin-bottom: var(--omi-spacing-sm);
+}
+
+.omi-detail-title-area {
+    display: flex;
+    align-items: center;
+    gap: var(--omi-spacing-sm);
+    flex: 1;
+    min-width: 0;
+}
+
+.omi-detail-emoji {
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+.omi-detail-title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-normal);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.omi-detail-close {
+    padding: 4px 8px;
+    border: none;
+    background: transparent;
+    font-size: 20px;
+    cursor: pointer;
+    color: var(--text-muted);
+    border-radius: var(--omi-radius-sm);
+    transition: all var(--omi-duration-short) ease;
+    flex-shrink: 0;
+}
+
+.omi-detail-close:hover {
+    background: var(--background-modifier-hover);
+    color: var(--text-normal);
+}
+
+.omi-detail-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--omi-spacing-sm);
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: var(--omi-spacing-md);
+}
+
+.omi-detail-category {
+    background: var(--background-modifier-hover);
+    padding: 2px 8px;
+    border-radius: var(--omi-radius-full);
+    text-transform: capitalize;
+}
+
+/* Detail Tabs */
+.omi-detail-tabs {
+    display: flex;
+    gap: var(--omi-spacing-xs);
+    margin-bottom: var(--omi-spacing-md);
+    border-bottom: 1px solid var(--background-modifier-border);
+    padding-bottom: var(--omi-spacing-sm);
+}
+
+.omi-detail-tab {
+    padding: var(--omi-spacing-xs) var(--omi-spacing-md);
+    border: none;
+    background: transparent;
+    border-radius: var(--omi-radius-sm);
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--text-muted);
+    transition: all var(--omi-duration-short) ease;
+}
+
+.omi-detail-tab:hover {
+    background: var(--background-modifier-hover);
+    color: var(--text-normal);
+}
+
+.omi-detail-tab.active {
+    background: var(--interactive-accent);
+    color: var(--text-on-accent);
+}
+
+/* Detail Content */
+.omi-detail-content {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: var(--omi-spacing-sm);
+}
+
+.omi-detail-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.omi-detail-empty {
+    color: var(--text-muted);
+    font-style: italic;
+    text-align: center;
+    padding: var(--omi-spacing-xl);
+}
+
+.omi-detail-resync-hint {
+    font-size: 12px;
+    padding: var(--omi-spacing-sm);
+    background: var(--background-primary);
+    border-radius: var(--omi-radius-sm);
+    margin-top: var(--omi-spacing-md);
+}
+
+.omi-detail-meta-summary p {
+    margin: var(--omi-spacing-xs) 0;
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.omi-detail-section {
+    margin-bottom: var(--omi-spacing-lg);
+}
+
+.omi-detail-section h4 {
+    margin: 0 0 var(--omi-spacing-sm) 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-normal);
+}
+
+.omi-detail-overview-text {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-normal);
+    margin: 0;
+}
+
+/* Detail Location Section */
+.omi-detail-location {
+    margin-bottom: var(--omi-spacing-lg);
+}
+
+.omi-detail-location-address {
+    color: var(--text-muted);
+    font-size: 13px;
+    margin: 0 0 var(--omi-spacing-sm) 0;
+}
+
+.omi-detail-map {
+    border-radius: var(--omi-radius-md);
+    border: 1px solid var(--background-modifier-border);
+    width: 100%;
+    height: 150px;
+}
+
+/* Detail Tasks List */
+.omi-detail-tasks {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.omi-detail-tasks li {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--omi-spacing-sm);
+    padding: var(--omi-spacing-xs) 0;
+    font-size: 13px;
+}
+
+.omi-detail-tasks li.completed {
+    opacity: 0.6;
+}
+
+.omi-detail-tasks li.completed .omi-detail-task-desc {
+    text-decoration: line-through;
+}
+
+.omi-detail-task-check {
+    flex-shrink: 0;
+    font-size: 14px;
+}
+
+.omi-detail-task-desc {
+    color: var(--text-normal);
+    line-height: 1.4;
+}
+
+/* Detail Events List */
+.omi-detail-events {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.omi-detail-events li {
+    display: flex;
+    align-items: center;
+    gap: var(--omi-spacing-sm);
+    padding: var(--omi-spacing-xs) 0;
+    font-size: 13px;
+}
+
+.omi-detail-event-icon {
+    flex-shrink: 0;
+}
+
+.omi-detail-event-title {
+    font-weight: 500;
+    color: var(--text-normal);
+}
+
+.omi-detail-event-time {
+    color: var(--text-muted);
+}
+
+/* Detail Transcript */
+.omi-detail-transcript {
+    display: flex;
+    flex-direction: column;
+    gap: var(--omi-spacing-sm);
+}
+
+.omi-transcript-segment {
+    padding: var(--omi-spacing-sm);
+    background: var(--background-primary);
+    border-radius: var(--omi-radius-md);
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.omi-transcript-speaker {
+    display: block;
+    font-weight: 600;
+    color: var(--text-accent);
+    margin-bottom: var(--omi-spacing-xs);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.omi-transcript-text {
+    color: var(--text-normal);
+}
+
+/* Detail Footer */
+.omi-detail-footer {
+    padding-top: var(--omi-spacing-md);
+    border-top: 1px solid var(--background-modifier-border);
+    margin-top: var(--omi-spacing-md);
+}
+
+.omi-detail-open-btn {
+    width: 100%;
+    padding: var(--omi-spacing-sm) var(--omi-spacing-md);
+    border: 1px solid var(--background-modifier-border);
+    background: var(--background-primary);
+    border-radius: var(--omi-radius-md);
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--text-normal);
+    transition: all var(--omi-duration-short) ease;
+}
+
+.omi-detail-open-btn:hover {
+    background: var(--background-modifier-hover);
+    border-color: var(--interactive-accent);
+}
+
+/* Mobile responsive - slide over on small screens */
+@media (max-width: 768px) {
+    .omi-conversations-split {
+        grid-template-columns: 1fr;
+        height: auto;
+    }
+
+    .omi-conversations-split.has-selection .omi-conversations-list-pane {
+        display: none;
+    }
+
+    .omi-conversations-detail-pane {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 100;
+        border-radius: 0;
+        animation: slideInFromRight var(--omi-duration-medium) var(--omi-easing-standard);
+    }
+
+    @keyframes slideInFromRight {
+        from {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+}
+
+/* ========================================
+   TIMELINE VIEW
+   ======================================== */
+.omi-conversations-timeline {
+    padding: 0;
+}
+
+.omi-timeline-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.omi-timeline-nav-btn {
+    padding: 8px 12px;
+    border-radius: var(--omi-radius-md);
+    border: 1px solid var(--background-modifier-border);
+    background: var(--background-primary);
+    cursor: pointer;
+    font-size: 14px;
+    transition: all var(--omi-duration-short) var(--omi-easing-standard);
+}
+
+.omi-timeline-nav-btn:hover:not(:disabled) {
+    background: var(--background-modifier-hover);
+}
+
+.omi-timeline-nav-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.omi-timeline-date-label {
+    font-weight: 600;
+    font-size: 16px;
+    min-width: 280px;
+    text-align: center;
+}
+
+.omi-timeline-grid {
+    margin-bottom: 20px;
+}
+
+.omi-timeline-hours {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    padding: 0 4px;
+}
+
+.omi-timeline-hour {
+    font-size: 10px;
+    color: var(--text-muted);
+    width: 35px;
+    text-align: center;
+}
+
+.omi-timeline-track {
+    position: relative;
+    height: 50px;
+    background: var(--background-secondary);
+    border-radius: var(--omi-radius-md);
+    overflow: hidden;
+}
+
+.omi-timeline-block {
+    position: absolute;
+    top: 4px;
+    bottom: 4px;
+    border-radius: var(--omi-radius-sm);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--omi-duration-short) var(--omi-easing-standard);
+    min-width: 24px;
+}
+
+.omi-timeline-block:hover {
+    transform: scale(1.05);
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.omi-timeline-block-emoji {
+    font-size: 16px;
+    filter: grayscale(0);
+}
+
+.omi-timeline-legend {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: var(--text-muted);
+    padding: 0 4px;
+}
+
+/* Unified Daily View */
+.omi-conversations-daily {
+    display: flex;
+    flex-direction: column;
+    gap: var(--omi-spacing-md);
+}
+
+.omi-daily-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: var(--omi-spacing-md) 0;
+}
+
+.omi-timeline-date-label.omi-clickable {
+    cursor: pointer;
+    padding: 6px 16px;
+    border-radius: var(--omi-radius-md);
+    transition: background var(--omi-duration-short) ease;
+}
+
+.omi-timeline-date-label.omi-clickable:hover {
+    background: var(--background-modifier-hover);
+}
+
+.omi-timeline-date-label.omi-clickable:focus-visible {
+    outline: 2px solid var(--interactive-accent);
+    outline-offset: 2px;
+}
+
+.omi-timeline-block.selected {
+    outline: 3px solid var(--interactive-accent);
+    outline-offset: 2px;
+    z-index: 5;
+}
+
+.omi-conversations-empty-day {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.omi-conversations-empty-day .omi-empty-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+    opacity: 0.7;
+}
+
+.omi-conversations-empty-day h3 {
+    margin: 0 0 8px 0;
+    color: var(--text-normal);
+}
+
+.omi-conversations-empty-day p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+/* Calendar Date Picker Modal */
+.omi-calendar-picker-modal {
+    max-width: 340px;
+}
+
+.omi-calendar-picker-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.omi-calendar-month-label {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.omi-calendar-nav-btn {
+    padding: 6px 12px;
+    border: none;
+    background: var(--background-modifier-hover);
+    border-radius: var(--omi-radius-sm);
+    cursor: pointer;
+    font-size: 14px;
+    transition: background var(--omi-duration-short) ease;
+}
+
+.omi-calendar-nav-btn:hover {
+    background: var(--background-modifier-border);
+}
+
+.omi-calendar-quick-nav {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.omi-calendar-quick-btn {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid var(--background-modifier-border);
+    background: var(--background-primary);
+    border-radius: var(--omi-radius-md);
+    cursor: pointer;
+    font-size: 13px;
+    transition: all var(--omi-duration-short) ease;
+}
+
+.omi-calendar-quick-btn:hover {
+    background: var(--background-modifier-hover);
+    border-color: var(--interactive-accent);
+}
+
+.omi-calendar-day-labels {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    margin-bottom: 8px;
+}
+
+.omi-calendar-day-labels span {
+    text-align: center;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+    padding: 4px;
+}
+
+.omi-calendar-picker-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+}
+
+.omi-calendar-day {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--omi-radius-sm);
+    font-size: 13px;
+    transition: all var(--omi-duration-short) ease;
+}
+
+.omi-calendar-day-padding {
+    color: var(--text-faint);
+    opacity: 0.5;
+}
+
+.omi-calendar-day.has-data {
+    background: var(--interactive-accent);
+    color: var(--text-on-accent);
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.omi-calendar-day.has-data:hover {
+    transform: scale(1.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.omi-calendar-day.selected {
+    outline: 2px solid var(--text-accent);
+    outline-offset: 2px;
+}
+
+.omi-calendar-day.today:not(.has-data) {
+    border: 2px solid var(--interactive-accent);
+}
+
+.omi-calendar-day.today.has-data {
+    box-shadow: 0 0 0 2px var(--background-primary), 0 0 0 4px var(--text-accent);
+}
+
+/* Weekly Timeline */
+.omi-timeline-week-header {
+    font-weight: 600;
+    font-size: 16px;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.omi-timeline-week-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.omi-timeline-week-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.omi-timeline-day-label {
+    width: 40px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-align: right;
+}
+
+.omi-timeline-week-row .omi-timeline-track {
+    flex: 1;
+    height: 36px;
+}
+
+.omi-timeline-hours-footer {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+    padding-left: 52px;
+}
+
+.omi-timeline-spacer {
+    width: 40px;
+}
+
+.omi-timeline-hour-marker {
+    flex: 1;
+    font-size: 10px;
+    color: var(--text-muted);
+    text-align: left;
+}
+
+/* ========================================
+   STATS DASHBOARD
+   ======================================== */
+.omi-conversations-stats {
+    padding: 0;
+}
+
+/* Stats Time Range Selector */
+.omi-stats-time-range {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.omi-stats-range-btn {
+    padding: 6px 14px;
+    border: 1px solid var(--background-modifier-border);
+    background: var(--background-primary);
+    color: var(--text-muted);
+    cursor: pointer;
+    border-radius: var(--omi-radius-md);
+    font-size: 13px;
+    transition: all var(--omi-duration-short) var(--omi-easing-standard);
+}
+
+.omi-stats-range-btn:hover {
+    background: var(--background-modifier-hover);
+    color: var(--text-normal);
+}
+
+.omi-stats-range-btn.active {
+    background: var(--interactive-accent);
+    color: var(--text-on-accent);
+    border-color: var(--interactive-accent);
+}
+
+.omi-stats-top-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 12px;
+    margin-bottom: 32px;
+}
+
+.omi-stats-card {
+    background: var(--background-secondary);
+    border-radius: var(--omi-radius-md);
+    padding: 16px;
+    text-align: center;
+}
+
+.omi-stats-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--interactive-accent);
+    margin-bottom: 4px;
+}
+
+.omi-stats-value.omi-stats-category {
+    font-size: 16px;
+    text-transform: capitalize;
+}
+
+.omi-stats-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.omi-stats-section {
+    margin-bottom: 32px;
+}
+
+.omi-stats-section h4 {
+    margin: 0 0 16px 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-normal);
+}
+
+/* Category Breakdown */
+.omi-stats-category-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.omi-stats-category-label {
+    width: 120px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text-normal);
+}
+
+.omi-stats-bar-container {
+    flex: 1;
+    height: 20px;
+    background: var(--background-secondary);
+    border-radius: var(--omi-radius-sm);
+    overflow: hidden;
+}
+
+.omi-stats-bar {
+    height: 100%;
+    background: var(--interactive-accent);
+    border-radius: var(--omi-radius-sm);
+    transition: width var(--omi-duration-long) var(--omi-easing-standard);
+}
+
+.omi-stats-percentage {
+    width: 100px;
+    text-align: right;
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+/* Daily Activity Chart */
+.omi-stats-daily-chart {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    height: 120px;
+    padding: 16px;
+    background: var(--background-secondary);
+    border-radius: var(--omi-radius-md);
+}
+
+.omi-stats-day-bar {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100%;
+    gap: 8px;
+}
+
+.omi-stats-day-fill {
+    width: 70%;
+    background: var(--interactive-accent);
+    border-radius: var(--omi-radius-sm) var(--omi-radius-sm) 0 0;
+    transition: height var(--omi-duration-long) var(--omi-easing-standard);
+    min-height: 2px;
+}
+
+.omi-stats-day-label {
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+/* ========================================
+   HEATMAP VIEW
+   ======================================== */
+.omi-conversations-heatmap {
+    padding: 20px 0;
+    width: 100%;
+}
+
+.omi-heatmap-year-header {
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.omi-heatmap-year {
+    font-size: 28px;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--omi-purple-primary), var(--omi-purple-pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.omi-heatmap-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.omi-heatmap-months {
+    display: flex;
+    gap: 0;
+    margin-bottom: 8px;
+    padding-left: 50px;
+}
+
+.omi-heatmap-spacer {
+    width: 50px;
+    flex-shrink: 0;
+}
+
+.omi-heatmap-month {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-muted);
+    flex-shrink: 0;
+    text-align: left;
+}
+
+.omi-heatmap-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 100%;
+}
+
+.omi-heatmap-row {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.omi-heatmap-day-label {
+    width: 45px;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-align: right;
+    padding-right: 8px;
+    flex-shrink: 0;
+}
+
+.omi-heatmap-cell {
+    width: 18px;
+    height: 18px;
+    border-radius: 3px;
+    background: var(--background-secondary);
+    transition: all var(--omi-duration-short) var(--omi-easing-standard);
+    flex-shrink: 0;
+}
+
+.omi-heatmap-cell.clickable {
+    cursor: pointer;
+}
+
+.omi-heatmap-cell.clickable:hover {
+    outline: 2px solid var(--text-accent);
+    outline-offset: 1px;
+    transform: scale(1.1);
+}
+
+.omi-heatmap-level-0 {
+    background: var(--background-modifier-border);
+}
+
+/* Purple contribution colors (Light theme) */
+/* Ensure level-1 is clearly distinguishable from gray empty days */
+.omi-heatmap-level-1 {
+    background: #C4B5FD; /* Light purple - visible but soft */
+}
+
+.omi-heatmap-level-2 {
+    background: #A78BFA; /* Medium-light purple */
+}
+
+.omi-heatmap-level-3 {
+    background: #8B5CF6; /* Medium purple */
+}
+
+.omi-heatmap-level-4 {
+    background: #7C3AED; /* Deep purple */
+}
+
+/* Dark theme - inverted intensity (darker bg, brighter activity) */
+.theme-dark .omi-heatmap-level-1 {
+    background: #4C1D95; /* Deep violet */
+}
+
+.theme-dark .omi-heatmap-level-2 {
+    background: #6D28D9; /* Purple */
+}
+
+.theme-dark .omi-heatmap-level-3 {
+    background: #8B5CF6; /* Bright purple */
+}
+
+.theme-dark .omi-heatmap-level-4 {
+    background: #A855F7; /* Brightest purple */
+}
+
+.omi-heatmap-legend {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+    margin-top: 20px;
+    font-size: 12px;
+    color: var(--text-muted);
+    padding-right: 4px;
+}
+
+.omi-heatmap-legend-cell {
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+}
+
+.omi-heatmap-summary {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin-top: 24px;
+    padding: 20px;
+    background: var(--background-secondary);
+    border-radius: var(--omi-radius-lg);
+}
+
+.omi-heatmap-summary > span {
+    font-size: 14px;
+    color: var(--text-normal);
+}
+
+.omi-heatmap-summary > span strong {
+    color: var(--interactive-accent);
+    font-weight: 600;
+}
+
+/* ========================================
+   LEAFLET CORE CSS (Bundled to avoid CSP issues)
+   Required styles for Leaflet.js map library
+   ======================================== */
+.leaflet-pane,
+.leaflet-tile,
+.leaflet-marker-icon,
+.leaflet-marker-shadow,
+.leaflet-tile-container,
+.leaflet-pane > svg,
+.leaflet-pane > canvas,
+.leaflet-zoom-box,
+.leaflet-image-layer,
+.leaflet-layer {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.leaflet-container {
+    overflow: hidden;
+    -webkit-tap-highlight-color: transparent;
+    background: #ddd;
+    outline-offset: 1px;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+.leaflet-tile,
+.leaflet-marker-icon,
+.leaflet-marker-shadow {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+.leaflet-tile::selection {
+    background: transparent;
+}
+
+.leaflet-safari .leaflet-tile {
+    image-rendering: -webkit-optimize-contrast;
+}
+
+.leaflet-safari .leaflet-tile-container {
+    width: 1600px;
+    height: 1600px;
+    -webkit-transform-origin: 0 0;
+}
+
+.leaflet-marker-icon,
+.leaflet-marker-shadow {
+    display: block;
+}
+
+.leaflet-container .leaflet-overlay-pane svg {
+    max-width: none !important;
+    max-height: none !important;
+}
+
+.leaflet-container .leaflet-marker-pane img,
+.leaflet-container .leaflet-shadow-pane img,
+.leaflet-container .leaflet-tile-pane img,
+.leaflet-container img.leaflet-image-layer,
+.leaflet-container .leaflet-tile {
+    max-width: none !important;
+    max-height: none !important;
+    width: auto;
+    padding: 0;
+}
+
+.leaflet-container img.leaflet-tile {
+    mix-blend-mode: plus-lighter;
+}
+
+.leaflet-container.leaflet-touch-zoom {
+    -ms-touch-action: pan-x pan-y;
+    touch-action: pan-x pan-y;
+}
+
+.leaflet-container.leaflet-touch-drag {
+    -ms-touch-action: pinch-zoom;
+    touch-action: none;
+    touch-action: pinch-zoom;
+}
+
+.leaflet-container.leaflet-touch-drag.leaflet-touch-zoom {
+    -ms-touch-action: none;
+    touch-action: none;
+}
+
+.leaflet-container {
+    -webkit-tap-highlight-color: transparent;
+}
+
+.leaflet-container a {
+    -webkit-tap-highlight-color: rgba(51, 181, 229, 0.4);
+    color: #0078A8;
+}
+
+.leaflet-tile {
+    filter: inherit;
+    visibility: hidden;
+}
+
+.leaflet-tile-loaded {
+    visibility: inherit;
+}
+
+.leaflet-zoom-box {
+    width: 0;
+    height: 0;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    z-index: 800;
+}
+
+.leaflet-overlay-pane svg {
+    -moz-user-select: none;
+}
+
+.leaflet-pane {
+    z-index: 400;
+}
+
+.leaflet-tile-pane {
+    z-index: 200;
+}
+
+.leaflet-overlay-pane {
+    z-index: 400;
+}
+
+.leaflet-shadow-pane {
+    z-index: 500;
+}
+
+.leaflet-marker-pane {
+    z-index: 600;
+}
+
+.leaflet-tooltip-pane {
+    z-index: 650;
+}
+
+.leaflet-popup-pane {
+    z-index: 700;
+}
+
+.leaflet-map-pane canvas {
+    z-index: 100;
+}
+
+.leaflet-map-pane svg {
+    z-index: 200;
+}
+
+.leaflet-vml-shape {
+    width: 1px;
+    height: 1px;
+}
+
+.lvml {
+    behavior: url(#default#VML);
+    display: inline-block;
+    position: absolute;
+}
+
+.leaflet-control {
+    position: relative;
+    z-index: 800;
+    pointer-events: visiblePainted;
+    pointer-events: auto;
+}
+
+.leaflet-top,
+.leaflet-bottom {
+    position: absolute;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+.leaflet-top {
+    top: 0;
+}
+
+.leaflet-right {
+    right: 0;
+}
+
+.leaflet-bottom {
+    bottom: 0;
+}
+
+.leaflet-left {
+    left: 0;
+}
+
+.leaflet-control {
+    float: left;
+    clear: both;
+}
+
+.leaflet-right .leaflet-control {
+    float: right;
+}
+
+.leaflet-top .leaflet-control {
+    margin-top: 10px;
+}
+
+.leaflet-bottom .leaflet-control {
+    margin-bottom: 10px;
+}
+
+.leaflet-left .leaflet-control {
+    margin-left: 10px;
+}
+
+.leaflet-right .leaflet-control {
+    margin-right: 10px;
+}
+
+.leaflet-fade-anim .leaflet-popup {
+    opacity: 0;
+    -webkit-transition: opacity 0.2s linear;
+    -moz-transition: opacity 0.2s linear;
+    transition: opacity 0.2s linear;
+}
+
+.leaflet-fade-anim .leaflet-map-pane .leaflet-popup {
+    opacity: 1;
+}
+
+.leaflet-zoom-animated {
+    -webkit-transform-origin: 0 0;
+    -ms-transform-origin: 0 0;
+    transform-origin: 0 0;
+}
+
+svg.leaflet-zoom-animated {
+    will-change: transform;
+}
+
+.leaflet-zoom-anim .leaflet-zoom-animated {
+    -webkit-transition: -webkit-transform 0.25s cubic-bezier(0, 0, 0.25, 1);
+    -moz-transition: -moz-transform 0.25s cubic-bezier(0, 0, 0.25, 1);
+    transition: transform 0.25s cubic-bezier(0, 0, 0.25, 1);
+}
+
+.leaflet-zoom-anim .leaflet-tile,
+.leaflet-pan-anim .leaflet-tile {
+    -webkit-transition: none;
+    -moz-transition: none;
+    transition: none;
+}
+
+.leaflet-zoom-anim .leaflet-zoom-hide {
+    visibility: hidden;
+}
+
+.leaflet-interactive {
+    cursor: pointer;
+}
+
+.leaflet-grab {
+    cursor: -webkit-grab;
+    cursor: -moz-grab;
+    cursor: grab;
+}
+
+.leaflet-crosshair,
+.leaflet-crosshair .leaflet-interactive {
+    cursor: crosshair;
+}
+
+.leaflet-popup-pane,
+.leaflet-control {
+    cursor: auto;
+}
+
+.leaflet-dragging .leaflet-grab,
+.leaflet-dragging .leaflet-grab .leaflet-interactive,
+.leaflet-dragging .leaflet-marker-draggable {
+    cursor: move;
+    cursor: -webkit-grabbing;
+    cursor: -moz-grabbing;
+    cursor: grabbing;
+}
+
+.leaflet-marker-icon,
+.leaflet-marker-shadow,
+.leaflet-image-layer,
+.leaflet-pane > svg path,
+.leaflet-tile-container {
+    pointer-events: none;
+}
+
+.leaflet-marker-icon.leaflet-interactive,
+.leaflet-image-layer.leaflet-interactive,
+.leaflet-pane > svg path.leaflet-interactive,
+svg.leaflet-image-layer.leaflet-interactive path {
+    pointer-events: visiblePainted;
+    pointer-events: auto;
+}
+
+.leaflet-container a.leaflet-active {
+    outline: 2px solid orange;
+}
+
+.leaflet-zoom-box {
+    border: 2px dotted #38f;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.leaflet-bar {
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.65);
+    border-radius: 4px;
+}
+
+.leaflet-bar a {
+    background-color: #fff;
+    border-bottom: 1px solid #ccc;
+    width: 26px;
+    height: 26px;
+    line-height: 26px;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+}
+
+.leaflet-bar a,
+.leaflet-control-layers-toggle {
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    display: block;
+}
+
+.leaflet-bar a:hover,
+.leaflet-bar a:focus {
+    background-color: #f4f4f4;
+}
+
+.leaflet-bar a:first-child {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+.leaflet-bar a:last-child {
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-bottom: none;
+}
+
+.leaflet-bar a.leaflet-disabled {
+    cursor: default;
+    background-color: #f4f4f4;
+    color: #bbb;
+}
+
+.leaflet-touch .leaflet-bar a {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+}
+
+.leaflet-touch .leaflet-bar a:first-child {
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+}
+
+.leaflet-touch .leaflet-bar a:last-child {
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+}
+
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out {
+    font: bold 18px 'Lucida Console', Monaco, monospace;
+    text-indent: 1px;
+}
+
+.leaflet-touch .leaflet-control-zoom-in,
+.leaflet-touch .leaflet-control-zoom-out {
+    font-size: 22px;
+}
+
+.leaflet-control-layers {
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
+    background: #fff;
+    border-radius: 5px;
+}
+
+.leaflet-control-layers-toggle {
+    width: 36px;
+    height: 36px;
+}
+
+.leaflet-retina .leaflet-control-layers-toggle {
+    width: 44px;
+    height: 44px;
+}
+
+.leaflet-touch .leaflet-control-layers-toggle {
+    width: 44px;
+    height: 44px;
+}
+
+.leaflet-control-layers .leaflet-control-layers-list,
+.leaflet-control-layers-expanded .leaflet-control-layers-toggle {
+    display: none;
+}
+
+.leaflet-control-layers-expanded .leaflet-control-layers-list {
+    display: block;
+    position: relative;
+}
+
+.leaflet-control-layers-expanded {
+    padding: 6px 10px 6px 6px;
+    color: #333;
+    background: #fff;
+}
+
+.leaflet-control-layers-scrollbar {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding-right: 5px;
+}
+
+.leaflet-control-layers-selector {
+    margin-top: 2px;
+    position: relative;
+    top: 1px;
+}
+
+.leaflet-control-layers label {
+    display: block;
+    font-size: 13px;
+    font-size: 1.08333em;
+}
+
+.leaflet-control-layers-separator {
+    height: 0;
+    border-top: 1px solid #ddd;
+    margin: 5px -10px 5px -6px;
+}
+
+.leaflet-default-icon-path {
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAApCAYAAADAk4LOAAAFgUlEQVR4Aa1XA5BjWRTN2oW17d3YassW17teleM1BME0CbSyAQsf4s0ACbASiQd/3n0AOBiCTI6CTIGG8Zg//vmfOTffT4KJ7r+YRpMLTzMw3+BdEJJjJlQIgC3tCAHzVhOkDJHVn6VDAKvMlJRoS/0EsJwlGqpFi1Ev2FjF4hXCkPM/ZcsFwMACQFmDhCIkiC1EhPHZ/JVFB/gNiNIzDqG3T5w7lMnP8A/RHTX/ZPiYFDZ4Zc5m4QjPuE8f7C0eaA9LB6QeXi4Lao7j7MDlODXvfnCY89r/vbO/xZtBgLmTvOQ+9oBgMw0F8pCME0VbADlBdtJjvQ9xKCjQJFP6Bn4fzz/hUzqOQkRDAqAmOMDQIHxiCg4dIqgIPsAFJMqzUKHEW3KVu4/FxvvJd/5f/YlZUx+OTtAKVPyZQjSFAKrB5p6xJvRaVqD9vPrlx/R8/pOk6Y8ufQs1gXRhZbPPTv9TY2xKPcPq6uxC4rPxLKvSaKwB2CUpDQwzUZ4kyXAyE0WdJsxNdHLFLtEyNLzDJHUsBmZsVoTNRBnPPtAr6ow0bJJUHQ8bL9uFr3s4l8Cv5HnLOJzPEAfRE/hGpDVn0U2s9T8M3mKQV0g4pIGP4dZuDY44Pqo0KBCzWXpYQCCsscCnWvD/cbrj/n+oRLR9V8b8O2xrR/Syx6jD8fTr2n9JDGj3fvM1cz5z4nXr1wvddPvbSxYu5z4nXrL1wvddPvbSxYu5z4nXr1wvddPvbSxYu5z4nXr1wvddPvbSxYu5z4nXr1wvddPvLSz4uhJ5O2mZsn0Ry1tby4rxdyXF+7N5z7Jtu1S+21+0vVx+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0zqn0Ry1tby4rxdyXF+7N5z7Jtu1S+21+0vVx+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0zOBa1w+9VW1/0M1+0vVx+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0zWNT1w+9VW1/0M1+0vVx+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z+m0z);
+}
+
+.leaflet-container .leaflet-control-attribution {
+    background: #fff;
+    background: rgba(255, 255, 255, 0.8);
+    margin: 0;
+}
+
+.leaflet-control-attribution,
+.leaflet-control-scale-line {
+    padding: 0 5px;
+    color: #333;
+    line-height: 1.4;
+}
+
+.leaflet-control-attribution a {
+    text-decoration: none;
+}
+
+.leaflet-control-attribution a:hover,
+.leaflet-control-attribution a:focus {
+    text-decoration: underline;
+}
+
+.leaflet-attribution-flag {
+    display: inline !important;
+    vertical-align: baseline !important;
+    width: 1em;
+    height: 0.6669em;
+}
+
+.leaflet-left .leaflet-control-scale {
+    margin-left: 5px;
+}
+
+.leaflet-bottom .leaflet-control-scale {
+    margin-bottom: 5px;
+}
+
+.leaflet-control-scale-line {
+    border: 2px solid #777;
+    border-top: none;
+    line-height: 1.1;
+    padding: 2px 5px 1px;
+    white-space: nowrap;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    background: rgba(255, 255, 255, 0.8);
+    text-shadow: 1px 1px #fff;
+}
+
+.leaflet-control-scale-line:not(:first-child) {
+    border-top: 2px solid #777;
+    border-bottom: none;
+    margin-top: -2px;
+}
+
+.leaflet-control-scale-line:not(:first-child):not(:last-child) {
+    border-bottom: 2px solid #777;
+}
+
+.leaflet-touch .leaflet-control-attribution,
+.leaflet-touch .leaflet-control-layers,
+.leaflet-touch .leaflet-bar {
+    box-shadow: none;
+}
+
+.leaflet-touch .leaflet-control-layers,
+.leaflet-touch .leaflet-bar {
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    background-clip: padding-box;
+}
+
+.leaflet-popup {
+    position: absolute;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.leaflet-popup-content-wrapper {
+    padding: 1px;
+    text-align: left;
+    border-radius: 12px;
+}
+
+.leaflet-popup-content {
+    margin: 13px 24px 13px 20px;
+    line-height: 1.3;
+    font-size: 13px;
+    font-size: 1.08333em;
+    min-height: 1px;
+}
+
+.leaflet-popup-content p {
+    margin: 17px 0;
+    margin: 1.3em 0;
+}
+
+.leaflet-popup-tip-container {
+    width: 40px;
+    height: 20px;
+    position: absolute;
+    left: 50%;
+    margin-top: -1px;
+    margin-left: -20px;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.leaflet-popup-tip {
+    width: 17px;
+    height: 17px;
+    padding: 1px;
+    margin: -10px auto 0;
+    pointer-events: auto;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+    background: white;
+    color: #333;
+    box-shadow: 0 3px 14px rgba(0, 0, 0, 0.4);
+}
+
+.leaflet-container a.leaflet-popup-close-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: none;
+    text-align: center;
+    width: 24px;
+    height: 24px;
+    font: 16px/24px Tahoma, Verdana, sans-serif;
+    color: #757575;
+    text-decoration: none;
+    background: transparent;
+}
+
+.leaflet-container a.leaflet-popup-close-button:hover,
+.leaflet-container a.leaflet-popup-close-button:focus {
+    color: #585858;
+}
+
+.leaflet-popup-scrolled {
+    overflow: auto;
+}
+
+.leaflet-oldie .leaflet-popup-content-wrapper {
+    -ms-zoom: 1;
+}
+
+.leaflet-oldie .leaflet-popup-tip {
+    width: 24px;
+    margin: 0 auto;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678)";
+    filter: progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678);
+}
+
+.leaflet-oldie .leaflet-control-zoom,
+.leaflet-oldie .leaflet-control-layers,
+.leaflet-oldie .leaflet-popup-content-wrapper,
+.leaflet-oldie .leaflet-popup-tip {
+    border: 1px solid #999;
+}
+
+.leaflet-div-icon {
+    background: #fff;
+    border: 1px solid #666;
+}
+
+.leaflet-tooltip {
+    position: absolute;
+    padding: 6px;
+    background-color: #fff;
+    border: 1px solid #fff;
+    border-radius: 3px;
+    color: #222;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    pointer-events: none;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.leaflet-tooltip.leaflet-interactive {
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+.leaflet-tooltip-top:before,
+.leaflet-tooltip-bottom:before,
+.leaflet-tooltip-left:before,
+.leaflet-tooltip-right:before {
+    position: absolute;
+    pointer-events: none;
+    border: 6px solid transparent;
+    background: transparent;
+    content: "";
+}
+
+.leaflet-tooltip-bottom {
+    margin-top: 6px;
+}
+
+.leaflet-tooltip-top {
+    margin-top: -6px;
+}
+
+.leaflet-tooltip-bottom:before,
+.leaflet-tooltip-top:before {
+    left: 50%;
+    margin-left: -6px;
+}
+
+.leaflet-tooltip-top:before {
+    bottom: 0;
+    margin-bottom: -12px;
+    border-top-color: #fff;
+}
+
+.leaflet-tooltip-bottom:before {
+    top: 0;
+    margin-top: -12px;
+    margin-left: -6px;
+    border-bottom-color: #fff;
+}
+
+.leaflet-tooltip-left {
+    margin-left: -6px;
+}
+
+.leaflet-tooltip-right {
+    margin-left: 6px;
+}
+
+.leaflet-tooltip-left:before,
+.leaflet-tooltip-right:before {
+    top: 50%;
+    margin-top: -6px;
+}
+
+.leaflet-tooltip-left:before {
+    right: 0;
+    margin-right: -12px;
+    border-left-color: #fff;
+}
+
+.leaflet-tooltip-right:before {
+    left: 0;
+    margin-left: -12px;
+    border-right-color: #fff;
+}
+
+@media print {
+    .leaflet-control {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+}
+
+/* ========================================
+   MAP VIEW
+   ======================================== */
+
+/* Map tab container - fill available space */
+.omi-map-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    height: calc(100vh - 180px);
+}
+
+.omi-conversations-map {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    gap: 12px;
+}
+
+.omi-map-stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background: var(--background-secondary);
+    border-radius: var(--omi-radius-md);
+    font-size: 14px;
+    color: var(--text-normal);
+    flex-shrink: 0;
+}
+
+.omi-map-leaflet-container {
+    flex: 1;
+    min-height: 400px;
+    border-radius: var(--omi-radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--background-modifier-border);
+}
+
+.omi-map-empty {
+    text-align: center;
+    color: var(--text-muted);
+    padding: 48px 24px;
+    background: var(--background-secondary);
+    border-radius: var(--omi-radius-lg);
+}
+
+.omi-map-empty-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+}
+
+.omi-map-empty h3 {
+    margin: 0 0 8px 0;
+    color: var(--text-normal);
+}
+
+.omi-map-empty p {
+    margin: 0;
+    font-size: 14px;
+}
+
+.omi-map-error {
+    text-align: center;
+    color: var(--text-error);
+    padding: 24px;
+}
+
+/* Custom purple map marker */
+.omi-map-marker {
+    background: transparent;
+    border: none;
+}
+
+.omi-map-marker-inner {
+    width: 32px;
+    height: 32px;
+    background: var(--omi-purple-primary);
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(139, 92, 246, 0.4);
+    border: 2px solid white;
+    font-size: 11px;
+    font-weight: 600;
+    color: white;
+}
+
+.omi-map-marker-inner::before {
+    content: '';
+    transform: rotate(45deg);
+}
+
+/* Leaflet popup styling */
+.omi-map-popup-wrapper .leaflet-popup-content-wrapper {
+    border-radius: var(--omi-radius-md);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.omi-map-popup-wrapper .leaflet-popup-content {
+    margin: 12px 14px;
+}
+
+.omi-map-popup {
+    min-width: 200px;
+    max-width: 280px;
+}
+
+.omi-map-popup-address {
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--text-normal);
+    margin-bottom: 4px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--background-modifier-border);
+    line-height: 1.4;
+}
+
+.omi-map-popup-count {
+    font-size: 12px;
+    color: var(--omi-purple-primary);
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.omi-map-popup-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 0;
+    font-size: 12px;
+    border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.omi-map-popup-item:last-child {
+    border-bottom: none;
+}
+
+.omi-map-popup-emoji {
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.omi-map-popup-title {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--text-normal);
+}
+
+.omi-map-popup-date {
+    color: var(--text-muted);
+    font-size: 11px;
+    flex-shrink: 0;
+}
+
+.omi-map-popup-more {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-align: center;
+    padding-top: 8px;
+    font-style: italic;
+}
+
+/* ========================================
+   MOBILE RESPONSIVE - VISUALIZATIONS
+   ======================================== */
+@media (max-width: 768px) {
+    .omi-conversations-view-tabs {
+        gap: 6px;
+    }
+
+    .omi-conv-view-tab {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+
+    .omi-stats-top-row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .omi-stats-value {
+        font-size: 22px;
+    }
+
+    .omi-stats-category-row {
+        flex-wrap: wrap;
+    }
+
+    .omi-stats-category-label {
+        width: 100%;
+    }
+
+    .omi-stats-bar-container {
+        flex: none;
+        width: 100%;
+    }
+
+    .omi-stats-percentage {
+        width: 100%;
+        text-align: left;
+        margin-top: 4px;
+    }
+
+    .omi-heatmap-cell {
+        width: 14px;
+        height: 14px;
+    }
+
+    .omi-heatmap-day-label {
+        width: 35px;
+        font-size: 10px;
+    }
+
+    .omi-timeline-date-label {
+        min-width: 200px;
+        font-size: 14px;
+    }
+
+    .omi-conversation-week-cards {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .omi-stats-top-row {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .omi-stats-daily-chart {
+        height: 80px;
+    }
+
+    .omi-heatmap-months {
+        display: none;
+    }
+
+    .omi-heatmap-day-label {
+        display: none;
+    }
+
+    .omi-timeline-week-grid {
+        overflow-x: auto;
+    }
+
+    .omi-timeline-week-row .omi-timeline-track {
+        min-width: 300px;
+    }
+}
+
+/* ========================================
+   OMI MEMORIES TAB STYLING
+   ======================================== */
+.omi-memories-container {
+    padding: 16px;
+    height: 100%;
+    overflow-y: auto;
+    --interactive-accent: var(--omi-purple-primary);
+    --interactive-accent-hover: var(--omi-purple-accent);
+}
+
+.omi-memories-toolbar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.omi-memories-add-btn,
+.omi-memories-sync-btn {
+    padding: 8px 16px;
+    border-radius: var(--omi-radius-md);
+    border: none;
+    background: var(--interactive-accent);
+    color: var(--text-on-accent);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color var(--omi-duration-short) ease;
+}
+
+.omi-memories-add-btn:hover,
+.omi-memories-sync-btn:hover {
+    background: var(--interactive-accent-hover);
+}
+
+.omi-memories-sync-btn {
+    background: var(--background-secondary);
+    color: var(--text-normal);
+    margin-left: auto;
+}
+
+.omi-memories-sync-btn:hover {
+    background: var(--background-modifier-hover);
+}
+
+/* Category Pills */
+.omi-category-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.omi-category-pill {
+    padding: 6px 12px;
+    border-radius: var(--omi-radius-full);
+    border: 1px solid var(--background-modifier-border);
+    background: var(--background-secondary);
+    color: var(--text-normal);
+    cursor: pointer;
+    font-size: 13px;
+    transition: all var(--omi-duration-short) ease;
+}
+
+.omi-category-pill:hover {
+    background: var(--background-modifier-hover);
+    border-color: var(--interactive-accent);
+}
+
+.omi-category-pill.active {
+    background: var(--interactive-accent);
+    color: var(--text-on-accent);
+    border-color: var(--interactive-accent);
+}
+
+/* Search */
+.omi-memories-search-container {
+    margin-bottom: 16px;
+}
+
+.omi-memories-search {
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: var(--omi-radius-md);
+    border: 1px solid var(--background-modifier-border);
+    background: var(--background-primary);
+    color: var(--text-normal);
+    font-size: 14px;
+}
+
+.omi-memories-search:focus {
+    outline: none;
+    border-color: var(--interactive-accent);
+    box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
+}
+
+/* Loading Skeleton */
+.omi-memories-loading {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Memory List */
+.omi-memories-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.omi-memories-empty {
+    text-align: center;
+    padding: 16px;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+/* Memory Card - Compact inline row */
+.omi-memory-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    margin-bottom: 2px;
+    background: transparent;
+    border: 1px solid transparent;
+    transition: all var(--omi-duration-short) ease;
+}
+
+.omi-memory-card:hover {
+    background: var(--background-secondary);
+    border-color: var(--background-modifier-border);
+}
+
+.omi-memory-card-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.omi-memory-category {
+    font-weight: 500;
+    font-size: 11px;
+    color: var(--text-muted);
+    padding: 2px 6px;
+    background: var(--background-modifier-hover);
+    border-radius: 4px;
+}
+
+.omi-memory-date {
+    font-size: 10px;
+    color: var(--text-faint);
+    display: none;
+}
+
+.omi-memory-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.omi-memory-content-text {
+    line-height: 1.4;
+    color: var(--text-normal);
+    cursor: pointer;
+    padding: 2px 4px;
+    margin: -2px -4px;
+    border-radius: var(--omi-radius-sm);
+    transition: background-color var(--omi-duration-short) ease;
+    font-size: 13px;
+}
+
+.omi-memory-content-text:hover {
+    background: var(--background-modifier-hover);
+}
+
+.omi-memory-content-edit {
+    width: 100%;
+    padding: 8px;
+    border-radius: var(--omi-radius-sm);
+    border: 1px solid var(--interactive-accent);
+    background: var(--background-primary);
+    color: var(--text-normal);
+    font-size: 14px;
+    font-family: inherit;
+    line-height: 1.5;
+    resize: vertical;
+}
+
+.omi-memory-content-edit:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
+}
+
+/* Footer: Tags & Actions Row */
+.omi-memory-footer {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+.omi-memory-tags {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 2px;
+    overflow: hidden;
+}
+
+.omi-tag-pill {
+    padding: 1px 4px;
+    border-radius: 3px;
+    background: var(--background-modifier-hover);
+    color: var(--text-faint);
+    font-size: 9px;
+    white-space: nowrap;
+}
+
+.omi-memory-tags-display {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
+}
+
+/* Actions - inline with content */
+.omi-memory-actions {
+    display: flex;
+    gap: 2px;
+    flex-shrink: 0;
+    opacity: 0;
+    transition: opacity var(--omi-duration-short) ease;
+}
+
+.omi-memory-card:hover .omi-memory-actions {
+    opacity: 1;
+}
+
+.omi-memory-action-btn {
+    padding: 2px 4px;
+    border-radius: 3px;
+    border: none;
+    background: transparent;
+    color: var(--text-faint);
+    cursor: pointer;
+    font-size: 10px;
+    transition: all var(--omi-duration-short) ease;
+}
+
+.omi-memory-action-btn:hover {
+    background: var(--background-modifier-hover);
+    color: var(--text-normal);
+}
+
+.omi-memory-action-btn:hover {
+    background: var(--background-modifier-hover);
+    color: var(--text-normal);
+}
+
+/* Character count */
+.omi-char-count {
+    display: block;
+    text-align: right;
+    font-size: 11px;
+    color: var(--text-faint);
+    margin-top: 4px;
+}
+
+.omi-char-count-warning {
+    color: var(--omi-color-warning);
+}
+
+.omi-char-count-error {
+    color: var(--omi-color-error);
+}
+
+/* Add/Edit Memory Modal */
+.omi-add-memory-modal,
+.omi-edit-memory-modal {
+    max-width: 500px;
+}
+
+/* Tags Input Component */
+.omi-tags-input-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.omi-selected-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.omi-tag-pill-removable {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 6px 2px 8px;
+    border-radius: var(--omi-radius-full);
+    background: var(--interactive-accent);
+    color: white;
+    font-size: 12px;
+}
+
+.omi-tag-remove {
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    opacity: 0.7;
+    padding: 0 2px;
+}
+
+.omi-tag-remove:hover {
+    opacity: 1;
+}
+
+.omi-tag-input-row {
+    display: flex;
+    gap: 6px;
+}
+
+.omi-tag-input {
+    flex: 1;
+    padding: 6px 10px;
+    border-radius: var(--omi-radius-sm);
+    border: 1px solid var(--background-modifier-border);
+    background: var(--background-primary);
+    color: var(--text-normal);
+    font-size: 13px;
+}
+
+.omi-tag-input:focus {
+    outline: none;
+    border-color: var(--interactive-accent);
+    box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
+}
+
+.omi-tag-suggestions {
+    background: var(--background-primary);
+    border: 1px solid var(--background-modifier-border);
+    border-radius: var(--omi-radius-sm);
+    max-height: 150px;
+    overflow-y: auto;
+    margin-top: 2px;
+}
+
+.omi-tag-suggestion {
+    padding: 6px 10px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.omi-tag-suggestion:hover {
+    background: var(--background-modifier-hover);
+}
+
+.omi-tag-suggestion-new {
+    color: var(--interactive-accent);
+    font-style: italic;
+}
+
+/* ==================== MEMORIES VIEW MODE TABS ==================== */
+
+.omi-memories-view-tabs {
+    display: flex;
+    gap: 4px;
+    padding: 8px 12px;
+    background: var(--background-secondary);
+    border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.omi-memories-view-tab {
+    padding: 6px 14px;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: var(--omi-radius-sm);
+    cursor: pointer;
+    transition: all var(--omi-duration-short) ease;
+}
+
+.omi-memories-view-tab:hover {
+    background: var(--background-modifier-hover);
+    color: var(--text-normal);
+}
+
+.omi-memories-view-tab.active {
+    background: var(--interactive-accent);
+    color: white;
+}
+
+/* ==================== MEMORIES SPLIT LAYOUT & SIDEBAR ==================== */
+
+.omi-memories-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    background: var(--background-secondary);
+    border-bottom: 1px solid var(--background-modifier-border);
+    gap: 12px;
+}
+
+.omi-memories-header .omi-memories-view-tabs {
+    padding: 0;
+    background: transparent;
+    border-bottom: none;
+    flex: 1;
+}
+
+.omi-memories-header .omi-memories-toolbar {
+    margin-bottom: 0;
+    gap: 6px;
+}
+
+.omi-memories-split-layout {
+    display: flex;
+    gap: 0;
+    height: calc(100% - 50px);
+    overflow: hidden;
+}
+
+.omi-memories-main {
+    flex: 1;
+    min-width: 0;
+    overflow-y: auto;
+    padding: 12px;
+}
+
+.omi-memories-sidebar {
+    width: 260px;
+    flex-shrink: 0;
+    background: var(--background-secondary);
+    border-left: 1px solid var(--background-modifier-border);
+    padding: 16px;
+    overflow-y: auto;
+}
+
+/* Sidebar Title */
+.omi-sidebar-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-normal);
+    margin: 0 0 16px 0;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--background-modifier-border);
+}
+
+/* Stat Card */
+.omi-sidebar-stat-card {
+    background: var(--background-primary);
+    border-radius: var(--omi-radius-md);
+    padding: 12px;
+    margin-bottom: 16px;
+}
+
+.omi-sidebar-stat-number {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--interactive-accent);
+    line-height: 1;
+    margin-bottom: 4px;
+}
+
+.omi-sidebar-stat-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.omi-sidebar-stat-label {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.omi-sidebar-delta-badge {
+    font-size: 11px;
+    padding: 2px 6px;
+    border-radius: var(--omi-radius-full);
+    font-weight: 500;
+}
+
+.omi-sidebar-delta-badge.positive {
+    background: rgba(34, 197, 94, 0.15);
+    color: #22c55e;
+}
+
+.omi-sidebar-streak-badge {
+    display: inline-block;
+    margin-top: 8px;
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: var(--omi-radius-full);
+    background: rgba(251, 146, 60, 0.15);
+    color: #fb923c;
+    font-weight: 500;
+}
+
+/* Sidebar Sections */
+.omi-sidebar-section {
+    margin-bottom: 20px;
+}
+
+.omi-sidebar-section-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin: 0 0 10px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Sparkline */
+.omi-sparkline-container {
+    background: var(--background-primary);
+    border-radius: var(--omi-radius-md);
+    padding: 12px;
+}
+
+.omi-sparkline {
+    width: 100%;
+    height: 50px;
+    display: block;
+}
+
+.omi-sparkline-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-align: center;
+    margin-top: 8px;
+}
+
+/* Category Bars */
+.omi-category-bar-row {
+    padding: 6px 8px;
+    border-radius: var(--omi-radius-sm);
+    margin-bottom: 4px;
+    cursor: pointer;
+    transition: all var(--omi-duration-short) ease;
+}
+
+.omi-category-bar-row:hover {
+    background: var(--background-modifier-hover);
+}
+
+.omi-category-bar-row.active {
+    background: rgba(139, 92, 246, 0.1);
+}
+
+.omi-category-bar-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.omi-category-bar-name {
+    font-size: 12px;
+    color: var(--text-normal);
+}
+
+.omi-category-bar-count {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.omi-category-bar-bg {
+    height: 4px;
+    background: var(--background-modifier-border);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.omi-category-bar-fill {
+    height: 100%;
+    background: var(--interactive-accent);
+    border-radius: 2px;
+    transition: width var(--omi-duration-medium) ease;
+}
+
+.omi-category-bar-row.active .omi-category-bar-fill {
+    background: var(--interactive-accent);
+}
+
+/* Sidebar Tags */
+.omi-sidebar-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.omi-sidebar-tag-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    border-radius: var(--omi-radius-full);
+    background: var(--background-primary);
+    border: 1px solid var(--background-modifier-border);
+    cursor: pointer;
+    transition: all var(--omi-duration-short) ease;
+}
+
+.omi-sidebar-tag-pill:hover {
+    background: var(--background-modifier-hover);
+    border-color: var(--interactive-accent);
+}
+
+.omi-sidebar-tag-name {
+    font-size: 11px;
+    color: var(--text-normal);
+}
+
+.omi-sidebar-tag-count {
+    font-size: 10px;
+    color: var(--text-muted);
+    background: var(--background-modifier-hover);
+    padding: 1px 5px;
+    border-radius: 8px;
+}
+
+.omi-sidebar-empty {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-style: italic;
+    margin: 0;
+}
+
+/* Responsive: Stack on narrow screens */
+@media (max-width: 800px) {
+    .omi-memories-split-layout {
+        flex-direction: column-reverse;
+    }
+
+    .omi-memories-sidebar {
+        width: 100%;
+        border-left: none;
+        border-top: 1px solid var(--background-modifier-border);
+        max-height: 300px;
+    }
+
+    .omi-memories-main {
+        height: auto;
+        flex: 1;
+    }
+}
+
+/* ==================== GRAPH VISUALIZATION ==================== */
+
+.omi-graph-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 400px;
+    background: var(--background-primary);
+    border-radius: var(--omi-radius-md);
+    overflow: hidden;
+}
+
+.omi-graph-canvas {
+    width: 100%;
+    height: 100%;
+    cursor: grab;
+}
+
+.omi-graph-canvas:active {
+    cursor: grabbing;
+}
+
+.omi-graph-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.omi-graph-tooltip {
+    position: absolute;
+    background: var(--background-primary);
+    border: 1px solid var(--background-modifier-border);
+    border-radius: var(--omi-radius-sm);
+    padding: 6px 10px;
+    font-size: 12px;
+    color: var(--text-normal);
+    pointer-events: none;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    max-width: 300px;
+    white-space: nowrap;
+}
+
+.omi-network-tooltip {
+    white-space: normal;
+    max-width: 280px;
+}
+
+.omi-tooltip-category {
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: var(--text-accent);
+}
+
+.omi-tooltip-content {
+    font-size: 11px;
+    line-height: 1.4;
+    color: var(--text-normal);
+    margin-bottom: 4px;
+}
+
+.omi-tooltip-tags {
+    font-size: 10px;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.omi-graph-legend {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: var(--background-primary);
+    border: 1px solid var(--background-modifier-border);
+    border-radius: var(--omi-radius-sm);
+    padding: 10px 14px;
+    z-index: 50;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.omi-graph-legend-title {
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--text-normal);
+    margin-bottom: 6px;
+}
+
+.omi-graph-legend-stat {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+
+/* Dark theme adjustments for graph */
+.theme-dark .omi-graph-tooltip {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.theme-dark .omi-graph-legend {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* ==================== TAG GRAPH DETAILS PANEL ==================== */
+
+.omi-graph-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    height: calc(100vh - 280px); /* Full height minus header/tabs/toolbar */
+}
+
+.omi-graph-wrapper .omi-graph-container {
+    flex: 1;
+    min-height: 0;
+    height: 100%;
+}
+
+.omi-tag-details-panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 300px;
+    max-height: 100%;
+    background: var(--background-secondary);
+    border: 1px solid var(--background-modifier-border);
+    border-radius: var(--omi-radius-md);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    z-index: 60;
+    box-shadow: -4px 0 12px rgba(0, 0, 0, 0.15);
+}
+
+.omi-tag-details-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 14px;
+    background: var(--background-primary);
+    border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.omi-tag-details-title {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--interactive-accent);
+}
+
+.omi-tag-details-close {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+}
+
+.omi-tag-details-close:hover {
+    color: var(--text-normal);
+}
+
+.omi-tag-details-count {
+    padding: 8px 14px;
+    font-size: 12px;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.omi-tag-details-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px;
+}
+
+.omi-tag-memory-item {
+    display: flex;
+    gap: 8px;
+    padding: 10px;
+    border-radius: var(--omi-radius-sm);
+    cursor: pointer;
+    transition: background var(--omi-duration-short) ease;
+}
+
+.omi-tag-memory-item:hover {
+    background: var(--background-modifier-hover);
+}
+
+.omi-tag-memory-emoji {
+    flex-shrink: 0;
+}
+
+.omi-tag-memory-content {
+    font-size: 12px;
+    line-height: 1.4;
+    color: var(--text-normal);
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+.omi-graph-legend-hint {
+    font-size: 10px;
+    color: var(--text-faint);
+    margin-top: 6px;
+    font-style: italic;
+}
+
+.omi-graph-legend-density {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid var(--background-modifier-border);
+}
+
+.omi-graph-legend-density-label {
+    font-size: 9px;
+    color: var(--text-muted);
+}
+
+.omi-graph-legend-gradient {
+    flex: 1;
+    height: 8px;
+    border-radius: 4px;
+    min-width: 60px;
+}
+
+/* ========================================
+   STATS DASHBOARD v2 - TILE SYSTEM
+   ======================================== */
+
+/* Dashboard Container */
+.omi-stats-dashboard {
+    padding: 0;
+}
+
+/* Insights Banner */
+.omi-stats-insights-banner {
+    background: linear-gradient(135deg, var(--omi-purple-primary), var(--omi-purple-accent));
+    border-radius: var(--omi-radius-lg);
+    padding: 16px 20px;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.omi-insights-text {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+/* Stats Grid Layout */
+.omi-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+/* Stats Tile Base */
+.omi-stats-tile {
+    background: var(--background-secondary);
+    border-radius: var(--omi-radius-lg);
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.omi-stats-tile--full {
+    grid-column: 1 / -1;
+}
+
+.omi-stats-tile-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 2px;
+}
+
+.omi-stats-tile-icon {
+    font-size: 16px;
+}
+
+.omi-stats-tile-title {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+}
+
+/* KPI Tiles */
+.omi-stats-kpi-tile {
+    /* No min-height - let content determine size */
+}
+
+.omi-stats-kpi-value {
+    margin: 0;
+}
+
+.omi-stats-big-number {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--interactive-accent);
+    line-height: 1.1;
+}
+
+.omi-stats-trend {
+    font-size: 13px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: var(--omi-radius-full);
+    display: inline-block;
+}
+
+.omi-stats-trend.positive {
+    color: var(--omi-status-completed);
+    background: rgba(34, 197, 94, 0.15);
+}
+
+.omi-stats-trend.negative {
+    color: var(--omi-status-overdue);
+    background: rgba(239, 68, 68, 0.15);
+}
+
+.omi-stats-subtitle {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+
+/* Sparkline */
+.omi-stats-sparkline {
+    height: 40px;
+    width: 100%;
+    margin: 4px 0 0 0;
+}
+
+.omi-stats-sparkline svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* Achievements Tile */
+.omi-stats-achievements-tile {
+    min-height: 120px;
+}
+
+.omi-stats-achievements-progress {
+    margin: 4px 0;
+}
+
+.omi-stats-progress-bar {
+    height: 6px;
+    background: var(--background-modifier-border);
+    border-radius: var(--omi-radius-full);
+    overflow: hidden;
+    margin: 8px 0;
+}
+
+.omi-stats-progress-fill {
+    height: 100%;
+    background: var(--interactive-accent);
+    border-radius: var(--omi-radius-full);
+    transition: width var(--omi-duration-long) var(--omi-easing-standard);
+}
+
+.omi-stats-achievement-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+}
+
+.omi-stats-badge {
+    font-size: 18px;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--omi-radius-md);
+    cursor: default;
+    transition: transform var(--omi-duration-short) ease;
+    position: relative;
+}
+
+.omi-stats-badge.unlocked {
+    background: rgba(139, 92, 246, 0.15);
+}
+
+.omi-stats-badge.locked {
+    opacity: 0.3;
+    filter: grayscale(100%);
+}
+
+.omi-stats-badge.has-progress {
+    opacity: 0.6;
+    filter: grayscale(50%);
+}
+
+.omi-stats-badge:hover {
+    transform: scale(1.15);
+}
+
+/* Time Pattern Heatmap */
+.omi-stats-heatmap-tile {
+    padding: 16px 20px;
+}
+
+.omi-stats-peak-info {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: normal;
+}
+
+.omi-stats-hour-day-heatmap {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 12px;
+    max-width: 500px;
+}
+
+.omi-stats-hour-day-heatmap .omi-stats-hm-row {
+    display: grid;
+    grid-template-columns: 40px repeat(7, 1fr);
+    gap: 4px;
+    align-items: center;
+}
+
+.omi-stats-hour-day-heatmap .omi-stats-hm-row.omi-stats-hm-header {
+    margin-bottom: 4px;
+}
+
+.omi-stats-hour-day-heatmap .omi-stats-hm-row.omi-stats-hm-header .omi-stats-hm-label {
+    font-weight: 600;
+    text-align: center;
+}
+
+.omi-stats-hm-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-align: right;
+    padding-right: 8px;
+}
+
+.omi-stats-hm-cell {
+    aspect-ratio: 1;
+    width: 100%;
+    max-width: 56px;
+    border-radius: var(--omi-radius-sm);
+    background: var(--background-modifier-border);
+    transition: all var(--omi-duration-short) ease;
+}
+
+.omi-stats-hm-cell.clickable {
+    cursor: pointer;
+}
+
+.omi-stats-hm-cell.clickable:hover {
+    transform: scale(1.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.omi-stats-hm-cell.omi-stats-hm-level-0 {
+    background: var(--background-modifier-border);
+}
+
+.omi-stats-hm-cell.omi-stats-hm-level-1 {
+    background: rgba(139, 92, 246, 0.25);
+}
+
+.omi-stats-hm-cell.omi-stats-hm-level-2 {
+    background: rgba(139, 92, 246, 0.45);
+}
+
+.omi-stats-hm-cell.omi-stats-hm-level-3 {
+    background: rgba(139, 92, 246, 0.7);
+}
+
+.omi-stats-hm-cell.omi-stats-hm-level-4 {
+    background: var(--interactive-accent);
+}
+
+/* ==================== EXPERIMENTAL VISUALIZATIONS ==================== */
+
+/* Insights Summary Tile - Compact single column */
+.omi-stats-insights-tile {
+    grid-column: span 1;
+}
+
+/* KPI Row - 2x2 grid for compact layout */
+.omi-insights-kpi-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--background-modifier-border);
+    margin-bottom: 8px;
+}
+
+.omi-insights-kpi {
+    text-align: center;
+}
+
+.omi-insights-kpi-value {
+    font-size: 1.2em;
+    font-weight: 700;
+    color: var(--text-normal);
+    line-height: 1.2;
+}
+
+.omi-insights-kpi-label {
+    font-size: 0.7em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 2px;
+}
+
+.omi-insights-kpi-trend {
+    font-size: 0.7em;
+    margin-top: 2px;
+}
+
+.omi-insights-kpi-trend.positive {
+    color: #10b981;
+}
+
+.omi-insights-kpi-trend.negative {
+    color: #ef4444;
+}
+
+.omi-stats-insights-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Insights list - display all at once */
+.omi-insights-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.omi-insight-item {
+    margin: 0;
+    padding: 4px 0;
+    line-height: 1.4;
+    font-size: 0.85em;
+    color: var(--text-normal);
+    border-bottom: 1px solid var(--background-modifier-border-hover);
+}
+
+.omi-insight-item:last-child {
+    border-bottom: none;
+}
+
+.omi-insight-item strong {
+    color: var(--interactive-accent);
+    font-weight: 600;
+}
+
+.omi-insights-text {
+    flex: 1;
+}
+
+.omi-insights-text p {
+    margin: 0 0 6px 0;
+    line-height: 1.4;
+    font-size: 0.9em;
+    color: var(--text-normal);
+}
+
+.omi-insights-text p strong {
+    color: var(--interactive-accent);
+    font-weight: 600;
+}
+
+.omi-insights-text .omi-insights-quiet {
+    font-size: 0.8em;
+    color: var(--text-muted);
+}
+
+.omi-insights-chart {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 4px;
+    height: 50px;
+    padding-top: 8px;
+    border-top: 1px solid var(--background-modifier-border);
+}
+
+.omi-insights-bar-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    flex: 1;
+    height: 100%;
+}
+
+.omi-insights-bar {
+    width: 100%;
+    max-width: 28px;
+    background: linear-gradient(to top, var(--interactive-accent), rgba(139, 92, 246, 0.5));
+    border-radius: 3px 3px 0 0;
+    min-height: 3px;
+    transition: height 0.3s ease;
+}
+
+.omi-insights-bar-label {
+    font-size: 9px;
+    color: var(--text-muted);
+}
+
+/* Radial Clock Tile */
+.omi-stats-radial-tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.omi-stats-radial-container {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+
+.omi-radial-clock {
+    width: 100%;
+    max-width: 280px;
+    height: auto;
+}
+
+.omi-radial-hour-label {
+    font-size: 9px;
+    fill: var(--text-muted);
+    font-weight: 500;
+}
+
+.omi-radial-center-label {
+    font-size: 14px;
+    fill: var(--interactive-accent);
+    font-weight: 700;
+}
+
+.omi-radial-legend {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-align: center;
+    margin-top: 8px;
+}
+
+/* Ridge Plot Tile */
+.omi-stats-ridge-tile {
+    display: flex;
+    flex-direction: column;
+}
+
+.omi-stats-ridge-container {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+}
+
+.omi-ridge-plot {
+    width: 100%;
+    max-width: 320px;
+    height: auto;
+}
+
+.omi-ridge-day-label {
+    font-size: 10px;
+    fill: var(--text-muted);
+    font-weight: 500;
+}
+
+.omi-ridge-hour-label {
+    font-size: 9px;
+    fill: var(--text-muted);
+}
+
+/* Activity Fingerprint Tile */
+.omi-stats-fingerprint-tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.omi-stats-fingerprint-container {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+
+.omi-fingerprint {
+    width: 100%;
+    max-width: 260px;
+    height: auto;
+}
+
+.omi-fingerprint-day-label {
+    font-size: 9px;
+    fill: var(--text-muted);
+    font-weight: 500;
+}
+
+/* Activity Flow Tile - Square */
+.omi-stats-flow-tile {
+    /* Single column square tile */
+}
+
+.omi-stats-flow-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    border-radius: var(--omi-radius-md);
+    overflow: hidden;
+}
+
+.omi-stats-flow-container canvas {
+    border-radius: var(--omi-radius-md);
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 1;
+}
+
+/* Category Tiles */
+.omi-stats-categories-tile {
+    display: flex;
+    flex-direction: column;
+}
+
+.omi-stats-categories-tile .omi-stats-tile-header {
+    flex-shrink: 0;
+}
+
+.omi-stats-category-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr 1fr;
+    gap: 8px;
+    margin-top: 8px;
+    flex: 1;
+}
+
+.omi-stats-category-tile {
+    background: var(--background-primary);
+    border-radius: var(--omi-radius-md);
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    text-align: center;
+    transition: all var(--omi-duration-short) ease;
+    border: 1px solid transparent;
+}
+
+.omi-stats-category-tile.clickable:hover {
+    border-color: var(--interactive-accent);
+    background: var(--background-modifier-hover);
+}
+
+.omi-category-emoji {
+    font-size: 24px;
+}
+
+.omi-category-name {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-normal);
+    text-transform: capitalize;
+}
+
+.omi-category-duration {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--interactive-accent);
+}
+
+.omi-category-count {
+    font-size: 10px;
+    color: var(--text-muted);
+}
+
+.omi-category-trends {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 4px;
+}
+
+.omi-category-trend {
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.omi-category-trend.positive {
+    color: #10b981;
+}
+
+.omi-category-trend.negative {
+    color: #ef4444;
+}
+
+/* Duration Distribution */
+.omi-stats-duration-tile {
+    display: flex;
+    flex-direction: column;
+}
+
+.omi-stats-duration-chart {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 4px;
+    flex: 1;
+    justify-content: center;
+}
+
+.omi-stats-duration-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.omi-duration-label {
+    width: 60px;
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.omi-duration-bar-container {
+    flex: 1;
+    height: 16px;
+    background: var(--background-primary);
+    border-radius: var(--omi-radius-sm);
+    overflow: hidden;
+}
+
+.omi-duration-bar {
+    height: 100%;
+    background: var(--interactive-accent);
+    border-radius: var(--omi-radius-sm);
+    transition: width var(--omi-duration-long) ease;
+}
+
+.omi-duration-percentage {
+    width: 40px;
+    font-size: 12px;
+    color: var(--text-muted);
+    text-align: right;
+}
+
+/* Memories Tile */
+.omi-stats-memories-tile {
+    min-height: 200px;
+}
+
+.omi-stats-memory-total {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+}
+
+.omi-stats-unit {
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+.omi-stats-recent-badge {
+    font-size: 12px;
+    color: var(--omi-status-completed);
+    font-weight: 600;
+}
+
+.omi-stats-memory-categories {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 12px;
+}
+
+.omi-stats-memory-cat-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.omi-memory-cat-label {
+    width: 80px;
+    font-size: 11px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.omi-memory-cat-bar {
+    flex: 1;
+    height: 8px;
+    background: var(--background-primary);
+    border-radius: var(--omi-radius-full);
+    overflow: hidden;
+}
+
+.omi-memory-cat-fill {
+    height: 100%;
+    background: var(--interactive-accent);
+    border-radius: var(--omi-radius-full);
+    transition: width var(--omi-duration-long) ease;
+}
+
+.omi-memory-cat-count {
+    width: 30px;
+    font-size: 11px;
+    color: var(--text-muted);
+    text-align: right;
+}
+
+.omi-stats-memory-tags {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--background-modifier-border);
+}
+
+.omi-tags-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    display: block;
+    margin-bottom: 8px;
+}
+
+.omi-stats-tags-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.omi-stats-tag {
+    font-size: 11px;
+    padding: 4px 8px;
+    background: var(--background-primary);
+    border-radius: var(--omi-radius-full);
+    color: var(--text-muted);
+    transition: all var(--omi-duration-short) ease;
+}
+
+.omi-stats-tag.clickable:hover {
+    background: var(--interactive-accent);
+    color: var(--text-on-accent);
+}
+
+/* Task Performance Tile */
+.omi-stats-tasks-tile {
+    min-height: 200px;
+}
+
+.omi-stats-completion-rate {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    margin: 8px 0;
+}
+
+.omi-stats-donut {
+    width: 70px;
+    height: 70px;
+}
+
+.omi-donut-text {
+    font-size: 10px;
+    font-weight: 700;
+    fill: var(--text-normal);
+    text-anchor: middle;
+    dominant-baseline: middle;
+}
+
+.omi-rate-label {
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.omi-stats-task-funnel {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 12px;
+}
+
+.omi-stats-funnel-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.omi-funnel-label {
+    width: 70px;
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.omi-funnel-bar {
+    flex: 1;
+    height: 10px;
+    background: var(--background-primary);
+    border-radius: var(--omi-radius-sm);
+    overflow: hidden;
+}
+
+.omi-funnel-fill {
+    height: 100%;
+    border-radius: var(--omi-radius-sm);
+    transition: width var(--omi-duration-long) ease;
+}
+
+.omi-funnel-count {
+    width: 35px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-normal);
+    text-align: right;
+}
+
+/* Locations Tile with Mini Map */
+.omi-stats-locations-tile {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.omi-locations-stats-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.omi-locations-count {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+}
+
+.omi-locations-count-value {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: var(--text-normal);
+    line-height: 1;
+}
+
+.omi-locations-count-label {
+    font-size: 0.85em;
+    color: var(--text-muted);
+}
+
+.omi-locations-breakdown {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+}
+
+.omi-locations-breakdown span {
+    font-size: 0.75em;
+    color: var(--text-muted);
+}
+
+/* Mini Map */
+.omi-locations-mini-map {
+    flex: 1;
+    min-height: 120px;
+    border-radius: var(--omi-radius-md);
+    overflow: hidden;
+    background: var(--background-secondary);
+}
+
+.omi-mini-map-leaflet {
+    width: 100%;
+    height: 100%;
+    min-height: 120px;
+}
+
+.omi-mini-map-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 80px;
+}
+
+.omi-mini-map-empty-text,
+.omi-mini-map-error {
+    font-size: 0.8em;
+    color: var(--text-muted);
+}
+
+/* Link Buttons */
+.omi-stats-link-btn {
+    padding: 8px 16px;
+    background: var(--background-primary);
+    border: 1px solid var(--background-modifier-border);
+    border-radius: var(--omi-radius-md);
+    color: var(--text-normal);
+    font-size: 12px;
+    cursor: pointer;
+    transition: all var(--omi-duration-short) ease;
+    margin-top: auto;
+}
+
+.omi-stats-link-btn:hover {
+    background: var(--interactive-accent);
+    color: var(--text-on-accent);
+    border-color: var(--interactive-accent);
+}
+
+/* Empty States */
+.omi-stats-empty-state {
+    font-size: 13px;
+    color: var(--text-muted);
+    text-align: center;
+    padding: 16px;
+}
+
+.omi-stats-loading {
+    font-size: 13px;
+    color: var(--text-muted);
+    text-align: center;
+    padding: 16px;
+}
+
+/* View Button (Eye Icon) */
+.omi-stats-view-btn {
+    margin-left: auto;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: var(--omi-radius-sm);
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--omi-duration-short) ease;
+}
+
+.omi-stats-view-btn:hover {
+    background: var(--background-modifier-hover);
+    color: var(--text-normal);
+}
+
+.omi-stats-view-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* Achievements Modal */
+.modal:has(.omi-achievements-modal) {
+    width: 800px !important;
+    max-width: 90vw !important;
+}
+
+.modal:has(.omi-achievements-modal) .modal-content {
+    padding: 24px;
+}
+
+.omi-achievements-modal h3 {
+    margin: 0 0 8px 0;
+    font-size: 1.4em;
+}
+
+.omi-achievements-desc {
+    color: var(--text-muted);
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.omi-achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.omi-achievement-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+    padding: 16px 12px;
+    border-radius: var(--omi-radius-lg);
+    background: var(--background-secondary);
+    border: 2px solid var(--background-modifier-border);
+    position: relative;
+    transition: all var(--omi-duration-short) ease;
+}
+
+.omi-achievement-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.omi-achievement-card.unlocked {
+    background: linear-gradient(135deg, var(--background-primary) 0%, rgba(139, 92, 246, 0.08) 100%);
+    border-color: var(--interactive-accent);
+}
+
+.omi-achievement-card.locked {
+    opacity: 0.5;
+}
+
+.omi-achievement-icon {
+    font-size: 36px;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.omi-achievement-card.locked .omi-achievement-icon {
+    filter: grayscale(80%);
+}
+
+.omi-achievement-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+    min-width: 0;
+}
+
+.omi-achievement-title {
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--text-normal);
+}
+
+.omi-achievement-description {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+.omi-achievement-progress-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 4px;
+    width: 100%;
+}
+
+.omi-achievement-progress-bar {
+    height: 6px;
+    background: var(--background-modifier-border);
+    border-radius: var(--omi-radius-full);
+    overflow: hidden;
+}
+
+.omi-achievement-progress-fill {
+    height: 100%;
+    background: var(--interactive-accent);
+    border-radius: var(--omi-radius-full);
+    transition: width var(--omi-duration-long) ease;
+}
+
+.omi-achievement-progress-text {
+    font-size: 10px;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.omi-achievement-unlocked-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-size: 9px;
+    color: var(--omi-status-completed);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    background: rgba(34, 197, 94, 0.15);
+    padding: 3px 6px;
+    border-radius: var(--omi-radius-sm);
+}
+
+@media (max-width: 700px) {
+    .omi-achievements-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Achievement Modal - Category Sections */
+.omi-achievements-summary {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+    padding: 8px 12px;
+    background: var(--background-secondary-alt);
+    border-radius: var(--omi-radius-md);
+    text-align: center;
+}
+
+.omi-achievements-container {
+    max-height: 60vh;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+.omi-achievement-section {
+    margin-bottom: 24px;
+}
+
+.omi-achievement-section:last-child {
+    margin-bottom: 0;
+}
+
+.omi-achievement-category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    margin-bottom: 12px;
+    border-bottom: 2px solid var(--background-modifier-border);
+}
+
+.omi-achievement-category-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-normal);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.omi-achievement-category-count {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-muted);
+    background: var(--background-secondary-alt);
+    padding: 2px 8px;
+    border-radius: var(--omi-radius-full);
+}
+
+/* Highlights Tile */
+.omi-highlights-tile {
+    background: linear-gradient(135deg, var(--background-secondary) 0%, var(--background-primary) 100%);
+    border: 1px solid var(--background-modifier-border);
+    border-radius: var(--omi-radius-lg);
+    padding: var(--omi-spacing-lg);
+}
+
+.omi-highlights-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: var(--omi-spacing-md);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.omi-highlights-kpis {
+    display: flex;
+    gap: var(--omi-spacing-md);
+    margin-bottom: var(--omi-spacing-lg);
+    flex-wrap: wrap;
+}
+
+.omi-highlight-kpi {
+    flex: 1;
+    min-width: 100px;
+    text-align: center;
+    padding: var(--omi-spacing-md);
+    background: var(--background-primary);
+    border-radius: var(--omi-radius-md);
+    border: 1px solid var(--background-modifier-border);
+}
+
+.omi-highlight-kpi-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-normal);
+    line-height: 1.2;
+}
+
+.omi-highlight-kpi-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.omi-highlight-kpi-trend {
+    font-size: 11px;
+    font-weight: 600;
+    margin-top: 4px;
+}
+
+.omi-highlight-kpi-trend.positive {
+    color: var(--omi-status-completed);
+}
+
+.omi-highlight-kpi-trend.negative {
+    color: var(--omi-status-overdue);
+}
+
+.omi-highlight-kpi-trend.neutral {
+    color: var(--text-muted);
+}
+
+.omi-highlights-bullets {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.omi-highlights-bullets li {
+    padding: var(--omi-spacing-xs) 0;
+    color: var(--text-muted);
+    font-size: 13px;
+    line-height: 1.5;
+    border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.omi-highlights-bullets li:last-child {
+    border-bottom: none;
+}
+
+.omi-highlights-bullets li::before {
+    content: "•";
+    color: var(--interactive-accent);
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+.omi-highlights-empty {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 13px;
+    padding: var(--omi-spacing-lg);
+}
+
+/* Mobile Responsive - Highlights */
+@media (max-width: 600px) {
+    .omi-highlights-kpis {
+        flex-direction: column;
+    }
+
+    .omi-highlight-kpi {
+        min-width: unset;
+    }
+}
+
+/* Mobile Responsive - Stats Dashboard v2 */
+@media (max-width: 900px) {
+    .omi-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .omi-stats-category-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .omi-stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .omi-stats-kpi-tile {
+        min-height: auto;
+    }
+
+    .omi-stats-big-number {
+        font-size: 28px;
+    }
+
+    .omi-stats-category-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .omi-stats-hour-day-heatmap {
+        overflow-x: auto;
+    }
+
+    .omi-heatmap-row {
+        min-width: 320px;
+    }
+
+    .omi-stats-location-item {
+        min-width: 100%;
+    }
+}
+
+/* ========================================
+   SYNC DASHBOARD TAB
+   ======================================== */
+
+/* ============================================
+   SYNC DASHBOARD - DELIGHTFUL REDESIGN
+   ============================================ */
+
+/* Custom properties for sync dashboard */
+.omi-sync-dashboard {
+    --sync-success: #10b981;
+    --sync-success-glow: rgba(16, 185, 129, 0.2);
+    --sync-warning: #f59e0b;
+    --sync-warning-glow: rgba(245, 158, 11, 0.2);
+    --sync-error: #ef4444;
+    --sync-error-glow: rgba(239, 68, 68, 0.2);
+    --sync-active: #8b5cf6;
+    --sync-active-glow: rgba(139, 92, 246, 0.3);
+    --sync-muted: var(--text-muted);
+
+    /* Card styling */
+    --card-bg: var(--background-secondary);
+    --card-border: var(--background-modifier-border);
+    --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --card-shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.12);
+
+    padding: var(--omi-spacing-lg);
+    max-width: 960px;
+    margin: 0 auto;
+    animation: syncFadeIn 0.4s ease-out;
+}
+
+@keyframes syncFadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================
+   LIVE SYNC BANNER
+   ============================================ */
+
+.omi-sync-live-banner {
+    background: linear-gradient(135deg,
+        rgba(139, 92, 246, 0.1) 0%,
+        rgba(59, 130, 246, 0.1) 100%);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    animation: syncSlideDown 0.3s ease-out, syncPulseGlow 2s ease-in-out infinite;
+}
+
+@keyframes syncSlideDown {
+    from { opacity: 0; transform: translateY(-12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes syncPulseGlow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0); }
+    50% { box-shadow: 0 0 20px 2px rgba(139, 92, 246, 0.15); }
+}
+
+.omi-sync-live-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--sync-active);
+    animation: syncPulse 1.5s ease-in-out infinite;
+    box-shadow: 0 0 8px var(--sync-active-glow);
+    flex-shrink: 0;
+}
+
+@keyframes syncPulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.7; }
+}
+
+.omi-sync-live-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.omi-sync-live-title {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text-normal);
+    margin-bottom: 4px;
+}
+
+.omi-sync-live-step {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.omi-sync-progress-track {
+    height: 4px;
+    background: var(--background-modifier-border);
+    border-radius: 4px;
+    overflow: hidden;
+    width: 140px;
+    flex-shrink: 0;
+}
+
+.omi-sync-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--sync-active), #3b82f6);
+    border-radius: 4px;
+    transition: width 0.3s ease-out;
+    position: relative;
+}
+
+.omi-sync-progress-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.3) 50%,
+        transparent 100%);
+    animation: syncShimmer 1.5s infinite;
+}
+
+@keyframes syncShimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* Cancel button in live banner */
+.omi-sync-cancel-btn {
+    padding: 6px 14px;
+    border-radius: 6px;
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    flex-shrink: 0;
+}
+
+.omi-sync-cancel-btn:hover {
+    background: rgba(239, 68, 68, 0.2);
+    border-color: rgba(239, 68, 68, 0.6);
+}
+
+.omi-sync-cancel-btn:active {
+    transform: scale(0.97);
+}
+
+/* ============================================
+   STATUS CARDS GRID
+   ============================================ */
+
+.omi-sync-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+@media (max-width: 900px) {
+    .omi-sync-cards {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Individual Card */
+.omi-sync-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: var(--card-shadow);
+    border: 1px solid var(--card-border);
+    animation: syncCardEnter 0.5s ease-out backwards;
+}
+
+.omi-sync-card:nth-child(1) { animation-delay: 0.1s; }
+.omi-sync-card:nth-child(2) { animation-delay: 0.2s; }
+.omi-sync-card:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes syncCardEnter {
+    from {
+        opacity: 0;
+        transform: translateY(16px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.omi-sync-card:hover {
+    box-shadow: var(--card-shadow-hover);
+    transform: translateY(-2px);
+}
+
+/* Status accent bar at top */
+.omi-sync-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--card-border);
+    transition: background 0.3s ease;
+}
+
+.omi-sync-card--synced::before {
+    background: linear-gradient(90deg, var(--sync-success), #34d399);
+}
+
+.omi-sync-card--syncing::before {
+    background: linear-gradient(90deg, var(--sync-active), #3b82f6);
+    background-size: 200% 100%;
+    animation: syncGradientMove 2s linear infinite;
+}
+
+@keyframes syncGradientMove {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+}
+
+.omi-sync-card--error::before {
+    background: linear-gradient(90deg, var(--sync-error), #f87171);
+}
+
+.omi-sync-card--never::before {
+    background: var(--card-border);
+}
+
+/* Card Header */
+.omi-sync-card__header {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.omi-sync-card__icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+/* Icon backgrounds per type */
+.omi-sync-card--conversations .omi-sync-card__icon {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(139, 92, 246, 0.15));
+}
+
+.omi-sync-card--tasks .omi-sync-card__icon {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(52, 211, 153, 0.15));
+}
+
+.omi-sync-card--memories .omi-sync-card__icon {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(251, 191, 36, 0.15));
+}
+
+.omi-sync-card__title-group {
+    flex: 1;
+    min-width: 0;
+}
+
+.omi-sync-card__title {
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--text-normal);
+    margin: 0 0 2px 0;
+}
+
+.omi-sync-card__subtitle {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+/* Status Badge */
+.omi-sync-card__status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    background: var(--background-primary);
+    flex-shrink: 0;
+}
+
+.omi-sync-card__status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--sync-muted);
+}
+
+.omi-sync-card--synced .omi-sync-card__status-dot {
+    background: var(--sync-success);
+    box-shadow: 0 0 6px var(--sync-success-glow);
+}
+
+.omi-sync-card--syncing .omi-sync-card__status-dot {
+    background: var(--sync-active);
+    animation: syncPulse 1s ease-in-out infinite;
+}
+
+.omi-sync-card--error .omi-sync-card__status-dot {
+    background: var(--sync-error);
+}
+
+/* Stats Row */
+.omi-sync-card__stats {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.omi-sync-card__stat {
+    flex: 1;
+}
+
+.omi-sync-card__stat-value {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text-normal);
+    line-height: 1.2;
+}
+
+.omi-sync-card__stat-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+/* Settings Row */
+.omi-sync-card__settings {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+}
+
+.omi-sync-card__setting {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.omi-sync-card__setting-label {
+    white-space: nowrap;
+}
+
+/* Custom styled select */
+.omi-sync-card__select {
+    background: var(--background-primary);
+    border: 1px solid var(--background-modifier-border);
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-size: 12px;
+    color: var(--text-normal);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.omi-sync-card__select:hover {
+    border-color: var(--interactive-accent);
+}
+
+.omi-sync-card__select:focus {
+    outline: none;
+    border-color: var(--interactive-accent);
+    box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
+}
+
+/* Date Input */
+.omi-sync-card__date-input {
+    background: var(--background-primary);
+    border: 1px solid var(--background-modifier-border);
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-size: 12px;
+    color: var(--text-normal);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex: 1;
+    max-width: 130px;
+}
+
+.omi-sync-card__date-input:hover {
+    border-color: var(--interactive-accent);
+}
+
+.omi-sync-card__date-input:focus {
+    outline: none;
+    border-color: var(--interactive-accent);
+    box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
+}
+
+/* Actions Row */
+.omi-sync-card__actions {
+    display: flex;
+    gap: 8px;
+}
+
+.omi-sync-card__btn {
+    flex: 1;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.omi-sync-card__btn--primary {
+    background: var(--interactive-accent);
+    color: var(--text-on-accent);
+    border-color: var(--interactive-accent);
+}
+
+.omi-sync-card__btn--primary:hover {
+    filter: brightness(1.1);
+    transform: translateY(-1px);
+}
+
+.omi-sync-card__btn--primary:active {
+    transform: translateY(0);
+}
+
+.omi-sync-card__btn--secondary {
+    background: var(--background-primary);
+    color: var(--text-muted);
+    border-color: var(--background-modifier-border);
+}
+
+.omi-sync-card__btn--secondary:hover {
+    background: var(--background-modifier-hover);
+    color: var(--text-normal);
+    border-color: var(--background-modifier-border-hover);
+}
+
+/* Syncing state button */
+.omi-sync-card__btn--syncing {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.omi-sync-card__btn-spinner {
+    width: 14px;
+    height: 14px;
+    border: 2px solid transparent;
+    border-top-color: currentColor;
+    border-radius: 50%;
+    animation: syncSpin 0.8s linear infinite;
+}
+
+@keyframes syncSpin {
+    to { transform: rotate(360deg); }
+}
+
+/* ============================================
+   ADVANCED OPTIONS SECTION
+   ============================================ */
+
+.omi-sync-card__advanced {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--background-modifier-border);
+}
+
+.omi-sync-card__advanced-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    padding: 6px 0;
+    color: var(--text-muted);
+    font-size: 12px;
+    font-weight: 500;
+    user-select: none;
+    transition: color 0.15s ease;
+}
+
+.omi-sync-card__advanced-header:hover {
+    color: var(--text-normal);
+}
+
+.omi-sync-card__advanced-icon {
+    font-size: 10px;
+    transition: transform 0.2s ease;
+}
+
+.omi-sync-card__advanced--open .omi-sync-card__advanced-icon {
+    transform: rotate(90deg);
+}
+
+.omi-sync-card__advanced-content {
+    padding-top: 12px;
+}
+
+.omi-sync-card__resync-day {
+    background: var(--background-primary);
+    border-radius: 8px;
+    padding: 12px;
+    border: 1px solid var(--background-modifier-border);
+}
+
+.omi-sync-card__resync-day-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-normal);
+    margin-bottom: 4px;
+}
+
+.omi-sync-card__resync-day-desc {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    line-height: 1.4;
+}
+
+.omi-sync-card__resync-day-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.omi-sync-card__resync-day-row:last-child {
+    margin-bottom: 0;
+}
+
+.omi-sync-card__date-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    min-width: 40px;
+    flex-shrink: 0;
+}
+
+.omi-sync-card__resync-date {
+    flex: 1;
+    min-width: 0;
+}
+
+.omi-sync-card__resync-day-hint {
+    font-size: 10px;
+    color: var(--text-faint);
+    font-style: italic;
+    margin-bottom: 12px;
+}
+
+.omi-sync-card__resync-day-buttons {
+    margin-top: 4px;
+    justify-content: flex-end;
+}
+
+.omi-sync-card__resync-day-row .omi-sync-card__btn {
+    flex: 0 0 auto;
+    white-space: nowrap;
+}
+
+/* ============================================
+   SYNC LOG / TIMELINE
+   ============================================ */
+
+.omi-sync-log {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: var(--card-shadow);
+    border: 1px solid var(--card-border);
+    animation: syncCardEnter 0.5s ease-out 0.4s backwards;
+}
+
+.omi-sync-log__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.omi-sync-log__title {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text-normal);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.omi-sync-log__title-icon {
+    font-size: 16px;
+}
+
+.omi-sync-log__badge {
+    background: var(--background-primary);
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.omi-sync-log__list {
+    max-height: 280px;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+/* Custom scrollbar */
+.omi-sync-log__list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.omi-sync-log__list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.omi-sync-log__list::-webkit-scrollbar-thumb {
+    background: var(--background-modifier-border);
+    border-radius: 3px;
+}
+
+.omi-sync-log__list::-webkit-scrollbar-thumb:hover {
+    background: var(--background-modifier-border-hover);
+}
+
+/* Log Entry - Timeline Style */
+.omi-sync-log__entry {
+    display: flex;
+    gap: 12px;
+    padding: 12px 0;
+    position: relative;
+    animation: syncEntryFade 0.3s ease-out backwards;
+}
+
+.omi-sync-log__entry:not(:last-child) {
+    border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.omi-sync-log__entry:nth-child(1) { animation-delay: 0.1s; }
+.omi-sync-log__entry:nth-child(2) { animation-delay: 0.15s; }
+.omi-sync-log__entry:nth-child(3) { animation-delay: 0.2s; }
+.omi-sync-log__entry:nth-child(4) { animation-delay: 0.25s; }
+.omi-sync-log__entry:nth-child(5) { animation-delay: 0.3s; }
+
+@keyframes syncEntryFade {
+    from { opacity: 0; transform: translateX(-8px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+/* Timeline connector */
+.omi-sync-log__connector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 4px;
+    flex-shrink: 0;
+}
+
+.omi-sync-log__dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--background-modifier-border);
+    border: 2px solid var(--card-bg);
+    box-shadow: 0 0 0 2px var(--background-modifier-border);
+    z-index: 1;
+}
+
+.omi-sync-log__entry--success .omi-sync-log__dot {
+    background: var(--sync-success);
+    box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+}
+
+.omi-sync-log__entry--error .omi-sync-log__dot {
+    background: var(--sync-error);
+    box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2);
+}
+
+.omi-sync-log__entry--warning .omi-sync-log__dot {
+    background: var(--sync-warning);
+    box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.2);
+}
+
+.omi-sync-log__content {
+    flex: 1;
+    min-width: 0;
+}
+
+.omi-sync-log__main {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 2px;
+    flex-wrap: wrap;
+}
+
+.omi-sync-log__type {
+    font-weight: 500;
+    font-size: 13px;
+    color: var(--text-normal);
+}
+
+.omi-sync-log__tag {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: var(--background-primary);
+    color: var(--text-muted);
+}
+
+.omi-sync-log__tag--full {
+    background: rgba(139, 92, 246, 0.15);
+    color: var(--sync-active);
+}
+
+.omi-sync-log__tag--auto {
+    background: rgba(59, 130, 246, 0.15);
+    color: #3b82f6;
+}
+
+.omi-sync-log__tag--resync {
+    background: rgba(16, 185, 129, 0.15);
+    color: #10b981;
+}
+
+.omi-sync-log__details {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.omi-sync-log__details--error {
+    color: var(--sync-error);
+}
+
+.omi-sync-log__time {
+    font-size: 11px;
+    color: var(--text-faint);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    padding-top: 4px;
+    flex-shrink: 0;
+}
+
+/* Empty State */
+.omi-sync-log__empty {
+    text-align: center;
+    padding: 32px 16px;
+    color: var(--text-muted);
+}
+
+.omi-sync-log__empty-icon {
+    font-size: 32px;
+    margin-bottom: 8px;
+    opacity: 0.5;
+}
+
+.omi-sync-log__empty-text {
+    font-size: 13px;
+}
+
+/* ============================================
+   API RATE MONITOR
+   ============================================ */
+.omi-sync-rate {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: var(--background-secondary);
+    border-radius: var(--omi-radius-md, 8px);
+    margin-bottom: 16px;
+    font-size: 13px;
+    border: 1px solid var(--background-modifier-border);
+}
+
+.omi-sync-rate__icon {
+    font-size: 14px;
+}
+
+.omi-sync-rate__value {
+    font-weight: 600;
+    font-family: var(--font-monospace);
+    font-size: 14px;
+}
+
+.omi-sync-rate__value--normal {
+    color: var(--sync-success, #10b981);
+}
+
+.omi-sync-rate__value--caution {
+    color: #f59e0b;
+}
+
+.omi-sync-rate__value--warning {
+    color: var(--sync-error, #ef4444);
+}
+
+.omi-sync-rate__label {
+    color: var(--text-muted);
+}
+
+.omi-sync-rate__limit {
+    color: var(--text-faint);
+    font-size: 11px;
+    margin-left: auto;
+}
+
+/* ============================================
+   INPUT ERROR STATE (Settings validation)
+   ============================================ */
+
+.omi-input-error {
+    border-color: var(--color-red, #ef4444) !important;
+    background-color: rgba(239, 68, 68, 0.1) !important;
+    box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2) !important;
+}
+
+.omi-input-error:focus {
+    border-color: var(--color-red, #ef4444) !important;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.3) !important;
+}
+
+/* ============================================
+   TOGGLE SWITCH (custom styled)
+   ============================================ */
+
+.omi-sync-toggle {
+    position: relative;
+    width: 36px;
+    height: 20px;
+    background: var(--background-modifier-border);
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    flex-shrink: 0;
+}
+
+.omi-sync-toggle--active {
+    background: var(--interactive-accent);
+}
+
+.omi-sync-toggle__knob {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    background: white;
+    border-radius: 50%;
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.omi-sync-toggle--active .omi-sync-toggle__knob {
+    transform: translateX(16px);
+}
+
+/* Sync Tab Badge (for tab indicator) */
+.omi-sync-active {
+    color: var(--interactive-accent);
+    animation: syncPulse 1.5s ease-in-out infinite;
+}
+
+.omi-text-muted {
+    color: var(--text-muted);
+}
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================ */
+
+@media (max-width: 600px) {
+    .omi-sync-dashboard {
+        padding: var(--omi-spacing-md);
+    }
+
+    .omi-sync-card {
+        padding: 16px;
+    }
+
+    .omi-sync-card__stats {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .omi-sync-card__actions {
+        flex-direction: column;
+    }
+
+    .omi-sync-live-banner {
+        flex-wrap: wrap;
+    }
+
+    .omi-sync-progress-track {
+        width: 100%;
+        order: 3;
+        margin-top: 8px;
+    }
+}
+
+/* ============================================
+   REDUCED MOTION
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    .omi-sync-dashboard,
+    .omi-sync-card,
+    .omi-sync-live-banner,
+    .omi-sync-log__entry {
+        animation: none;
+    }
+
+    .omi-sync-live-indicator,
+    .omi-sync-card--syncing::before,
+    .omi-sync-progress-fill::after,
+    .omi-sync-card__btn-spinner {
+        animation: none;
+    }
+
+    .omi-sync-card:hover {
+        transform: none;
+    }
+}

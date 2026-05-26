@@ -1,0 +1,4 @@
+- [ ] Get the infinite question glitch working for the mid network ([[overview#12:39 PM - 📈 Networking, creator work, and AI automation plans|Source]])
+- [ ] Network with people who have strong connections in the Zoom world ([[overview#12:39 PM - 📈 Networking, creator work, and AI automation plans|Source]])
+- [ ] Set up Zapier integration with WhatsApp and Claude ([[overview#12:01 PM - 🔗 User Plans Zapier WhatsApp Integration|Source]])
+- [ ] Set up Zapier integration with Obsidian ([[overview#12:01 PM - 🔗 User Plans Zapier WhatsApp Integration|Source]])

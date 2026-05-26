@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Assistant — Daily Briefing</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <!-- Brief data injected by plugin -->
+  <script id="brief-data" type="application/json">%%DASHBOARD_DATA%%</script>
+  <style>
+    :root {
+      --bg-base:       #0F0F0F;
+      --bg-surface:    #1A1A1A;
+      --bg-elevated:   #222222;
+      --bg-subtle:     #2A2A2A;
+      --border-default: #2E2E2E;
+      --border-muted:   #1F1F1F;
+      --border-focus:   #6B5CE7;
+      --text-primary:   #F2F2F2;
+      --text-secondary: #A0A0A0;
+      --text-muted:     #5A5A5A;
+      --accent:         #6B5CE7;
+      --accent-hover:   #7D6FF0;
+      --accent-muted:   rgba(107, 92, 231, 0.08);
+      --accent-subtle:  rgba(107, 92, 231, 0.06);
+      --status-green:        #22C55E;
+      --status-green-muted:  rgba(34, 197, 94, 0.12);
+      --status-yellow:       #EAB308;
+      --status-yellow-muted: rgba(234, 179, 8, 0.12);
+      --status-red:          #EF4444;
+      --status-red-muted:    rgba(239, 68, 68, 0.12);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --sidebar-width: 220px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Inter, system-ui, -apple-system, sans-serif;
+      font-size: 14px;
+      background: var(--bg-base);
+      color: var(--text-primary);
+      height: 100vh;
+      display: flex;
+      overflow: hidden;
+    }
+    .sidebar {
+      width: var(--sidebar-width); flex-shrink: 0;
+      background: var(--bg-surface);
+      border-right: 1px solid var(--border-muted);
+      display: flex; flex-direction: column;
+      padding: 16px 12px; gap: 4px; overflow-y: auto;
+    }
+    .sidebar__workspace { display: flex; align-items: center; gap: 10px; padding: 8px 10px; margin-bottom: 12px; }
+    .sidebar__logo {
+      width: 32px; height: 32px; border-radius: var(--radius-sm);
+      background: var(--accent); display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 700; color: #fff; flex-shrink: 0;
+    }
+    .sidebar__workspace-info { flex: 1; min-width: 0; }
+    .sidebar__workspace-name { font-size: 13px; font-weight: 600; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .sidebar__workspace-sub { font-size: 11px; color: var(--text-muted); }
+    .sidebar__section-label { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); padding: 8px 10px 4px; margin-top: 4px; }
+    .nav-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 10px; border-radius: var(--radius-sm);
+      color: var(--text-secondary); font-size: 13px; font-weight: 400;
+      text-decoration: none; cursor: pointer; border: none;
+      background: none; width: 100%; text-align: left;
+      transition: background 120ms, color 120ms;
+    }
+    .nav-item:hover { background: var(--bg-elevated); color: var(--text-primary); }
+    .nav-item--active { background: var(--accent-subtle); color: var(--accent); font-weight: 500; }
+    .nav-item__icon { width: 16px; height: 16px; flex-shrink: 0; opacity: 0.6; }
+    .nav-item--active .nav-item__icon { opacity: 1; }
+    .nav-item__label { flex: 1; }
+    .sidebar__spacer { flex: 1; }
+    .sidebar__footer { border-top: 1px solid var(--border-muted); padding-top: 12px; margin-top: 4px; display: flex; flex-direction: column; gap: 2px; }
+    .badge { display: inline-flex; align-items: center; gap: 4px; padding: 1px 7px; border-radius: 999px; font-size: 11px; font-weight: 500; }
+    .badge--green  { background: var(--status-green-muted);  color: var(--status-green); }
+    .badge--yellow { background: var(--status-yellow-muted); color: var(--status-yellow); }
+    .badge--red    { background: var(--status-red-muted);    color: var(--status-red); }
+    .badge--count  { background: var(--bg-elevated); color: var(--text-secondary); padding: 1px 6px; }
+    .badge__dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+    .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+    .page-header { display: flex; align-items: center; justify-content: space-between; height: 56px; padding: 0 24px; border-bottom: 1px solid var(--border-muted); flex-shrink: 0; }
+    .page-header__left { display: flex; align-items: center; gap: 12px; }
+    .page-header__title { font-size: 18px; font-weight: 600; color: var(--text-primary); }
+    .page-header__date  { font-size: 13px; color: var(--text-muted); }
+    .page-header__right { display: flex; align-items: center; gap: 8px; }
+    .btn { display: inline-flex; align-items: center; gap: 6px; border-radius: var(--radius-sm); font-size: 13px; font-weight: 500; cursor: pointer; transition: background 150ms, border-color 150ms, color 150ms; border: none; text-decoration: none; }
+    .btn--primary { background: var(--accent); color: #fff; padding: 7px 14px; }
+    .btn--primary:hover { background: var(--accent-hover); }
+    .btn--ghost { background: transparent; color: var(--text-secondary); border: 1px solid var(--border-default); padding: 6px 13px; }
+    .btn--ghost:hover { border-color: var(--text-muted); color: var(--text-primary); }
+    .page-body { flex: 1; overflow-y: auto; padding: 24px; display: flex; flex-direction: column; gap: 20px; }
+    .card { background: var(--bg-surface); border: 1px solid var(--border-default); border-radius: var(--radius-md); padding: 20px; }
+    .card__header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+    .card__title { font-size: 13px; font-weight: 600; color: var(--text-primary); }
+    .card__meta  { font-size: 12px; color: var(--text-muted); }
+    .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .stat-card { padding: 16px 20px; }
+    .stat-card__label { font-size: 11px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
+    .stat-card__value { font-size: 30px; font-weight: 700; color: var(--text-primary); line-height: 1; margin-bottom: 6px; }
+    .stat-card__trend { font-size: 12px; color: var(--text-muted); }
+    .stat-card__trend--up   { color: var(--status-green); }
+    .stat-card__trend--down { color: var(--status-red); }
+    .content-grid { display: grid; grid-template-columns: 1fr 360px; gap: 20px; flex: 1; }
+    .tabs { display: flex; gap: 2px; }
+    .tab { padding: 6px 12px; font-size: 12px; font-weight: 400; color: var(--text-muted); background: none; border: none; border-radius: var(--radius-sm); cursor: pointer; transition: background 120ms, color 120ms; }
+    .tab:hover { color: var(--text-secondary); background: var(--bg-elevated); }
+    .tab--active { background: var(--bg-elevated); color: var(--text-primary); font-weight: 500; }
+    .data-list { display: flex; flex-direction: column; }
+    .data-row { display: flex; align-items: center; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--border-muted); transition: background 120ms; cursor: pointer; }
+    .data-row:last-child { border-bottom: none; }
+    .data-row:hover { background: var(--bg-elevated); margin: 0 -20px; padding: 11px 20px; border-radius: var(--radius-sm); }
+    .data-row__avatar { width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0; background: var(--bg-elevated); border: 1px solid var(--border-default); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; color: var(--text-secondary); }
+    .data-row__main { flex: 1; min-width: 0; }
+    .data-row__primary { font-size: 13px; font-weight: 500; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 2px; }
+    .data-row__secondary { font-size: 11px; color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .data-row__action { font-size: 11px; color: var(--text-muted); overflow: hidden; text-overflow: ellipsis; margin-top: 2px; font-style: italic; }
+    .data-row__right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex-shrink: 0; }
+    .data-row__time { font-size: 11px; color: var(--text-muted); }
+    .email-filter { margin-bottom: 16px; border-bottom: 1px solid var(--border-muted); padding-bottom: 0; }
+    .email-filter .tab { border-radius: 0; border-bottom: 2px solid transparent; margin-bottom: -1px; padding: 6px 14px; }
+    .email-filter .tab--active { background: none; color: var(--accent); border-bottom-color: var(--accent); }
+    .email-section { display: none; }
+    .email-section--active { display: block; }
+    .chart-panel { display: flex; flex-direction: column; }
+    .chart-panel__header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
+    .chart-panel__controls { display: flex; gap: 2px; margin-bottom: 16px; }
+    .range-btn { padding: 3px 9px; font-size: 11px; color: var(--text-muted); background: none; border: none; border-radius: var(--radius-sm); cursor: pointer; transition: background 120ms, color 120ms; }
+    .range-btn:hover   { color: var(--text-secondary); }
+    .range-btn--active { background: var(--bg-elevated); color: var(--text-primary); }
+    .chart-panel__body { position: relative; }
+    .chart-view         { display: none; }
+    .chart-view--active { display: block; }
+    canvas.chart-view   { height: 200px !important; }
+    .ranked-list { display: flex; flex-direction: column; gap: 10px; }
+    .ranked-row  { display: flex; align-items: center; gap: 10px; }
+    .ranked-row__info { display: flex; align-items: center; gap: 8px; width: 160px; flex-shrink: 0; }
+    .ranked-row__avatar { width: 22px; height: 22px; border-radius: 50%; background: var(--bg-elevated); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 600; color: var(--text-secondary); border: 1px solid var(--border-default); }
+    .ranked-row__label { font-size: 12px; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .ranked-row__bar-wrap { flex: 1; height: 6px; background: var(--bg-elevated); border-radius: 999px; overflow: hidden; }
+    .ranked-row__bar { height: 100%; background: var(--accent); border-radius: 999px; transition: width 500ms ease; width: 0; }
+    .ranked-row__value { font-size: 12px; font-weight: 500; color: var(--text-secondary); width: 28px; text-align: right; flex-shrink: 0; }
+    .progress-list { display: flex; flex-direction: column; gap: 14px; }
+    .progress-row__header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }
+    .progress-row__label    { font-size: 12px; font-weight: 500; color: var(--text-primary); }
+    .progress-row__fraction { font-size: 11px; color: var(--text-secondary); }
+    .progress-track { width: 100%; height: 6px; background: var(--bg-elevated); border-radius: 999px; overflow: hidden; }
+    .progress-fill { height: 100%; border-radius: 999px; background: var(--accent); transition: width 600ms ease; width: 0; }
+    .progress-fill--complete { background: var(--status-green); }
+    .progress-fill--warning  { background: var(--status-yellow); }
+    .progress-fill--critical { background: var(--status-red); }
+    .right-panel { display: flex; flex-direction: column; gap: 20px; }
+    .event-list  { display: flex; flex-direction: column; gap: 8px; }
+    .event-item { display: flex; gap: 12px; align-items: flex-start; padding: 10px 12px; background: var(--bg-elevated); border-radius: var(--radius-sm); border-left: 3px solid var(--accent); transition: background 120ms; cursor: pointer; }
+    .event-item:hover { background: var(--bg-subtle); }
+    .event-item--green  { border-left-color: var(--status-green); }
+    .event-item--yellow { border-left-color: var(--status-yellow); }
+    .event-item--red    { border-left-color: var(--status-red); }
+    .event-item--muted  { border-left-color: var(--text-muted); opacity: 0.6; }
+    .event-item--accent { border-left-color: var(--accent); }
+    .event-item__time  { font-size: 11px; color: var(--text-muted); flex-shrink: 0; padding-top: 1px; width: 52px; }
+    .event-item__main  { flex: 1; min-width: 0; }
+    .event-item__title { font-size: 13px; font-weight: 500; color: var(--text-primary); margin-bottom: 2px; }
+    .event-item__sub   { font-size: 11px; color: var(--text-secondary); }
+    .event-item__warn  { font-size: 11px; color: var(--status-yellow); margin-top: 3px; }
+    .cal-section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); margin: 16px 0 8px; }
+    .cal-section-label:first-child { margin-top: 0; }
+    .task-list { display: flex; flex-direction: column; gap: 6px; }
+    .task-item { display: flex; align-items: center; gap: 10px; padding: 9px 12px; background: var(--bg-elevated); border-radius: var(--radius-sm); cursor: pointer; transition: background 120ms; }
+    .task-item:hover { background: var(--bg-subtle); }
+    .task-item__check { width: 16px; height: 16px; border-radius: 4px; border: 1.5px solid var(--border-default); flex-shrink: 0; transition: border-color 120ms, background 120ms; }
+    .task-item--done .task-item__check { background: var(--status-green); border-color: var(--status-green); }
+    .task-item__label { flex: 1; font-size: 13px; color: var(--text-primary); }
+    .task-item--done .task-item__label { color: var(--text-muted); text-decoration: line-through; }
+    .task-section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); padding: 4px 0; margin-top: 8px; }
+    .task-section-label:first-child { margin-top: 0; }
+    .flag-list { display: flex; flex-direction: column; gap: 8px; }
+    .flag-item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 14px; border-radius: var(--radius-sm); border: 1px solid var(--border-default); }
+    .flag-item--red    { background: var(--status-red-muted);    border-color: rgba(239,68,68,0.2); }
+    .flag-item--yellow { background: var(--status-yellow-muted); border-color: rgba(234,179,8,0.2); }
+    .flag-item--green  { background: var(--status-green-muted);  border-color: rgba(34,197,94,0.2); }
+    .flag-item__icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+    .flag-item__text { font-size: 13px; color: var(--text-primary); line-height: 1.5; }
+    .flag-item__text strong { font-weight: 600; }
+    .priority-list { display: flex; flex-direction: column; gap: 10px; }
+    .priority-item { display: flex; align-items: flex-start; gap: 14px; padding: 14px 16px; background: var(--bg-elevated); border-radius: var(--radius-sm); border: 1px solid var(--border-default); }
+    .priority-item__num { font-size: 22px; font-weight: 700; color: var(--accent); line-height: 1; flex-shrink: 0; width: 24px; }
+    .priority-item__title { font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 3px; }
+    .priority-item__sub   { font-size: 12px; color: var(--text-secondary); line-height: 1.4; }
+    .day-plan { display: flex; flex-direction: column; gap: 8px; }
+    .day-card { border: 1px solid var(--border-default); border-radius: var(--radius-sm); overflow: hidden; }
+    .day-card__header { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: var(--bg-elevated); cursor: pointer; user-select: none; }
+    .day-card__header:hover { background: var(--bg-subtle); }
+    .day-card__title { font-size: 13px; font-weight: 600; color: var(--text-primary); }
+    .day-card__meta  { font-size: 11px; color: var(--text-muted); }
+    .day-card__warn  { font-size: 11px; color: var(--status-yellow); margin-left: 8px; }
+    .day-card__body  { padding: 12px 14px; display: none; border-top: 1px solid var(--border-muted); }
+    .day-card__body--open { display: block; }
+    .day-block { font-size: 12px; color: var(--text-secondary); line-height: 1.8; }
+    .day-block strong { color: var(--text-primary); font-weight: 500; }
+    .day-block .warn  { color: var(--status-yellow); }
+    .callout { background: var(--accent-subtle); border: 1px solid rgba(107,92,231,0.2); border-radius: var(--radius-sm); padding: 14px 16px; font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+    .callout strong { color: var(--text-primary); }
+    .empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 32px 20px; color: var(--text-muted); font-size: 13px; text-align: center; }
+    .empty-state__icon { font-size: 24px; opacity: 0.4; }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--bg-elevated); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--bg-subtle); }
+    .module-view { display: none; flex-direction: column; gap: 20px; }
+    .module-view--active { display: flex; }
+  </style>
+</head>
+<body>
+
+  <aside class="sidebar">
+    <div class="sidebar__workspace">
+      <div class="sidebar__logo">A</div>
+      <div class="sidebar__workspace-info">
+        <div class="sidebar__workspace-name">Ayden's Assistant</div>
+        <div class="sidebar__workspace-sub">Daily Briefing</div>
+      </div>
+    </div>
+    <div class="sidebar__section-label">Modules</div>
+    <button class="nav-item nav-item--active" data-module="overview" onclick="switchModule('overview', this)">
+      <svg class="nav-item__icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+        <rect x="1" y="1" width="6" height="6" rx="1.5"/><rect x="9" y="1" width="6" height="6" rx="1.5"/>
+        <rect x="1" y="9" width="6" height="6" rx="1.5"/><rect x="9" y="9" width="6" height="6" rx="1.5"/>
+      </svg>
+      <span class="nav-item__label">Overview</span>
+    </button>
+    <button class="nav-item" data-module="email" onclick="switchModule('email', this)">
+      <svg class="nav-item__icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+        <rect x="1" y="3" width="14" height="10" rx="1.5"/><path d="M1 5l7 5 7-5"/>
+      </svg>
+      <span class="nav-item__label">Email Triage</span>
+      <span class="badge badge--red" id="badge-email"></span>
+    </button>
+    <button class="nav-item" data-module="calendar" onclick="switchModule('calendar', this)">
+      <svg class="nav-item__icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+        <rect x="1.5" y="2.5" width="13" height="12" rx="1.5"/>
+        <path d="M1.5 6.5h13M5 1.5v2M11 1.5v2"/>
+      </svg>
+      <span class="nav-item__label">Calendar</span>
+      <span class="badge badge--yellow" id="badge-cal"></span>
+    </button>
+    <button class="nav-item" data-module="tasks" onclick="switchModule('tasks', this)">
+      <svg class="nav-item__icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M2 4h12M2 8h8M2 12h10"/>
+      </svg>
+      <span class="nav-item__label">Task Manager</span>
+      <span class="badge badge--red" id="badge-task"></span>
+    </button>
+    <button class="nav-item" data-module="weekly" onclick="switchModule('weekly', this)">
+      <svg class="nav-item__icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+        <polyline points="1,12 5,7 8,10 11,5 15,3"/>
+      </svg>
+      <span class="nav-item__label">Weekly Optimizer</span>
+    </button>
+    <div class="sidebar__spacer"></div>
+    <div class="sidebar__footer">
+      <button class="nav-item">
+        <svg class="nav-item__icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="8" cy="8" r="2.5"/>
+          <path d="M8 1.5v1.5M8 13v1.5M1.5 8H3M13 8h1.5M3.4 3.4l1 1M11.6 11.6l1 1M3.4 12.6l1-1M11.6 4.4l1-1"/>
+        </svg>
+        <span class="nav-item__label">Settings</span>
+      </button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="page-header">
+      <div class="page-header__left">
+        <h1 class="page-header__title" id="page-title">Overview</h1>
+        <span class="page-header__date" id="page-date"></span>
+      </div>
+      <div class="page-header__right">
+        <button class="btn btn--ghost" id="refresh-btn">
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M14 8A6 6 0 1 1 2 8a6 6 0 0 1 12 0zM8 5v3l2 2"/>
+          </svg>
+          Refresh
+        </button>
+        <button class="btn btn--primary">+ New Task</button>
+      </div>
+    </header>
+
+    <div class="page-body">
+
+      <!-- OVERVIEW -->
+      <div class="module-view module-view--active" id="module-overview">
+        <div class="stat-row" id="stat-cards"></div>
+        <div class="content-grid">
+          <div style="display:flex;flex-direction:column;gap:20px;">
+            <div class="card">
+              <div class="card__header">
+                <span class="card__title">Urgent Emails</span>
+                <button class="btn btn--ghost" style="font-size:11px;padding:4px 10px;"
+                  onclick="switchModule('email', document.querySelector('[data-module=email]'))">View all</button>
+              </div>
+              <div class="data-list" id="overview-emails"></div>
+            </div>
+            <div class="card chart-panel">
+              <div class="chart-panel__header">
+                <span class="card__title">Activity</span>
+                <div class="tabs" id="chart-tabs">
+                  <button class="tab tab--active" data-chart="line" onclick="switchChart('line',this)">Over Time</button>
+                  <button class="tab" data-chart="ranked" onclick="switchChart('ranked',this)">Top Senders</button>
+                  <button class="tab" data-chart="progress" onclick="switchChart('progress',this)">Progress</button>
+                </div>
+              </div>
+              <div class="chart-panel__controls" id="time-range-controls">
+                <button class="range-btn range-btn--active">1d</button>
+                <button class="range-btn">1w</button>
+                <button class="range-btn">1m</button>
+              </div>
+              <div class="chart-panel__body">
+                <canvas id="chart-line" class="chart-view chart-view--active"></canvas>
+                <div id="chart-ranked" class="chart-view ranked-list"></div>
+                <div id="chart-progress" class="chart-view progress-list"></div>
+              </div>
+            </div>
+          </div>
+          <div class="right-panel">
+            <div class="card">
+              <div class="card__header">
+                <span class="card__title">Today's Schedule</span>
+                <span class="card__meta" id="today-date-label"></span>
+              </div>
+              <div id="today-card"></div>
+            </div>
+            <div class="card">
+              <div class="card__header">
+                <span class="card__title" id="overview-tasks-title">Priority Tasks</span>
+                <span class="card__meta">Short tasks only</span>
+              </div>
+              <div class="task-list" id="overview-tasks"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EMAIL TRIAGE -->
+      <div class="module-view" id="module-email">
+        <div class="card">
+          <div class="card__header">
+            <span class="card__title">Email Triage</span>
+            <span class="card__meta" id="email-date-meta"></span>
+          </div>
+          <div class="email-filter tabs">
+            <button class="tab tab--active" id="tab-urgent" onclick="switchEmailTab('urgent', this)"></button>
+            <button class="tab" id="tab-resolved" onclick="switchEmailTab('resolved', this)"></button>
+            <button class="tab" id="tab-noise" onclick="switchEmailTab('noise', this)"></button>
+          </div>
+          <div class="email-section email-section--active" id="email-urgent">
+            <div class="data-list" id="email-list-urgent"></div>
+          </div>
+          <div class="email-section" id="email-resolved">
+            <div class="data-list" id="email-list-resolved"></div>
+          </div>
+          <div class="email-section" id="email-noise">
+            <div class="data-list" id="email-list-noise"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CALENDAR -->
+      <div class="module-view" id="module-calendar">
+        <div class="card">
+          <div class="card__header">
+            <span class="card__title" id="cal-title"></span>
+            <span class="card__meta" id="cal-meta"></span>
+          </div>
+          <div class="cal-section-label" id="today-label"></div>
+          <div class="event-list" id="cal-weekend"></div>
+          <div class="cal-section-label">This Week — Upcoming</div>
+          <div class="event-list" id="cal-week"></div>
+        </div>
+      </div>
+
+      <!-- TASK MANAGER -->
+      <div class="module-view" id="module-tasks">
+        <div class="card">
+          <div class="card__header">
+            <span class="card__title">Tasks</span>
+            <button class="btn btn--primary" style="font-size:12px;padding:6px 12px;">+ New Task</button>
+          </div>
+          <div class="task-section-label">🔴 Non-Negotiable — Done by Friday EOD</div>
+          <div class="task-list" id="task-high"></div>
+          <div class="task-section-label" style="margin-top:20px;">🟡 This Week If Time Allows</div>
+          <div class="task-list" id="task-medium"></div>
+          <div class="task-section-label" style="margin-top:20px;">⚪ Backlog — Not This Week</div>
+          <div class="task-list" id="task-backlog"></div>
+        </div>
+      </div>
+
+      <!-- WEEKLY OPTIMIZER -->
+      <div class="module-view" id="module-weekly">
+        <div class="card">
+          <div class="card__header"><span class="card__title">Top 3 Priorities This Week</span></div>
+          <div class="priority-list" id="priority-list"></div>
+        </div>
+        <div class="card">
+          <div class="card__header"><span class="card__title">Flags</span></div>
+          <div class="flag-list" id="flag-list"></div>
+        </div>
+        <div class="card">
+          <div class="card__header"><span class="card__title">Day-by-Day Plan</span></div>
+          <div class="day-plan" id="day-plan"></div>
+        </div>
+        <div class="card">
+          <div class="card__header"><span class="card__title">Sharp Recommendation</span></div>
+          <div class="callout" id="sharp-rec"></div>
+        </div>
+        <div class="content-grid">
+          <div class="card">
+            <div class="card__header"><span class="card__title">Top Senders This Week</span></div>
+            <div class="ranked-list" id="weekly-ranked"></div>
+          </div>
+          <div class="card">
+            <div class="card__header"><span class="card__title">Week Progress</span></div>
+            <div class="progress-list" id="weekly-progress"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    // ============================================================
+    // LOAD BRIEF DATA
+    // ============================================================
+    const __B__ = JSON.parse(document.getElementById('brief-data').textContent);
+
+    // Aliases — render functions use these
+    const emailsUrgent  = __B__.emailsUrgent  || [];
+    const emailsResolved= __B__.emailsResolved || [];
+    const emailsNoise   = __B__.emailsNoise   || [];
+    const calWeekend    = __B__.calWeekend    || [];
+    const calWeek       = __B__.calWeek       || [];
+    const tasksHigh     = __B__.tasksHigh     || [];
+    const tasksMedium   = __B__.tasksMedium   || [];
+    const tasksBacklog  = __B__.tasksBacklog  || [];
+    const senders       = __B__.senders       || [];
+    const progressItems = __B__.progressItems || [];
+    const dayPlan       = __B__.dayPlan       || [];
+
+    // ============================================================
+    // DATE
+    // ============================================================
+    const now = new Date();
+    document.getElementById('page-date').textContent =
+      now.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+
+    // ============================================================
+    // META RENDER — badges, stat cards, tabs, dynamic labels
+    // ============================================================
+    function renderMeta() {
+      // Sidebar badges
+      const eb = document.getElementById('badge-email');
+      const cb = document.getElementById('badge-cal');
+      const tb = document.getElementById('badge-task');
+      if (eb) eb.textContent = __B__.emailBadge ?? '';
+      if (cb) cb.textContent = __B__.calBadge ?? '';
+      if (tb) tb.textContent = __B__.taskBadge ?? '';
+
+      // Stat cards
+      if (__B__.stats && __B__.stats.length) renderStats('stat-cards', __B__.stats);
+
+      // Calendar header
+      const calTitle = document.getElementById('cal-title');
+      const calMeta  = document.getElementById('cal-meta');
+      if (calTitle && __B__.calHeader) calTitle.textContent = __B__.calHeader[0] || '';
+      if (calMeta  && __B__.calHeader) calMeta.textContent  = __B__.calHeader[1] || '';
+
+      // Today labels
+      const todayLabel = document.getElementById('today-label');
+      if (todayLabel && __B__.todayLabel) todayLabel.textContent = __B__.todayLabel;
+
+      const todayDateLabel = document.getElementById('today-date-label');
+      if (todayDateLabel) todayDateLabel.textContent = now.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+
+      // Email date meta
+      const emailMeta = document.getElementById('email-date-meta');
+      if (emailMeta && __B__.date) emailMeta.textContent = new Date(__B__.date + 'T12:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+
+      // Email tab labels
+      const counts = __B__.emailTabCounts || [0, 0, 0];
+      const tabDefs = [
+        { id: 'tab-urgent',   icon: '🚨', label: 'Urgent' },
+        { id: 'tab-resolved', icon: '✅', label: 'Resolved' },
+        { id: 'tab-noise',    icon: '🗑', label: 'Noise' },
+      ];
+      tabDefs.forEach((def, i) => {
+        const el = document.getElementById(def.id);
+        if (el) el.textContent = `${def.icon} ${def.label} (${counts[i] || 0})`;
+      });
+
+      // Overview today card
+      if (__B__.overviewToday) {
+        const tc = document.getElementById('today-card');
+        if (tc) {
+          const ot = __B__.overviewToday;
+          tc.innerHTML = `<div class="empty-state">
+            <div class="empty-state__icon">${ot.icon || ''}</div>
+            <div>${ot.line1 || ''}</div>
+            ${ot.line2 ? `<div style="font-size:11px;color:var(--text-muted)">${ot.line2}</div>` : ''}
+          </div>`;
+        }
+      }
+
+      // Overview tasks title
+      const ott = document.getElementById('overview-tasks-title');
+      if (ott && __B__.overviewTasksTitle) ott.textContent = __B__.overviewTasksTitle;
+
+      // Priorities
+      renderPriorities();
+
+      // Flags
+      renderFlags();
+
+      // Sharp rec
+      const sr = document.getElementById('sharp-rec');
+      if (sr && __B__.sharpRec) sr.innerHTML = __B__.sharpRec;
+    }
+
+    function renderStats(containerId, stats) {
+      document.getElementById(containerId).innerHTML = stats.map(s => `
+        <div class="card stat-card">
+          <div class="stat-card__label">${s.label}</div>
+          <div class="stat-card__value">${s.value}${s.valueSuffix
+            ? `<span style="font-size:16px;font-weight:400;color:var(--text-muted)">${s.valueSuffix}</span>`
+            : ''}</div>
+          <div class="stat-card__trend stat-card__trend--${s.dir || ''}">${s.trend || ''}</div>
+        </div>
+      `).join('');
+    }
+
+    function renderPriorities() {
+      const el = document.getElementById('priority-list');
+      if (!el || !__B__.priorities) return;
+      el.innerHTML = __B__.priorities.map((p, i) => `
+        <div class="priority-item">
+          <div class="priority-item__num">${i + 1}</div>
+          <div>
+            <div class="priority-item__title">${p.title}</div>
+            <div class="priority-item__sub">${p.sub}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderFlags() {
+      const el = document.getElementById('flag-list');
+      if (!el || !__B__.flags) return;
+      const iconMap = { red: '🚨', yellow: '⚠️', green: '✅' };
+      el.innerHTML = __B__.flags.map(f => `
+        <div class="flag-item flag-item--${f.type}">
+          <div class="flag-item__icon">${iconMap[f.type] || '•'}</div>
+          <div class="flag-item__text">${f.text}</div>
+        </div>
+      `).join('');
+    }
+
+    // ============================================================
+    // RENDER HELPERS
+    // ============================================================
+    function initials(name) {
+      return name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+    }
+
+    function priorityBadge(p) {
+      if (!p) return '';
+      const map = { red: ['badge--red', 'Urgent'], yellow: ['badge--yellow', 'Watch'] };
+      const [cls, label] = map[p] || ['', ''];
+      if (!cls) return '';
+      return `<span class="badge ${cls}"><span class="badge__dot"></span>${label}</span>`;
+    }
+
+    function renderEmails(containerId, items) {
+      document.getElementById(containerId).innerHTML = items.length ? items.map(e => `
+        <div class="data-row">
+          <div class="data-row__avatar">${initials(e.from)}</div>
+          <div class="data-row__main">
+            <div class="data-row__primary">${e.subject}</div>
+            <div class="data-row__secondary">${e.from}</div>
+            ${e.action ? `<div class="data-row__action">${e.action}</div>` : ''}
+          </div>
+          <div class="data-row__right">
+            <span class="data-row__time">${e.time}</span>
+            ${priorityBadge(e.priority)}
+          </div>
+        </div>
+      `).join('') : `<div class="empty-state"><div class="empty-state__icon">✓</div><div>Nothing here.</div></div>`;
+    }
+
+    function renderEvents(containerId, items) {
+      document.getElementById(containerId).innerHTML = items.length ? items.map(ev => `
+        <div class="event-item event-item--${ev.color}">
+          <div class="event-item__time">${ev.time}</div>
+          <div class="event-item__main">
+            <div class="event-item__title">${ev.title}</div>
+            <div class="event-item__sub">${ev.sub}</div>
+            ${ev.warn ? `<div class="event-item__warn">${ev.warn}</div>` : ''}
+          </div>
+        </div>
+      `).join('') : `<div class="empty-state"><div class="empty-state__icon">📅</div><div>Nothing scheduled.</div></div>`;
+    }
+
+    function renderTasks(containerId, items, offset) {
+      const el = document.getElementById(containerId);
+      if (!el) return;
+      el.innerHTML = items.length ? items.map((t, i) => `
+        <div class="task-item ${t.done ? 'task-item--done' : ''}"
+          onclick="toggleTask(${(offset || 0) + i})">
+          <div class="task-item__check"></div>
+          <span class="task-item__label">${t.label}</span>
+          ${priorityBadge(t.priority)}
+        </div>
+      `).join('') : `<div style="padding:12px 0;font-size:12px;color:var(--text-muted);">Nothing here.</div>`;
+    }
+
+    function renderRanked(containerId, data) {
+      if (!data.length) return;
+      const max = Math.max(...data.map(d => d.value));
+      document.getElementById(containerId).innerHTML = data.map(item => `
+        <div class="ranked-row">
+          <div class="ranked-row__info">
+            <div class="ranked-row__avatar">${item.label[0].toUpperCase()}</div>
+            <span class="ranked-row__label">${item.label}</span>
+          </div>
+          <div class="ranked-row__bar-wrap">
+            <div class="ranked-row__bar" data-width="${(item.value / max * 100).toFixed(1)}"></div>
+          </div>
+          <span class="ranked-row__value">${item.value}</span>
+        </div>
+      `).join('');
+      requestAnimationFrame(() => {
+        document.querySelectorAll(`#${containerId} .ranked-row__bar`).forEach(b => {
+          b.style.width = b.dataset.width + '%';
+        });
+      });
+    }
+
+    function getProgressClass(pct) {
+      if (pct >= 100) return 'progress-fill--complete';
+      if (pct >= 50)  return '';
+      if (pct >= 25)  return 'progress-fill--warning';
+      return 'progress-fill--critical';
+    }
+
+    function renderProgress(containerId, items) {
+      document.getElementById(containerId).innerHTML = items.map(item => {
+        const pct = item.total > 0 ? (item.done / item.total * 100).toFixed(1) : 0;
+        return `
+          <div class="progress-row">
+            <div class="progress-row__header">
+              <span class="progress-row__label">${item.label}</span>
+              <span class="progress-row__fraction">${item.done} / ${item.total}</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill ${getProgressClass(parseFloat(pct))}" data-width="${pct}"></div>
+            </div>
+          </div>
+        `;
+      }).join('');
+      requestAnimationFrame(() => {
+        document.querySelectorAll(`#${containerId} .progress-fill`).forEach(f => {
+          f.style.width = f.dataset.width + '%';
+        });
+      });
+    }
+
+    function renderDayPlan() {
+      document.getElementById('day-plan').innerHTML = dayPlan.map((day, i) => `
+        <div class="day-card">
+          <div class="day-card__header" onclick="toggleDay(${i})">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span class="day-card__title">${day.title}</span>
+              ${day.warn ? '<span class="day-card__warn">Violations</span>' : ''}
+            </div>
+            <span class="day-card__meta">${day.meta}</span>
+          </div>
+          <div class="day-card__body" id="day-body-${i}">
+            <div class="day-block">
+              ${(day.blocks || []).map(b => `<div>${b}</div>`).join('')}
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function toggleDay(i) {
+      document.getElementById('day-body-' + i).classList.toggle('day-card__body--open');
+    }
+
+    // ============================================================
+    // TASK TOGGLE
+    // ============================================================
+    const allTasks = [...tasksHigh, ...tasksMedium, ...tasksBacklog];
+
+    function toggleTask(idx) {
+      allTasks[idx].done = !allTasks[idx].done;
+      renderTasks('task-high',    tasksHigh,    0);
+      renderTasks('task-medium',  tasksMedium,  tasksHigh.length);
+      renderTasks('task-backlog', tasksBacklog, tasksHigh.length + tasksMedium.length);
+      renderTasks('overview-tasks', tasksHigh.slice(0, 3), 0);
+    }
+
+    // ============================================================
+    // MODULE SWITCHING
+    // ============================================================
+    const moduleTitles = {
+      overview: 'Overview', email: 'Email Triage',
+      calendar: 'Calendar', tasks: 'Task Manager', weekly: 'Weekly Optimizer',
+    };
+
+    function switchModule(name, el) {
+      document.querySelectorAll('.module-view').forEach(v => v.classList.remove('module-view--active'));
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('nav-item--active'));
+      document.getElementById('module-' + name).classList.add('module-view--active');
+      el.classList.add('nav-item--active');
+      document.getElementById('page-title').textContent = moduleTitles[name];
+    }
+
+    function switchEmailTab(tab, el) {
+      document.querySelectorAll('.email-filter .tab').forEach(t => t.classList.remove('tab--active'));
+      document.querySelectorAll('.email-section').forEach(s => s.classList.remove('email-section--active'));
+      el.classList.add('tab--active');
+      document.getElementById('email-' + tab).classList.add('email-section--active');
+    }
+
+    function switchChart(type, el) {
+      document.querySelectorAll('#chart-tabs .tab').forEach(t => t.classList.remove('tab--active'));
+      el.classList.add('tab--active');
+      document.querySelectorAll('.chart-view').forEach(v => v.classList.remove('chart-view--active'));
+      document.getElementById('chart-' + type).classList.add('chart-view--active');
+      document.getElementById('time-range-controls').style.display = type === 'line' ? 'flex' : 'none';
+      if (type === 'line') lineChart.resize();
+    }
+
+    // ============================================================
+    // CHART.JS
+    // ============================================================
+    Chart.defaults.color = '#5A5A5A';
+    Chart.defaults.font.family = 'Inter, system-ui, sans-serif';
+    Chart.defaults.font.size = 11;
+
+    const chartData = __B__.lineChartData || {
+      labels: ['9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm'],
+      data:   [2,5,8,4,1,3,2,0,0]
+    };
+
+    const lineChart = new Chart(document.getElementById('chart-line'), {
+      type: 'line',
+      data: {
+        labels: chartData.labels,
+        datasets: [{
+          data: chartData.data,
+          borderColor: '#6B5CE7',
+          backgroundColor: 'rgba(107,92,231,0.08)',
+          borderWidth: 2, fill: true, tension: 0.4,
+          pointRadius: 0, pointHoverRadius: 5,
+          pointHoverBackgroundColor: '#6B5CE7',
+          pointHoverBorderColor: '#0F0F0F',
+          pointHoverBorderWidth: 2,
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: '#1A1A1A', borderColor: '#2E2E2E', borderWidth: 1,
+            titleColor: '#F2F2F2', bodyColor: '#A0A0A0', padding: 10, displayColors: false,
+            callbacks: { label: ctx => ctx.parsed.y + ' emails' }
+          }
+        },
+        scales: {
+          x: { grid: { display: false }, border: { display: false }, ticks: { color: '#5A5A5A' } },
+          y: { grid: { color: '#1F1F1F' }, border: { display: false }, ticks: { color: '#5A5A5A', maxTicksLimit: 5, padding: 8 }, beginAtZero: true }
+        }
+      }
+    });
+
+    document.querySelectorAll('.range-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        btn.closest('.chart-panel__controls').querySelectorAll('.range-btn').forEach(b => b.classList.remove('range-btn--active'));
+        btn.classList.add('range-btn--active');
+      });
+    });
+
+    // Refresh button — signals plugin to reload
+    document.getElementById('refresh-btn').addEventListener('click', () => {
+      window.parent.postMessage({ type: 'assistant-refresh' }, '*');
+    });
+
+    // ============================================================
+    // INITIAL RENDER
+    // ============================================================
+    renderMeta();
+    renderEmails('overview-emails',    emailsUrgent);
+    renderEmails('email-list-urgent',  emailsUrgent);
+    renderEmails('email-list-resolved',emailsResolved);
+    renderEmails('email-list-noise',   emailsNoise);
+    renderEvents('cal-weekend', calWeekend);
+    renderEvents('cal-week',    calWeek);
+    renderTasks('overview-tasks', tasksHigh.slice(0, 3), 0);
+    renderTasks('task-high',    tasksHigh,    0);
+    renderTasks('task-medium',  tasksMedium,  tasksHigh.length);
+    renderTasks('task-backlog', tasksBacklog, tasksHigh.length + tasksMedium.length);
+    renderRanked('chart-ranked',  senders);
+    renderRanked('weekly-ranked', senders);
+    renderProgress('chart-progress', progressItems);
+    renderProgress('weekly-progress',progressItems);
+    renderDayPlan();
+
+  </script>
+</body>
+</html>

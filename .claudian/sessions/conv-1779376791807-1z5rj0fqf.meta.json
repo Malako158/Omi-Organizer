@@ -1,0 +1,23 @@
+{
+  "id": "conv-1779376791807-1z5rj0fqf",
+  "providerId": "claude",
+  "title": "Create new project",
+  "titleGenerationStatus": "success",
+  "createdAt": 1779376791807,
+  "updatedAt": 1779674462436,
+  "lastResponseAt": 1779490035286,
+  "sessionId": "25e7b07d-5a4a-43b6-a2b9-3f0b4dd0bd0b",
+  "providerState": {
+    "providerSessionId": "25e7b07d-5a4a-43b6-a2b9-3f0b4dd0bd0b"
+  },
+  "usage": {
+    "model": "sonnet",
+    "inputTokens": 1,
+    "cacheCreationInputTokens": 443,
+    "cacheReadInputTokens": 86837,
+    "contextWindow": 200000,
+    "contextTokens": 87281,
+    "percentage": 44,
+    "contextWindowIsAuthoritative": true
+  }
+}

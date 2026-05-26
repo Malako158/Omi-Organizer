@@ -1,0 +1,19 @@
+{
+  "id": "conv-1779490166531-pmqu1dv8v",
+  "title": "Implement dashboard design",
+  "titleGenerationStatus": "success",
+  "createdAt": 1779490166531,
+  "updatedAt": 1779724928865,
+  "lastResponseAt": 1779675556229,
+  "sessionId": "0e8a9e0e-3c7e-406e-b102-0964649f231f",
+  "sdkSessionId": "0e8a9e0e-3c7e-406e-b102-0964649f231f",
+  "usage": {
+    "model": "sonnet",
+    "inputTokens": 1,
+    "cacheCreationInputTokens": 178,
+    "cacheReadInputTokens": 105760,
+    "contextWindow": 200000,
+    "contextTokens": 105939,
+    "percentage": 53
+  }
+}

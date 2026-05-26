@@ -1,0 +1,134 @@
+{
+  "styles": {
+    "00 Notes": {
+      "backgroundColor": "#db0f0f",
+      "textColor": "#ffffff"
+    },
+    "01 Journals": {
+      "backgroundColor": "#f56e00",
+      "textColor": "#ffffff"
+    },
+    "02 Chess Moves (Long-Term Planning)": {
+      "backgroundColor": "#d3cc0d",
+      "textColor": "#ffffff"
+    },
+    "03 Projects": {
+      "backgroundColor": "#37ff0f",
+      "textColor": "#ffffff"
+    },
+    "04 Reviews": {
+      "backgroundColor": "#018bc6",
+      "textColor": "#ffffff"
+    },
+    "05 Skills": {
+      "backgroundColor": "#9900ff",
+      "textColor": "#ffffff"
+    },
+    "Omi Collection": {
+      "backgroundColor": "#9900ff",
+      "textColor": "#ffffff"
+    },
+    "Omi Memory": {
+      "backgroundColor": "#002afa",
+      "textColor": "#ffffff"
+    },
+    "00 Onboarding": {
+      "backgroundColor": "#db0f0f",
+      "textColor": "#ffffff"
+    },
+    "00 Inputs": {
+      "backgroundColor": "#db0f0f",
+      "textColor": "#ffffff"
+    },
+    "00 Inspiration & References": {
+      "backgroundColor": "#db0f0f",
+      "textColor": "#ffffff"
+    },
+    "01 Production": {
+      "backgroundColor": "#f56e00",
+      "textColor": "#ffffff"
+    },
+    "01 Email Triage": {
+      "backgroundColor": "#f56e00",
+      "textColor": "#ffffff"
+    },
+    "01 Design Principles": {
+      "backgroundColor": "#f56e00",
+      "textColor": "#ffffff"
+    },
+    "02 Review": {
+      "backgroundColor": "#d3cc0d",
+      "textColor": "#ffffff"
+    },
+    "02 Calendar": {
+      "backgroundColor": "#d3cc0d",
+      "textColor": "#ffffff"
+    },
+    "02 Components & Patterns": {
+      "backgroundColor": "#d3cc0d",
+      "textColor": "#ffffff"
+    },
+    "03 Delivery": {
+      "backgroundColor": "#00b4d8",
+      "textColor": "#ffffff"
+    },
+    "03 Task Manager": {
+      "backgroundColor": "#00b4d8",
+      "textColor": "#ffffff"
+    },
+    "03 Builds": {
+      "backgroundColor": "#00b4d8",
+      "textColor": "#ffffff"
+    },
+    "04 Clients": {
+      "backgroundColor": "#ff69b4",
+      "textColor": "#ffffff"
+    },
+    "04 Weekly Optimizer": {
+      "backgroundColor": "#ff69b4",
+      "textColor": "#ffffff"
+    },
+    "04 System": {
+      "backgroundColor": "#ff69b4",
+      "textColor": "#ffffff"
+    },
+    "05 Team": {
+      "backgroundColor": "#9900ff",
+      "textColor": "#ffffff"
+    },
+    "05 Dashboard Output": {
+      "backgroundColor": "#9900ff",
+      "textColor": "#ffffff"
+    },
+    "06 System": {
+      "backgroundColor": "#002afa",
+      "textColor": "#ffffff"
+    },
+    "06 Attachments": {
+      "backgroundColor": "#002afa",
+      "textColor": "#ffffff"
+    },
+    "07 Skills": {
+      "backgroundColor": "#db0f0f",
+      "textColor": "#ffffff"
+    },
+    "07 System": {
+      "backgroundColor": "#db0f0f",
+      "textColor": "#ffffff"
+    },
+    "07 Iteration Logs": {
+      "backgroundColor": "#db0f0f",
+      "textColor": "#ffffff"
+    },
+    "08 Attachments": {
+      "backgroundColor": "#f56e00",
+      "textColor": "#ffffff"
+    },
+    "09 Iteration Logs": {
+      "backgroundColor": "#d3cc0d",
+      "textColor": "#ffffff"
+    }
+  },
+  "presets": {},
+  "presetOrder": []
+}

@@ -1,0 +1,23 @@
+{
+  "id": "conv-1779325066988-71qg867gc",
+  "providerId": "claude",
+  "title": "Run brain-setup skill",
+  "titleGenerationStatus": "success",
+  "createdAt": 1779325066988,
+  "updatedAt": 1779376770450,
+  "lastResponseAt": 1779376675675,
+  "sessionId": "abf28d1d-73b6-4c96-88b2-40df57e808aa",
+  "providerState": {
+    "providerSessionId": "abf28d1d-73b6-4c96-88b2-40df57e808aa"
+  },
+  "usage": {
+    "model": "sonnet",
+    "inputTokens": 1,
+    "cacheCreationInputTokens": 206,
+    "cacheReadInputTokens": 101396,
+    "contextWindow": 200000,
+    "contextTokens": 101603,
+    "percentage": 51,
+    "contextWindowIsAuthoritative": true
+  }
+}

@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Assistant — Daily Briefing</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --bg-base:       #0F0F0F;
+      --bg-surface:    #1A1A1A;
+      --bg-elevated:   #222222;
+      --bg-subtle:     #2A2A2A;
+      --border-default: #2E2E2E;
+      --border-muted:   #1F1F1F;
+      --border-focus:   #6B5CE7;
+      --text-primary:   #F2F2F2;
+      --text-secondary: #A0A0A0;
+      --text-muted:     #5A5A5A;
+      --accent:         #6B5CE7;
+      --accent-hover:   #7D6FF0;
+      --accent-muted:   rgba(107, 92, 231, 0.08);
+      --accent-subtle:  rgba(107, 92, 231, 0.06);
+      --status-green:        #22C55E;
+      --status-green-muted:  rgba(34, 197, 94, 0.12);
+      --status-yellow:       #EAB308;
+      --status-yellow-muted: rgba(234, 179, 8, 0.12);
+      --status-red:          #EF4444;
+      --status-red-muted:    rgba(239, 68, 68, 0.12);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --sidebar-width: 220px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Inter, system-ui, -apple-system, sans-serif;
+      font-size: 14px;
+      background: var(--bg-base);
+      color: var(--text-primary);
+      height: 100vh;
+      display: flex;
+      overflow: hidden;
+    }
+    .sidebar {
+      width: var(--sidebar-width); flex-shrink: 0;
+      background: var(--bg-surface);
+      border-right: 1px solid var(--border-muted);
+      display: flex; flex-direction: column;
+      padding: 16px 12px; gap: 4px; overflow-y: auto;
+    }
+    .sidebar__workspace { display: flex; align-items: center; gap: 10px; padding: 8px 10px; margin-bottom: 12px; }
+    .sidebar__logo {
+      width: 32px; height: 32px; border-radius: var(--radius-sm);
+      background: var(--accent); display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 700; color: #fff; flex-shrink: 0;
+    }
+    .sidebar__workspace-info { flex: 1; min-width: 0; }
+    .sidebar__workspace-name { font-size: 13px; font-weight: 600; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .sidebar__workspace-sub { font-size: 11px; color: var(--text-muted); }
+    .sidebar__section-label { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); padding: 8px 10px 4px; margin-top: 4px; }
+    .nav-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 10px; border-radius: var(--radius-sm);
+      color: var(--text-secondary); font-size: 13px; font-weight: 400;
+      text-decoration: none; cursor: pointer; border: none;
+      background: none; width: 100%; text-align: left;
+      transition: background 120ms, color 120ms;
+    }
+    .nav-item:hover { background: var(--bg-elevated); color: var(--text-primary); }
+    .nav-item--active { background: var(--accent-subtle); color: var(--accent); font-weight: 500; }
+    .nav-item__icon { width: 16px; height: 16px; flex-shrink: 0; opacity: 0.6; }
+    .nav-item--active .nav-item__icon { opacity: 1; }
+    .nav-item__label { flex: 1; }
+    .sidebar__spacer { flex: 1; }
+    .sidebar__footer { border-top: 1px solid var(--border-muted); padding-top: 12px; margin-top: 4px; display: flex; flex-direction: column; gap: 2px; }
+    .badge { display: inline-flex; align-items: center; gap: 4px; padding: 1px 7px; border-radius: 999px; font-size: 11px; font-weight: 500; }
+    .badge--green  { background: var(--status-green-muted);  color: var(--status-green); }
+    .badge--yellow { background: var(--status-yellow-muted); color: var(--status-yellow); }
+    .badge--red    { background: var(--status-red-muted);    color: var(--status-red); }
+    .badge--count  { background: var(--bg-elevated); color: var(--text-secondary); padding: 1px 6px; }
+    .badge__dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+    .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+    .page-header { display: flex; align-items: center; justify-content: space-between; height: 56px; padding: 0 24px; border-bottom: 1px solid var(--border-muted); flex-shrink: 0; }
+    .page-header__left { display: flex; align-items: center; gap: 12px; }
+    .page-header__title { font-size: 18px; font-weight: 600; color: var(--text-primary); }
+    .page-header__date  { font-size: 13px; color: var(--text-muted); }
+    .page-header__right { display: flex; align-items: center; gap: 8px; }
+    .btn { display: inline-flex; align-items: center; gap: 6px; border-radius: var(--radius-sm); font-size: 13px; font-weight: 500; cursor: pointer; transition: background 150ms, border-color 150ms, color 150ms; border: none; text-decoration: none; }
+    .btn--primary { background: var(--accent); color: #fff; padding: 7px 14px; }
+    .btn--primary:hover { background: var(--accent-hover); }
+    .btn--ghost { background: transparent; color: var(--text-secondary); border: 1px solid var(--border-default); padding: 6px 13px; }
+    .btn--ghost:hover { border-color: var(--text-muted); color: var(--text-primary); }
+    .page-body { flex: 1; overflow-y: auto; padding: 24px; display: flex; flex-direction: column; gap: 20px; }
+    .card { background: var(--bg-surface); border: 1px solid var(--border-default); border-radius: var(--radius-md); padding: 20px; }
+    .card__header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+    .card__title { font-size: 13px; font-weight: 600; color: var(--text-primary); }
+    .card__meta  { font-size: 12px; color: var(--text-muted); }
+    .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .stat-card { padding: 16px 20px; }
+    .stat-card__label { font-size: 11px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
+    .stat-card__value { font-size: 30px; font-weight: 700; color: var(--text-primary); line-height: 1; margin-bottom: 6px; }
+    .stat-card__trend { font-size: 12px; color: var(--text-muted); }
+    .stat-card__trend--up   { color: var(--status-green); }
+    .stat-card__trend--down { color: var(--status-red); }
+    .content-grid { display: grid; grid-template-columns: 1fr 360px; gap: 20px; flex: 1; }
+    .tabs { display: flex; gap: 2px; }
+    .tab { padding: 6px 12px; font-size: 12px; font-weight: 400; color: var(--text-muted); background: none; border: none; border-radius: var(--radius-sm); cursor: pointer; transition: background 120ms, color 120ms; }
+    .tab:hover { color: var(--text-secondary); background: var(--bg-elevated); }
+    .tab--active { background: var(--bg-elevated); color: var(--text-primary); font-weight: 500; }
+    .data-list { display: flex; flex-direction: column; }
+    .data-row { display: flex; align-items: center; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--border-muted); transition: background 120ms; cursor: pointer; }
+    .data-row:last-child { border-bottom: none; }
+    .data-row:hover { background: var(--bg-elevated); margin: 0 -20px; padding: 11px 20px; border-radius: var(--radius-sm); }
+    .data-row__avatar { width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0; background: var(--bg-elevated); border: 1px solid var(--border-default); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; color: var(--text-secondary); }
+    .data-row__main { flex: 1; min-width: 0; }
+    .data-row__primary { font-size: 13px; font-weight: 500; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 2px; }
+    .data-row__secondary { font-size: 11px; color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .data-row__action { font-size: 11px; color: var(--text-muted); overflow: hidden; text-overflow: ellipsis; margin-top: 2px; font-style: italic; }
+    .data-row__right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex-shrink: 0; }
+    .data-row__time { font-size: 11px; color: var(--text-muted); }
+    .email-filter { margin-bottom: 16px; border-bottom: 1px solid var(--border-muted); padding-bottom: 0; }
+    .email-filter .tab { border-radius: 0; border-bottom: 2px solid transparent; margin-bottom: -1px; padding: 6px 14px; }
+    .email-filter .tab--active { background: none; color: var(--accent); border-bottom-color: var(--accent); }
+    .email-section { display: none; }
+    .email-section--active { display: block; }
+    .chart-panel { display: flex; flex-direction: column; }
+    .chart-panel__header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
+    .chart-panel__controls { display: flex; gap: 2px; margin-bottom: 16px; }
+    .range-btn { padding: 3px 9px; font-size: 11px; color: var(--text-muted); background: none; border: none; border-radius: var(--radius-sm); cursor: pointer; transition: background 120ms, color 120ms; }
+    .range-btn:hover   { color: var(--text-secondary); }
+    .range-btn--active { background: var(--bg-elevated); color: var(--text-primary); }
+    .chart-panel__body { position: relative; }
+    .chart-view         { display: none; }
+    .chart-view--active { display: block; }
+    canvas.chart-view   { height: 200px !important; }
+    .ranked-list { display: flex; flex-direction: column; gap: 10px; }
+    .ranked-row  { display: flex; align-items: center; gap: 10px; }
+    .ranked-row__info { display: flex; align-items: center; gap: 8px; width: 160px; flex-shrink: 0; }
+    .ranked-row__avatar { width: 22px; height: 22px; border-radius: 50%; background: var(--bg-elevated); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 600; color: var(--text-secondary); border: 1px solid var(--border-default); }
+    .ranked-row__label { font-size: 12px; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .ranked-row__bar-wrap { flex: 1; height: 6px; background: var(--bg-elevated); border-radius: 999px; overflow: hidden; }
+    .ranked-row__bar { height: 100%; background: var(--accent); border-radius: 999px; transition: width 500ms ease; width: 0; }
+    .ranked-row__value { font-size: 12px; font-weight: 500; color: var(--text-secondary); width: 28px; text-align: right; flex-shrink: 0; }
+    .progress-list { display: flex; flex-direction: column; gap: 14px; }
+    .progress-row__header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }
+    .progress-row__label    { font-size: 12px; font-weight: 500; color: var(--text-primary); }
+    .progress-row__fraction { font-size: 11px; color: var(--text-secondary); }
+    .progress-track { width: 100%; height: 6px; background: var(--bg-elevated); border-radius: 999px; overflow: hidden; }
+    .progress-fill { height: 100%; border-radius: 999px; background: var(--accent); transition: width 600ms ease; width: 0; }
+    .progress-fill--complete { background: var(--status-green); }
+    .progress-fill--warning  { background: var(--status-yellow); }
+    .progress-fill--critical { background: var(--status-red); }
+    .right-panel { display: flex; flex-direction: column; gap: 20px; }
+    .event-list  { display: flex; flex-direction: column; gap: 8px; }
+    .event-item { display: flex; gap: 12px; align-items: flex-start; padding: 10px 12px; background: var(--bg-elevated); border-radius: var(--radius-sm); border-left: 3px solid var(--accent); transition: background 120ms; cursor: pointer; }
+    .event-item:hover { background: var(--bg-subtle); }
+    .event-item--green  { border-left-color: var(--status-green); }
+    .event-item--yellow { border-left-color: var(--status-yellow); }
+    .event-item--red    { border-left-color: var(--status-red); }
+    .event-item--muted  { border-left-color: var(--text-muted); opacity: 0.6; }
+    .event-item__time  { font-size: 11px; color: var(--text-muted); flex-shrink: 0; padding-top: 1px; width: 52px; }
+    .event-item__main  { flex: 1; min-width: 0; }
+    .event-item__title { font-size: 13px; font-weight: 500; color: var(--text-primary); margin-bottom: 2px; }
+    .event-item__sub   { font-size: 11px; color: var(--text-secondary); }
+    .event-item__warn  { font-size: 11px; color: var(--status-yellow); margin-top: 3px; }
+    .cal-section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); margin: 16px 0 8px; }
+    .cal-section-label:first-child { margin-top: 0; }
+    .task-list { display: flex; flex-direction: column; gap: 6px; }
+    .task-item { display: flex; align-items: center; gap: 10px; padding: 9px 12px; background: var(--bg-elevated); border-radius: var(--radius-sm); cursor: pointer; transition: background 120ms; }
+    .task-item:hover { background: var(--bg-subtle); }
+    .task-item__check { width: 16px; height: 16px; border-radius: 4px; border: 1.5px solid var(--border-default); flex-shrink: 0; transition: border-color 120ms, background 120ms; }
+    .task-item--done .task-item__check { background: var(--status-green); border-color: var(--status-green); }
+    .task-item__label { flex: 1; font-size: 13px; color: var(--text-primary); }
+    .task-item--done .task-item__label { color: var(--text-muted); text-decoration: line-through; }
+    .task-section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); padding: 4px 0; margin-top: 8px; }
+    .task-section-label:first-child { margin-top: 0; }
+    .flag-list { display: flex; flex-direction: column; gap: 8px; }
+    .flag-item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 14px; border-radius: var(--radius-sm); border: 1px solid var(--border-default); }
+    .flag-item--red    { background: var(--status-red-muted);    border-color: rgba(239,68,68,0.2); }
+    .flag-item--yellow { background: var(--status-yellow-muted); border-color: rgba(234,179,8,0.2); }
+    .flag-item--green  { background: var(--status-green-muted);  border-color: rgba(34,197,94,0.2); }
+    .flag-item__icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+    .flag-item__text { font-size: 13px; color: var(--text-primary); line-height: 1.5; }
+    .flag-item__text strong { font-weight: 600; }
+    .priority-list { display: flex; flex-direction: column; gap: 10px; }
+    .priority-item { display: flex; align-items: flex-start; gap: 14px; padding: 14px 16px; background: var(--bg-elevated); border-radius: var(--radius-sm); border: 1px solid var(--border-default); }
+    .priority-item__num { font-size: 22px; font-weight: 700; color: var(--accent); line-height: 1; flex-shrink: 0; width: 24px; }
+    .priority-item__title { font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 3px; }
+    .priority-item__sub   { font-size: 12px; color: var(--text-secondary); line-height: 1.4; }
+    .day-plan { display: flex; flex-direction: column; gap: 8px; }
+    .day-card { border: 1px solid var(--border-default); border-radius: var(--radius-sm); overflow: hidden; }
+    .day-card__header { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: var(--bg-elevated); cursor: pointer; user-select: none; }
+    .day-card__header:hover { background: var(--bg-subtle); }
+    .day-card__title { font-size: 13px; font-weight: 600; color: var(--text-primary); }
+    .day-card__meta  { font-size: 11px; color: var(--text-muted); }
+    .day-card__warn  { font-size: 11px; color: var(--status-yellow); margin-left: 8px; }
+    .day-card__body  { padding: 12px 14px; display: none; border-top: 1px solid var(--border-muted); }
+    .day-card__body--open { display: block; }
+    .day-block { font-size: 12px; color: var(--text-secondary); line-height: 1.8; }
+    .day-block strong { color: var(--text-primary); font-weight: 500; }
+    .day-block .warn  { color: var(--status-yellow); }
+    .callout { background: var(--accent-subtle); border: 1px solid rgba(107,92,231,0.2); border-radius: var(--radius-sm); padding: 14px 16px; font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+    .callout strong { color: var(--text-primary); }
+    .empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 32px 20px; color: var(--text-muted); font-size: 13px; text-align: center; }
+    .empty-state__icon { font-size: 24px; opacity: 0.4; }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--bg-elevated); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--bg-subtle); }
+    .module-view { display: none; flex-direction: column; gap: 20px; }
+    .module-view--active { display: flex; }
+  </style>
+</head>
+<body>
+
+  <aside class="sidebar">
+    <div class="sidebar__workspace">
+      <div class="sidebar__logo">A</div>
+      <div class="sidebar__workspace-info">
+        <div class="sidebar__workspace-name">Ayden's Assistant</div>
+        <div class="sidebar__workspace-sub">Daily Briefing</div>
+      </div>
+    </div>
+    <div class="sidebar__section-label">Modules</div>
+    <button class="nav-item nav-item--active" data-module="overview" onclick="switchModule('overview', this)">
+      <svg class="nav-item__icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+        <rect x="1" y="1" width="6" height="6" rx="1.5"/><rect x="9" y="1" width="6" height="6" rx="1.5"/>
+        <rect x="1" y="9" width="6" height="6" rx="1.5"/><rect x="9" y="9" width="6" height="6" rx="1.5"/>
+      </svg>
+      <span class="nav-item__label">Overview</span>
+    </button>
+    <button class="nav-item" data-module="email" onclick="switchModule('email', this)">
+      <svg class="nav-item__icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+        <rect x="1" y="3" width="14" height="10" rx="1.5"/><path d="M1 5l7 5 7-5"/>
+      </svg>
+      <span class="nav-item__label">Email Triage</span>
+      <span class="badge badge--red">2</span>
+    </button>
+    <button class="nav-item" data-module="calendar" onclick="switchModule('calendar', this)">
+      <svg class="nav-item__icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+        <rect x="1.5" y="2.5" width="13" height="12" rx="1.5"/>
+        <path d="M1.5 6.5h13M5 1.5v2M11 1.5v2"/>
+      </svg>
+      <span class="nav-item__label">Calendar</span>
+      <span class="badge badge--yellow">5</span>
+    </button>
+    <button class="nav-item" data-module="tasks" onclick="switchModule('tasks', this)">
+      <svg class="nav-item__icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M2 4h12M2 8h8M2 12h10"/>
+      </svg>
+      <span class="nav-item__label">Task Manager</span>
+      <span class="badge badge--red">5</span>
+    </button>
+    <button class="nav-item" data-module="weekly" onclick="switchModule('weekly', this)">
+      <svg class="nav-item__icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+        <polyline points="1,12 5,7 8,10 11,5 15,3"/>
+      </svg>
+      <span class="nav-item__label">Weekly Optimizer</span>
+    </button>
+    <div class="sidebar__spacer"></div>
+    <div class="sidebar__footer">
+      <button class="nav-item">
+        <svg class="nav-item__icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="8" cy="8" r="2.5"/>
+          <path d="M8 1.5v1.5M8 13v1.5M1.5 8H3M13 8h1.5M3.4 3.4l1 1M11.6 11.6l1 1M3.4 12.6l1-1M11.6 4.4l1-1"/>
+        </svg>
+        <span class="nav-item__label">Settings</span>
+      </button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="page-header">
+      <div class="page-header__left">
+        <h1 class="page-header__title" id="page-title">Overview</h1>
+        <span class="page-header__date" id="page-date"></span>
+      </div>
+      <div class="page-header__right">
+        <button class="btn btn--ghost">
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M14 8A6 6 0 1 1 2 8a6 6 0 0 1 12 0zM8 5v3l2 2"/>
+          </svg>
+          Refresh
+        </button>
+        <button class="btn btn--primary">+ New Task</button>
+      </div>
+    </header>
+
+    <div class="page-body">
+
+      <!-- OVERVIEW -->
+      <div class="module-view module-view--active" id="module-overview">
+        <div class="stat-row">
+          <div class="card stat-card">
+            <div class="stat-card__label">Urgent Emails</div>
+            <div class="stat-card__value">2</div>
+            <div class="stat-card__trend stat-card__trend--up">4 resolved since Sat</div>
+          </div>
+          <div class="card stat-card">
+            <div class="stat-card__label">Tasks This Week</div>
+            <div class="stat-card__value">5</div>
+            <div class="stat-card__trend stat-card__trend--down">Non-negotiable — all due Fri</div>
+          </div>
+          <div class="card stat-card">
+            <div class="stat-card__label">Miami In</div>
+            <div class="stat-card__value">6<span style="font-size:16px;font-weight:400;color:var(--text-muted)"> days</span></div>
+            <div class="stat-card__trend stat-card__trend--down">Hard deadline: Fri 5 PM</div>
+          </div>
+        </div>
+        <div class="content-grid">
+          <div style="display:flex;flex-direction:column;gap:20px;">
+            <div class="card">
+              <div class="card__header">
+                <span class="card__title">Urgent Emails</span>
+                <button class="btn btn--ghost" style="font-size:11px;padding:4px 10px;"
+                  onclick="switchModule('email', document.querySelector('[data-module=email]'))">View all</button>
+              </div>
+              <div class="data-list" id="overview-emails"></div>
+            </div>
+            <div class="card chart-panel">
+              <div class="chart-panel__header">
+                <span class="card__title">Activity</span>
+                <div class="tabs" id="chart-tabs">
+                  <button class="tab tab--active" data-chart="line" onclick="switchChart('line',this)">Over Time</button>
+                  <button class="tab" data-chart="ranked" onclick="switchChart('ranked',this)">Top Senders</button>
+                  <button class="tab" data-chart="progress" onclick="switchChart('progress',this)">Progress</button>
+                </div>
+              </div>
+              <div class="chart-panel__controls" id="time-range-controls">
+                <button class="range-btn range-btn--active">1d</button>
+                <button class="range-btn">1w</button>
+                <button class="range-btn">1m</button>
+              </div>
+              <div class="chart-panel__body">
+                <canvas id="chart-line" class="chart-view chart-view--active"></canvas>
+                <div id="chart-ranked" class="chart-view ranked-list"></div>
+                <div id="chart-progress" class="chart-view progress-list"></div>
+              </div>
+            </div>
+          </div>
+          <div class="right-panel">
+            <div class="card">
+              <div class="card__header">
+                <span class="card__title">Today's Schedule</span>
+                <span class="card__meta">Sun, May 24</span>
+              </div>
+              <div class="empty-state">
+                <div class="empty-state__icon">🛡️</div>
+                <div>Protected Sunday — no work today.</div>
+                <div style="font-size:11px;color:var(--text-muted)">Reset prep only · Max 2h if anything</div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card__header">
+                <span class="card__title">Mon Priority Tasks</span>
+                <span class="card__meta">Short tasks only</span>
+              </div>
+              <div class="task-list" id="overview-tasks"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EMAIL TRIAGE -->
+      <div class="module-view" id="module-email">
+        <div class="card">
+          <div class="card__header">
+            <span class="card__title">Email Triage</span>
+            <span class="card__meta">May 24, 2026</span>
+          </div>
+          <div class="email-filter tabs">
+            <button class="tab tab--active" onclick="switchEmailTab('urgent', this)">🚨 Urgent (2)</button>
+            <button class="tab" onclick="switchEmailTab('resolved', this)">✅ Resolved (4)</button>
+            <button class="tab" onclick="switchEmailTab('noise', this)">🗑 Noise (4)</button>
+          </div>
+          <div class="email-section email-section--active" id="email-urgent">
+            <div class="data-list" id="email-list-urgent"></div>
+          </div>
+          <div class="email-section" id="email-resolved">
+            <div class="data-list" id="email-list-resolved"></div>
+          </div>
+          <div class="email-section" id="email-noise">
+            <div class="data-list" id="email-list-noise"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CALENDAR -->
+      <div class="module-view" id="module-calendar">
+        <div class="card">
+          <div class="card__header">
+            <span class="card__title">Week of May 24 — 30</span>
+            <span class="card__meta">5 flags · Miami Sat May 30</span>
+          </div>
+          <div class="cal-section-label">Today — Sunday</div>
+          <div class="event-list" id="cal-weekend"></div>
+          <div class="cal-section-label">This Week — May 25–30</div>
+          <div class="event-list" id="cal-week"></div>
+        </div>
+      </div>
+
+      <!-- TASK MANAGER -->
+      <div class="module-view" id="module-tasks">
+        <div class="card">
+          <div class="card__header">
+            <span class="card__title">Tasks</span>
+            <button class="btn btn--primary" style="font-size:12px;padding:6px 12px;">+ New Task</button>
+          </div>
+          <div class="task-section-label">🔴 Non-Negotiable — Done by Friday EOD</div>
+          <div class="task-list" id="task-high"></div>
+          <div class="task-section-label" style="margin-top:20px;">🟡 This Week If Time Allows</div>
+          <div class="task-list" id="task-medium"></div>
+          <div class="task-section-label" style="margin-top:20px;">⚪ Backlog — Not This Week</div>
+          <div class="task-list" id="task-backlog"></div>
+        </div>
+      </div>
+
+      <!-- WEEKLY OPTIMIZER -->
+      <div class="module-view" id="module-weekly">
+        <div class="card">
+          <div class="card__header"><span class="card__title">Top 3 Priorities This Week</span></div>
+          <div class="priority-list">
+            <div class="priority-item">
+              <div class="priority-item__num">1</div>
+              <div class="priority-item__main">
+                <div class="priority-item__title">Figure out Miami legal info</div>
+                <div class="priority-item__sub">Trip is Saturday. Passport check, ESTA, US entry requirements as a Canadian, anything business-related. You need to know you're clear before you get to the airport. Thursday Block 1, first thing — non-negotiable.</div>
+              </div>
+            </div>
+            <div class="priority-item">
+              <div class="priority-item__num">2</div>
+              <div class="priority-item__main">
+                <div class="priority-item__title">Videographer hiring sprint</div>
+                <div class="priority-item__sub">3 candidates waiting — Andres, Evan, Naman. Screen all portfolios, shortlist, send interview requests and rejection emails. Tuesday Block 1, 7 AM–12 PM. Pipeline is live — move now.</div>
+              </div>
+            </div>
+            <div class="priority-item">
+              <div class="priority-item__num">3</div>
+              <div class="priority-item__main">
+                <div class="priority-item__title">Leanne meeting prep — Wed May 27</div>
+                <div class="priority-item__sub">Leanne confirmed — meeting is on at 12:00 PM. Pull your notes, know what you want out of the call. 15 min of prep Wednesday before noon is all it takes.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card__header"><span class="card__title">Flags</span></div>
+          <div class="flag-list">
+            <div class="flag-item flag-item--red">
+              <div class="flag-item__icon">🚨</div>
+              <div class="flag-item__text"><strong>Miami is Saturday May 30.</strong> Hard deadline for everything is Friday 5 PM. Nothing carries over. Miami legal info is now a must-do, not a maybe — Thursday morning, first thing.</div>
+            </div>
+            <div class="flag-item flag-item--yellow">
+              <div class="flag-item__icon">⚠️</div>
+              <div class="flag-item__text"><strong>Monday Block 1 is broken.</strong> Haircut at 10 AM cuts the morning into ~90 min and ~30 min chunks. Short, completable tasks only on Monday — no deep focus work.</div>
+            </div>
+            <div class="flag-item flag-item--yellow">
+              <div class="flag-item__icon">⚠️</div>
+              <div class="flag-item__text"><strong>Rion meeting Mon 12–12:30 PM is unconfirmed.</strong> If no reply by 11 AM Monday, drop it and reclaim the time.</div>
+            </div>
+            <div class="flag-item flag-item--yellow">
+              <div class="flag-item__icon">⚠️</div>
+              <div class="flag-item__text"><strong>Friday is a full meeting day.</strong> Maverick (8:30), Weekly Report (10), ALVION Founders (11–1). No creative Block 1 possible. All deep work must land Mon–Thu.</div>
+            </div>
+            <div class="flag-item flag-item--green">
+              <div class="flag-item__icon">✅</div>
+              <div class="flag-item__text"><strong>Tuesday and Thursday are completely clear.</strong> Guard them — they're your only real deep work windows this week with Miami on Saturday.</div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card__header"><span class="card__title">Day-by-Day Plan</span></div>
+          <div class="day-plan" id="day-plan"></div>
+        </div>
+        <div class="card">
+          <div class="card__header"><span class="card__title">Sharp Recommendation</span></div>
+          <div class="callout">
+            <strong>This week has a hard deadline most weeks don't: Friday 5 PM.</strong> Miami Saturday means you can't push anything. Tuesday and Thursday are your fortress days — Tuesday for the videographer sprint, Thursday for Miami legal and strategy. Wednesday Block 1 is your only real production window — guard it. Monday is fragmented by the haircut, so keep it to short tasks. Friday is gone to meetings.<br><br>
+            The pattern: <strong>Mon = short tasks + admin &middot; Tue = hiring sprint &middot; Wed = production + Leanne + ALVION &middot; Thu = Miami prep + strategy &middot; Fri = meetings + pack.</strong> Leave Friday with nothing hanging.
+          </div>
+        </div>
+        <div class="content-grid">
+          <div class="card">
+            <div class="card__header"><span class="card__title">Top Senders This Week</span></div>
+            <div class="ranked-list" id="weekly-ranked"></div>
+          </div>
+          <div class="card">
+            <div class="card__header"><span class="card__title">Week Progress</span></div>
+            <div class="progress-list" id="weekly-progress"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    // DATE
+    const now = new Date();
+    document.getElementById('page-date').textContent =
+      now.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+
+    // ============================================================
+    // DATA — BRIEF MAY 24, 2026
+    // ============================================================
+    const emailsUrgent = [
+      { from: 'Notion (self)', subject: 'Send voice memo to Helen', action: 'New task — do Monday Block 1, before her 5 PM brief.', time: 'Today', priority: 'red' },
+      { from: 'Calendar', subject: 'Meeting w/ Rion Mon 12-12:30 PM (UNCONFIRMED)', action: 'Rion has NOT confirmed. Eats lunch on a Gym Day. Cancel if no reply by 11 AM Monday.', time: 'Mon', priority: 'yellow' },
+    ];
+
+    const emailsResolved = [
+      { from: 'HubSign', subject: 'Helen editor contract — fully signed', action: 'Both parties completed. Done.', time: 'Sat', priority: '' },
+      { from: 'Calendar', subject: 'Leanne confirmed — Wed May 27, 12-1 PM', action: 'Meeting is on. Google Meet: meet.google.com/ddy-npoq-nvy', time: 'Sat', priority: '' },
+      { from: 'Calendar', subject: 'Helen accepted Weekly Brief — Mon 5:00-5:15 PM', action: 'Google Meet: meet.google.com/fzy-pzmb-jes', time: 'Sat', priority: '' },
+      { from: 'Calendar', subject: 'Haircut booked — Mon May 25, 10:00-11:00 AM', action: 'Already on the calendar.', time: 'Sat', priority: '' },
+    ];
+
+    const emailsNoise = [
+      { from: 'Dropbox (x2)', subject: 'Storage plan promotions', action: 'Ignore.', time: '-', priority: '' },
+      { from: 'LinkedIn (x2)', subject: 'Profile view, connection suggestion', action: 'Ignore.', time: '-', priority: '' },
+    ];
+
+    const calWeekend = [
+      { time: 'All day', title: 'Protected Sunday — no work', sub: 'Sunday May 24 — Reset prep only, max 2h if anything', warn: '', color: 'green' },
+    ];
+
+    const calWeek = [
+      { time: 'Mon 6:15', title: 'Gym', sub: 'Monday May 25 — 6:15-7:45 AM', warn: '', color: 'green' },
+      { time: 'Mon 8:30', title: 'Block 1 — Short tasks (pre-haircut)', sub: 'Monday May 25 — 8:30-10:00 AM — ~90 min only', warn: 'Haircut at 10 breaks Block 1 — short tasks only', color: 'yellow' },
+      { time: 'Mon 10:00', title: 'Haircut', sub: 'Monday May 25 — 10:00-11:00 AM — Already booked', warn: '', color: 'muted' },
+      { time: 'Mon 12:00', title: 'Meeting w/ Rion (pixelcityvisuals)', sub: 'Monday May 25 — 12:00-12:30 PM — Google Meet', warn: 'UNCONFIRMED — cancel if no reply by 11 AM', color: 'yellow' },
+      { time: 'Mon 5:00', title: 'Weekly Brief w/ Helen', sub: 'Monday May 25 — 5:00-5:15 PM — meet.google.com/fzy-pzmb-jes', warn: '', color: 'accent' },
+      { time: 'Tue 7:00', title: 'Videographer hiring sprint — 5h', sub: 'Tuesday May 26 — Block 1 — 7:00 AM-12:00 PM', warn: '', color: 'accent' },
+      { time: 'Wed 6:15', title: 'Gym', sub: 'Wednesday May 27 — 6:15-7:45 AM', warn: '', color: 'green' },
+      { time: 'Wed 12:00', title: 'Follow Up Meeting — Leanne (confirmed)', sub: 'Wednesday May 27 — 12:00-1:00 PM — meet.google.com/ddy-npoq-nvy', warn: '', color: 'green' },
+      { time: 'Wed 7:00', title: 'ALVION Biweekly Meeting', sub: '295 Robinson St, Oakville — 7:00-8:00 PM', warn: '', color: 'accent' },
+      { time: 'Thu 7:00', title: 'Miami legal info + strategy', sub: 'Thursday May 28 — Block 1 — 7:00 AM-12:00 PM', warn: '', color: 'accent' },
+      { time: 'Fri 6:15', title: 'Gym', sub: 'Friday May 29 — 6:15-7:45 AM', warn: '', color: 'green' },
+      { time: 'Fri 8:30', title: 'Meeting w/ Maverick', sub: 'Friday May 29 — 8:30-9:00 AM — Google Meet (recurring)', warn: 'Block 1 violation on Gym Day', color: 'yellow' },
+      { time: 'Fri 10:00', title: 'Weekly Report', sub: 'Friday May 29 — 10:00-11:00 AM — ACE Coworking', warn: '', color: 'yellow' },
+      { time: 'Fri 11:00', title: 'ALVION Founders Weekly', sub: 'Friday May 29 — 11:00 AM-1:00 PM — ACE Coworking', warn: 'Block 1 completely consumed — no deep work Friday', color: 'red' },
+      { time: 'Sat May 30', title: 'Miami', sub: 'Saturday May 30 — Trip begins — Hard deadline: Fri 5 PM', warn: '', color: 'accent' },
+    ];
+
+    const tasksHigh = [
+      { label: 'Send voice memo to Helen', done: false, priority: 'red' },
+      { label: "Check Chris's contract", done: false, priority: 'red' },
+      { label: 'Organize Resimate files', done: false, priority: 'yellow' },
+      { label: 'Find videographer — screen Andres, Evan, Naman, send responses', done: false, priority: 'red' },
+      { label: 'Figure out Miami legal info (passport, ESTA, US entry)', done: false, priority: 'red' },
+    ];
+
+    const tasksMedium = [
+      { label: 'Start building ALVION content style', done: false, priority: 'yellow' },
+      { label: 'Deep Dive Claude Workflow', done: false, priority: 'yellow' },
+      { label: 'Study 910 Academy course', done: false, priority: '' },
+    ];
+
+    const tasksBacklog = [
+      { label: 'Make 2 real-estate edits for Katrina', done: false, priority: '' },
+      { label: 'Editor Onboarding Process', done: false, priority: '' },
+      { label: 'Update Prospect Labs Service Delivery Workflow', done: false, priority: '' },
+      { label: 'Create file / Resimate Extra Shoots doc', done: false, priority: '' },
+      { label: 'Get Boating License', done: false, priority: '' },
+    ];
+
+    const senders = [
+      { label: 'LinkedIn', value: 2 },
+      { label: 'Dropbox', value: 2 },
+      { label: 'Calendar (resolved)', value: 3 },
+      { label: 'Notion (self)', value: 1 },
+      { label: 'HubSign', value: 1 },
+    ];
+
+    const progressItems = [
+      { label: 'High priority tasks closed', done: 0, total: 5 },
+      { label: 'Videographer candidates reviewed', done: 0, total: 3 },
+      { label: 'Miami prep complete', done: 0, total: 1 },
+    ];
+
+    const dayPlan = [
+      {
+        title: 'Monday May 25', meta: 'Gym Day — disrupted', warn: true,
+        blocks: [
+          '<strong>6:15-7:45 AM</strong> — Gym',
+          '<strong>8:30-10:00 AM</strong> — Organize Resimate files (90 min pre-haircut — short task)',
+          '<strong>10:00-11:00 AM</strong> — Haircut',
+          '<strong>11:30-11:55 AM</strong> — Send voice memo to Helen',
+          '<strong class="warn">12:00-12:30 PM — Meeting w/ Rion (only if confirmed — cancel by 11 AM if not)</strong>',
+          '<strong>12:30-1:15 PM</strong> — Lunch',
+          "<strong>1:15-2:30 PM</strong> — Check Chris's contract",
+          '<strong>2:30-4:00 PM</strong> — Videographer pipeline — check Indeed, note where each candidate stands',
+          '<strong>4:00-5:00 PM</strong> — Admin + email clear',
+          '<strong>5:00-5:15 PM</strong> — Weekly Brief w/ Helen — meet.google.com/fzy-pzmb-jes',
+        ]
+      },
+      {
+        title: 'Tuesday May 26', meta: 'Work Day — Biggest Day', warn: false,
+        blocks: [
+          '<strong>7:00-10:30 AM</strong> — Videographer sprint — review all portfolios (Andres, Evan, Naman), score each one',
+          '<strong>10:30-12:00 PM</strong> — Draft + send outreach to top candidates; rejections to weak ones',
+          '<strong>12:00-1:00 PM</strong> — Lunch',
+          '<strong>1:00-2:30 PM</strong> — ALVION content style — start building it out',
+          '<strong>2:30-3:30 PM</strong> — Admin + client comms',
+          '<strong>3:30 PM</strong> — Done',
+        ]
+      },
+      {
+        title: 'Wednesday May 27', meta: 'Gym Day + Leanne + ALVION Evening', warn: false,
+        blocks: [
+          '<strong>6:15-7:45 AM</strong> — Gym',
+          '<strong>8:30-11:45 AM</strong> — Production work — video editing / client deliverables',
+          '<strong>11:45-12:00 PM</strong> — Prep for Leanne meeting',
+          '<strong>12:00-1:00 PM</strong> — Follow Up Meeting — Leanne — meet.google.com/ddy-npoq-nvy',
+          '<strong>1:00-1:45 PM</strong> — Lunch',
+          '<strong>1:45-3:30 PM</strong> — ALVION content style — continue build',
+          '<strong>3:30-5:00 PM</strong> — Hiring follow-ups + editor briefs to Vietnam/India by 5 PM',
+          '<strong>7:00-8:00 PM</strong> — ALVION Biweekly Meeting — 295 Robinson St, Oakville',
+        ]
+      },
+      {
+        title: 'Thursday May 28', meta: 'Work Day — Strategy + Miami Prep', warn: false,
+        blocks: [
+          '<strong>7:00-9:30 AM</strong> — Figure out Miami legal info — passport check, ESTA, US entry requirements, business considerations',
+          '<strong>9:30-12:00 PM</strong> — Deep Dive Claude Workflow (only if Miami legal is done)',
+          '<strong>12:00-1:00 PM</strong> — Lunch',
+          '<strong>1:00-2:30 PM</strong> — Proposals / outreach / biz dev',
+          '<strong>2:30-3:30 PM</strong> — Editor management — review output, prep briefs',
+          '<strong>3:30-4:00 PM</strong> — Miami packing list + logistics',
+          '<strong>4:00 PM</strong> — Done early — Miami Saturday',
+        ]
+      },
+      {
+        title: 'Friday May 29', meta: 'Gym Day — Full Meeting Morning', warn: true,
+        blocks: [
+          '<strong>6:15-7:45 AM</strong> — Gym',
+          '<strong class="warn">8:30-9:00 AM — Meeting w/ Maverick — Google Meet (recurring violation)</strong>',
+          '<strong>9:00-10:00 AM</strong> — Transition / notes / light admin',
+          '<strong class="warn">10:00-11:00 AM — Weekly Report — ACE Coworking</strong>',
+          '<strong class="warn">11:00 AM-1:00 PM — ALVION Founders Weekly — ACE Coworking — Block 1 completely gone</strong>',
+          '<strong>1:30-3:30 PM</strong> — Week review + next actions',
+          '<strong>3:30-5:15 PM</strong> — Miami final prep — pack, confirm anything outstanding, tie up loose ends',
+          '<strong>5:15 PM</strong> — Weekend. Shut the laptop.',
+        ]
+      },
+    ];
+
+    // ============================================================
+    // RENDER HELPERS
+    // ============================================================
+    function initials(name) {
+      return name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+    }
+
+    function priorityBadge(p) {
+      if (!p) return '';
+      const map = { red: ['badge--red', 'Urgent'], yellow: ['badge--yellow', 'Watch'] };
+      const [cls, label] = map[p] || ['', ''];
+      return `<span class="badge ${cls}"><span class="badge__dot"></span>${label}</span>`;
+    }
+
+    function renderEmails(containerId, items) {
+      document.getElementById(containerId).innerHTML = items.map(e => `
+        <div class="data-row">
+          <div class="data-row__avatar">${initials(e.from)}</div>
+          <div class="data-row__main">
+            <div class="data-row__primary">${e.subject}</div>
+            <div class="data-row__secondary">${e.from}</div>
+            ${e.action ? `<div class="data-row__action">${e.action}</div>` : ''}
+          </div>
+          <div class="data-row__right">
+            <span class="data-row__time">${e.time}</span>
+            ${priorityBadge(e.priority)}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderEvents(containerId, items) {
+      document.getElementById(containerId).innerHTML = items.map(ev => `
+        <div class="event-item event-item--${ev.color}">
+          <div class="event-item__time">${ev.time}</div>
+          <div class="event-item__main">
+            <div class="event-item__title">${ev.title}</div>
+            <div class="event-item__sub">${ev.sub}</div>
+            ${ev.warn ? `<div class="event-item__warn">${ev.warn}</div>` : ''}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderTasks(containerId, items, offset) {
+      const el = document.getElementById(containerId);
+      if (!el) return;
+      el.innerHTML = items.map((t, i) => `
+        <div class="task-item ${t.done ? 'task-item--done' : ''}"
+          onclick="toggleTask(${(offset||0) + i})">
+          <div class="task-item__check"></div>
+          <span class="task-item__label">${t.label}</span>
+          ${priorityBadge(t.priority)}
+        </div>
+      `).join('');
+    }
+
+    function renderRanked(containerId, data) {
+      const max = Math.max(...data.map(d => d.value));
+      document.getElementById(containerId).innerHTML = data.map(item => `
+        <div class="ranked-row">
+          <div class="ranked-row__info">
+            <div class="ranked-row__avatar">${item.label[0].toUpperCase()}</div>
+            <span class="ranked-row__label">${item.label}</span>
+          </div>
+          <div class="ranked-row__bar-wrap">
+            <div class="ranked-row__bar" data-width="${(item.value / max * 100).toFixed(1)}"></div>
+          </div>
+          <span class="ranked-row__value">${item.value}</span>
+        </div>
+      `).join('');
+      requestAnimationFrame(() => {
+        document.querySelectorAll(`#${containerId} .ranked-row__bar`).forEach(b => {
+          b.style.width = b.dataset.width + '%';
+        });
+      });
+    }
+
+    function getProgressClass(pct) {
+      if (pct >= 100) return 'progress-fill--complete';
+      if (pct >= 50)  return '';
+      if (pct >= 25)  return 'progress-fill--warning';
+      return 'progress-fill--critical';
+    }
+
+    function renderProgress(containerId, items) {
+      document.getElementById(containerId).innerHTML = items.map(item => {
+        const pct = item.total > 0 ? (item.done / item.total * 100).toFixed(1) : 0;
+        return `
+          <div class="progress-row">
+            <div class="progress-row__header">
+              <span class="progress-row__label">${item.label}</span>
+              <span class="progress-row__fraction">${item.done} / ${item.total}</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill ${getProgressClass(parseFloat(pct))}" data-width="${pct}"></div>
+            </div>
+          </div>
+        `;
+      }).join('');
+      requestAnimationFrame(() => {
+        document.querySelectorAll(`#${containerId} .progress-fill`).forEach(f => {
+          f.style.width = f.dataset.width + '%';
+        });
+      });
+    }
+
+    function renderDayPlan() {
+      document.getElementById('day-plan').innerHTML = dayPlan.map((day, i) => `
+        <div class="day-card">
+          <div class="day-card__header" onclick="toggleDay(${i})">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span class="day-card__title">${day.title}</span>
+              ${day.warn ? '<span class="day-card__warn">Violations</span>' : ''}
+            </div>
+            <span class="day-card__meta">${day.meta}</span>
+          </div>
+          <div class="day-card__body" id="day-body-${i}">
+            <div class="day-block">
+              ${day.blocks.map(b => `<div>${b}</div>`).join('')}
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function toggleDay(i) {
+      document.getElementById('day-body-' + i).classList.toggle('day-card__body--open');
+    }
+
+    // ============================================================
+    // TASK TOGGLE
+    // ============================================================
+    const allTasks = [...tasksHigh, ...tasksMedium, ...tasksBacklog];
+
+    function toggleTask(idx) {
+      allTasks[idx].done = !allTasks[idx].done;
+      renderTasks('task-high', tasksHigh, 0);
+      renderTasks('task-medium', tasksMedium, tasksHigh.length);
+      renderTasks('task-backlog', tasksBacklog, tasksHigh.length + tasksMedium.length);
+      renderTasks('overview-tasks', tasksHigh.slice(0, 3), 0);
+    }
+
+    // ============================================================
+    // MODULE SWITCHING
+    // ============================================================
+    const moduleTitles = {
+      overview: 'Overview', email: 'Email Triage',
+      calendar: 'Calendar', tasks: 'Task Manager', weekly: 'Weekly Optimizer',
+    };
+
+    function switchModule(name, el) {
+      document.querySelectorAll('.module-view').forEach(v => v.classList.remove('module-view--active'));
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('nav-item--active'));
+      document.getElementById('module-' + name).classList.add('module-view--active');
+      el.classList.add('nav-item--active');
+      document.getElementById('page-title').textContent = moduleTitles[name];
+    }
+
+    function switchEmailTab(tab, el) {
+      document.querySelectorAll('.email-filter .tab').forEach(t => t.classList.remove('tab--active'));
+      document.querySelectorAll('.email-section').forEach(s => s.classList.remove('email-section--active'));
+      el.classList.add('tab--active');
+      document.getElementById('email-' + tab).classList.add('email-section--active');
+    }
+
+    function switchChart(type, el) {
+      document.querySelectorAll('#chart-tabs .tab').forEach(t => t.classList.remove('tab--active'));
+      el.classList.add('tab--active');
+      document.querySelectorAll('.chart-view').forEach(v => v.classList.remove('chart-view--active'));
+      document.getElementById('chart-' + type).classList.add('chart-view--active');
+      document.getElementById('time-range-controls').style.display = type === 'line' ? 'flex' : 'none';
+      if (type === 'line') lineChart.resize();
+    }
+
+    // ============================================================
+    // CHART.JS
+    // ============================================================
+    Chart.defaults.color = '#5A5A5A';
+    Chart.defaults.font.family = 'Inter, system-ui, sans-serif';
+    Chart.defaults.font.size = 11;
+
+    const lineChart = new Chart(document.getElementById('chart-line'), {
+      type: 'line',
+      data: {
+        labels: ['9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm'],
+        datasets: [{
+          data: [2, 5, 8, 4, 1, 3, 2, 0, 0],
+          borderColor: '#6B5CE7',
+          backgroundColor: 'rgba(107,92,231,0.08)',
+          borderWidth: 2, fill: true, tension: 0.4,
+          pointRadius: 0, pointHoverRadius: 5,
+          pointHoverBackgroundColor: '#6B5CE7',
+          pointHoverBorderColor: '#0F0F0F',
+          pointHoverBorderWidth: 2,
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: '#1A1A1A', borderColor: '#2E2E2E', borderWidth: 1,
+            titleColor: '#F2F2F2', bodyColor: '#A0A0A0', padding: 10, displayColors: false,
+            callbacks: { label: ctx => ctx.parsed.y + ' emails' }
+          }
+        },
+        scales: {
+          x: { grid: { display: false }, border: { display: false }, ticks: { color: '#5A5A5A' } },
+          y: { grid: { color: '#1F1F1F' }, border: { display: false }, ticks: { color: '#5A5A5A', maxTicksLimit: 5, padding: 8 }, beginAtZero: true }
+        }
+      }
+    });
+
+    document.querySelectorAll('.range-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        btn.closest('.chart-panel__controls').querySelectorAll('.range-btn').forEach(b => b.classList.remove('range-btn--active'));
+        btn.classList.add('range-btn--active');
+      });
+    });
+
+    // ============================================================
+    // INITIAL RENDER
+    // ============================================================
+    renderEmails('overview-emails', emailsUrgent);
+    renderEmails('email-list-urgent', emailsUrgent);
+    renderEmails('email-list-resolved', emailsResolved);
+    renderEmails('email-list-noise', emailsNoise);
+    renderEvents('cal-weekend', calWeekend);
+    renderEvents('cal-week', calWeek);
+    renderTasks('overview-tasks', tasksHigh.slice(0, 3), 0);
+    renderTasks('task-high', tasksHigh, 0);
+    renderTasks('task-medium', tasksMedium, tasksHigh.length);
+    renderTasks('task-backlog', tasksBacklog, tasksHigh.length + tasksMedium.length);
+    renderRanked('chart-ranked', senders);
+    renderRanked('weekly-ranked', senders);
+    renderProgress('chart-progress', progressItems);
+    renderProgress('weekly-progress', progressItems);
+    renderDayPlan();
+
+  </script>
+</body>
+</html>

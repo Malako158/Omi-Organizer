@@ -1,0 +1,24 @@
+{
+  "id": "conv-1779721293091-q9u4tanda",
+  "providerId": "claude",
+  "title": "Investigate missing omni-organizer",
+  "titleGenerationStatus": "success",
+  "createdAt": 1779721293092,
+  "updatedAt": 1779754589540,
+  "lastResponseAt": 1779754589540,
+  "sessionId": "77d3ca3b-1c8d-41d7-a143-c96ade1ba559",
+  "providerState": {
+    "providerSessionId": "77d3ca3b-1c8d-41d7-a143-c96ade1ba559"
+  },
+  "currentNote": "Omi Memory/Tasks.md",
+  "usage": {
+    "model": "sonnet",
+    "inputTokens": 3,
+    "cacheCreationInputTokens": 571,
+    "cacheReadInputTokens": 44179,
+    "contextWindow": 200000,
+    "contextTokens": 44753,
+    "percentage": 22,
+    "contextWindowIsAuthoritative": true
+  }
+}

@@ -1,0 +1,2 @@
+- [ ] Create AI accountant project in Obsidian ([[overview#03:25 PM - 💸 AI Accounting Task in Obsidian|Source]])
+- [ ] Set up editor for ClickUp project ([[overview#03:23 PM - 📋 Greening Homes ClickUp Tasks|Source]])

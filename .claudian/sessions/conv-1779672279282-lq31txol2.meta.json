@@ -1,0 +1,23 @@
+{
+  "id": "conv-1779672279282-lq31txol2",
+  "providerId": "claude",
+  "title": "Check omi-organizer daily activation",
+  "titleGenerationStatus": "success",
+  "createdAt": 1779672279283,
+  "updatedAt": 1779674218833,
+  "lastResponseAt": 1779674218833,
+  "sessionId": "cc0e8327-836d-427d-a657-21149bb7c490",
+  "providerState": {
+    "providerSessionId": "cc0e8327-836d-427d-a657-21149bb7c490"
+  },
+  "usage": {
+    "model": "sonnet",
+    "inputTokens": 1,
+    "cacheCreationInputTokens": 783,
+    "cacheReadInputTokens": 50612,
+    "contextWindow": 200000,
+    "contextTokens": 51396,
+    "percentage": 26,
+    "contextWindowIsAuthoritative": true
+  }
+}

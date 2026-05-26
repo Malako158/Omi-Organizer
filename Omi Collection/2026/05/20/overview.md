@@ -1,0 +1,14 @@
+#### 07:29 PM - 📈 Escalation Media Plans Growth and Hiring
+<!-- conv_id: ec926ef5-5b0c-4d9c-9fcb-d3023a8b3f8c -->
+*([[transcript#07:29 PM - 📈 Escalation Media Plans Growth and Hiring|Transcript]])*
+The discussion focused on Escalation Media’s team structure, growth goals, and near-term operations. The user outlined current team members and roles, including videographer Ryan, short-form editor Maverick, YouTube editor Ahmed and his India-based team, business partner Chris handling sales and lead generation, the user handling delivery, operations, systems, and hiring, and an accountant working in QuickBooks. The user wants profiles created for each team member so Claude can understand the business context. The conversation also covered milestones: the company is approaching its first year, recently hit a 10k month, and is aiming for 20k monthly revenue and eventually 50k per month by year-end. The user described a weekday work schedule with weekends off, a need to finalize a structured calendar and connect it to Claude, and an upcoming end-of-month trip to Miami with Zach Carson and bigger creators to produce strong portfolio content and move further into the luxury niche.
+
+#### 06:58 PM - 🎬 Sarah Reviews Project Three Revisions
+<!-- conv_id: 48566654-274c-42f3-8159-fa1b3e3e5364 -->
+*([[transcript#06:58 PM - 🎬 Sarah Reviews Project Three Revisions|Transcript]])*
+The user discussed a call with Sarah about revisions for Project Three under the Cascod project and is now reviewing the work before sending it to the editor with a brief on client expectations. The conversation also covered plans to streamline and eventually automate repetitive workflows, hire or outsource roles like editors, videographers, and a project manager, and improve quality control and client communication. The user described their current client portfolio, including Resume, Prospect Labs/FitKit Labs, and potential new leads such as a realtor, architect, and possibly a homebuilder. They also outlined a long-term goal of evolving the business from a social media/media service into a full-service marketing agency with stronger systems, paid ads, and AI-assisted workflows using Omi, Obsidian, and Claude.
+
+#### 06:56 PM - 📄 Contract and project organization tasks
+<!-- conv_id: a5ee146b-0b2a-4a64-b419-8cb2a7355130 -->
+*([[transcript#06:56 PM - 📄 Contract and project organization tasks|Transcript]])*
+The user is organizing work in ClickUp and Notion, with several project-related tasks in progress. Key items include reviewing a contract created by Chris, creating a contract for Helen the editor, organizing resume and prospect files, and setting up the Grady Homes ClickUp file to send to an editor. The user is also waiting for Yvonne from Greening Homes to send photos, which are expected by the end of the day.

@@ -1,0 +1,23 @@
+{
+  "id": "conv-1779507798164-dogsav2u1",
+  "providerId": "claude",
+  "title": "Build Schedule Optimizer Skill",
+  "titleGenerationStatus": "success",
+  "createdAt": 1779507798164,
+  "updatedAt": 1779672252090,
+  "lastResponseAt": 1779507921208,
+  "sessionId": "3d4b8c0d-b3e4-467b-8625-ad622adc0fec",
+  "providerState": {
+    "providerSessionId": "3d4b8c0d-b3e4-467b-8625-ad622adc0fec"
+  },
+  "usage": {
+    "model": "sonnet",
+    "inputTokens": 1,
+    "cacheCreationInputTokens": 410,
+    "cacheReadInputTokens": 33450,
+    "contextWindow": 200000,
+    "contextTokens": 33861,
+    "percentage": 17,
+    "contextWindowIsAuthoritative": true
+  }
+}

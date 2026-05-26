@@ -1,0 +1,24 @@
+{
+  "id": "conv-1779674497432-ult8pozu9",
+  "providerId": "claude",
+  "title": "Check Obsidian file colors",
+  "titleGenerationStatus": "success",
+  "createdAt": 1779674497432,
+  "updatedAt": 1779721253341,
+  "lastResponseAt": 1779716252674,
+  "sessionId": "dae12a31-0197-4444-923c-7bb258a7bccc",
+  "providerState": {
+    "providerSessionId": "dae12a31-0197-4444-923c-7bb258a7bccc"
+  },
+  "currentNote": "Omi Memory/Tasks.md",
+  "usage": {
+    "model": "sonnet",
+    "inputTokens": 3,
+    "cacheCreationInputTokens": 48705,
+    "cacheReadInputTokens": 0,
+    "contextWindow": 200000,
+    "contextTokens": 48708,
+    "percentage": 24,
+    "contextWindowIsAuthoritative": true
+  }
+}

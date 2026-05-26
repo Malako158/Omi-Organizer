@@ -1,0 +1,1 @@
+- [ ] Set up a payment method for the Miami client ([[overview#10:55 AM - 💳 Payment Setup For Miami Trip|Source]])
