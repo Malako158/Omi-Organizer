@@ -5,7 +5,7 @@ _Last updated: 2026-05-26_
 ---
 
 ## Notion Tasks
-_Synced: 2026-05-26 10:17_
+_Synced: 2026-05-26 14:35_
 
 ### 🔴 Doing
 - [ ] Give Editor All the assets
@@ -21,7 +21,7 @@ _Synced: 2026-05-26 10:17_
 - [ ] Create Delivery SOP's _(High)_
 - [ ] Reschedule Line Of Credit Application With The bank and get the proper documents _(High)_
 - [ ] E-transfer Ahmed _(High)_
-- [ ] Refine Editor Onboarding Process
+- [ ] Refine Editor Onboarding Process _(Medium)_
 - [ ] Claude Cowork Learning
 - [ ] SMMA Study (Branding)
 - [ ] Figure out all legal information about going to miami
