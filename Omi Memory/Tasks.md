@@ -5,46 +5,42 @@ _Last updated: 2026-05-26_
 ---
 
 ## Notion Tasks
-_Synced: 2026-05-24 21:30_
+_Synced: 2026-05-26 10:12_
 
 ### 🔴 Doing
+- [ ] Learn how to use Dji mini 5 Drone _(High)_
 - [ ] Give Editor All the assets
 - [ ] Improve Drone Videography
 - [ ] Improve Videography & Editing
-- [ ] Learn how to use Dji mini 5 Drone _(High)_
-- [ ] Improve Videography & Editing _(due 2026-01-28)_
+- [ ] Deep Dive Claude Work Flow
 
 ### 🟡 To-Do
+- [ ] E-transfer Ahmed _(High)_
 - [ ] Break down Escalation Media Website then get on a call. Then contact web designer. _(High)_
-- [ ] Create Weekly Schedule _(High)_
 - [ ] Create Delivery SOP's _(High)_
+- [ ] Create Weekly Schedule _(High)_
 - [ ] Reschedule Line Of Credit Application With The bank and get the proper documents _(High)_
-- [ ] Send voice memo to Helen
+- [ ] Refine Editor Onboarding Process
+- [ ] Review Frame.io
+- [ ] Adjust Rion (Videographers) Contract
 - [ ] Figure out all legal information about going to miami
+- [ ] Start Building Out Alvion content Style
 - [ ] Get Boating License
-- [ ] Check out contract that chris sent
-- [ ] Answer Question Lisa sent for Lawyer meeting
-- [ ] Organize Resimate files
-- [ ] Send Raw Footage to the Home Building Company (Person gave you a card)
-- [ ] Setup Greening Homes in Click up
-- [ ] Deep Dive Claude Work Flow
-- [ ] Schedule in Updated Resimate Shoots
-- [ ] Split / Organize the 4 prospect videos
-- [ ] Create ALVION website
-- [ ] Make a Escalation Media Edit (Talking Video)
-- [ ] Create a agent for social media competitor and content research.
-- [ ] Improve Real-Estate color grade
-- [ ] Make a Reel for Prospect Lab (Malechie not making the jump to making the jump.)
-- [ ] Drone Shot of the Pear in Burlington
 - [ ] Study 910 Academy course
 - [ ] Send Raw Footage to Volpe Financial
-- [ ] Start Building Out Alvion content Style
+- [ ] Make a Reel for Prospect Lab (Malechie not making the jump to making the jump.)
+- [ ] Send Raw Footage to the Home Building Company (Person gave you a card)
+- [ ] Setup Greening Homes in Click up
+- [ ] Create ALVION website
 - [ ] Start Learning Apple Motions
-- [ ] Claude Cowork Learning
-- [ ] SMMA Study (Branding)
+- [ ] Create a agent for social media competitor and content research.
+- [ ] Improve Real-Estate color grade
+- [ ] Make a Escalation Media Edit (Talking Video)
+- [ ] Organize Resimate files
+- [ ] Schedule in Updated Resimate Shoots
+- [ ] Split / Organize the 4 prospect videos
 
 ### ⏳ Waiting
-- [ ] Find videographer (Start with Indeed Postings) _(High)_
 - [ ] Oakville Chamber Edit _(High)_
 - [ ] Send Reference Video / Raw Footage to Potential Video Editor.
 

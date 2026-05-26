@@ -110,3 +110,5 @@ Open action items:
 - [ ] Send drone registration and pilot certificate links to videographer
 - [ ] Lock in weekly Monday noon check-ins with videographer
 - [ ] Confirm Canon C-Log footage can be color graded before committing to Canon workflow
+- [ ] E-transfer Ahmed
+- [ ] Refine Editor Onboarding Process
