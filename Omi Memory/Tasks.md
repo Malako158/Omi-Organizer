@@ -1,11 +1,11 @@
 # Tasks
 
-_Last updated: 2026-05-26_
+_Last updated: 2026-05-27_
 
 ---
 
 ## Notion Tasks
-_Synced: 2026-05-26 14:35_
+_Synced: 2026-05-27 09:00_
 
 ### 🔴 Doing
 - [ ] Give Editor All the assets
@@ -22,8 +22,8 @@ _Synced: 2026-05-26 14:35_
 - [ ] Reschedule Line Of Credit Application With The bank and get the proper documents _(High)_
 - [ ] E-transfer Ahmed _(High)_
 - [ ] Refine Editor Onboarding Process _(Medium)_
-- [ ] Claude Cowork Learning
-- [ ] SMMA Study (Branding)
+- [ ] Claude Cowork Learning _(Medium)_
+- [ ] SMMA Study (Branding) _(Medium)_
 - [ ] Figure out all legal information about going to miami
 - [ ] Get Boating License
 - [ ] Answer Question Lisa sent for Lawyer meeting
