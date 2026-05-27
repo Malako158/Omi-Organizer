@@ -1,11 +1,11 @@
 # Tasks
 
-_Last updated: 2026-05-26_
+_Last updated: 2026-05-27_
 
 ---
 
 ## Notion Tasks
-_Synced: 2026-05-26 14:35_
+_Synced: 2026-05-27 10:40_
 
 ### 🔴 Doing
 - [ ] Give Editor All the assets
@@ -22,28 +22,28 @@ _Synced: 2026-05-26 14:35_
 - [ ] Reschedule Line Of Credit Application With The bank and get the proper documents _(High)_
 - [ ] E-transfer Ahmed _(High)_
 - [ ] Refine Editor Onboarding Process _(Medium)_
-- [ ] Claude Cowork Learning
-- [ ] SMMA Study (Branding)
-- [ ] Figure out all legal information about going to miami
-- [ ] Get Boating License
-- [ ] Answer Question Lisa sent for Lawyer meeting
-- [ ] Organize Resimate files
-- [ ] Send Raw Footage to the Home Building Company (Person gave you a card)
-- [ ] Setup Greening Homes in Click up
-- [ ] Schedule in Updated Resimate Shoots
-- [ ] Split / Organize the 4 prospect videos
-- [ ] Create ALVION website
-- [ ] Make a Escalation Media Edit (Talking Video)
-- [ ] Create a agent for social media competitor and content research.
-- [ ] Improve Real-Estate color grade
-- [ ] Make a Reel for Prospect Lab (Malechie not making the jump to making the jump.)
-- [ ] Drone Shot of the Pear in Burlington
+- [ ] SMMA Study (Branding) _(Medium)_
+- [ ] Claude Cowork Learning _(Medium)_
 - [ ] Study 910 Academy course
-- [ ] Send Raw Footage to Volpe Financial
-- [ ] Start Building Out Alvion content Style
-- [ ] Start Learning Apple Motions
 - [ ] Review Frame.io
+- [ ] Start Building Out Alvion content Style
+- [ ] Get Boating License
 - [ ] Adjust Rion (Videographers) Contract
+- [ ] Create ALVION website
+- [ ] Create a agent for social media competitor and content research.
+- [ ] Drone Shot of the Pear in Burlington
+- [ ] Make a Escalation Media Edit (Talking Video)
+- [ ] Improve Real-Estate color grade
+- [ ] Figure out all legal information about going to miami
+- [ ] Organize Resimate files
+- [ ] Schedule in Updated Resimate Shoots
+- [ ] Setup Greening Homes in Click up
+- [ ] Split / Organize the 4 prospect videos
+- [ ] Make a Reel for Prospect Lab (Malechie not making the jump to making the jump.)
+- [ ] Send Raw Footage to the Home Building Company (Person gave you a card)
+- [ ] Answer Question Lisa sent for Lawyer meeting
+- [ ] Send Raw Footage to Volpe Financial
+- [ ] Start Learning Apple Motions
 
 ### ⏳ Waiting
 - [ ] Oakville Chamber Edit _(High)_
