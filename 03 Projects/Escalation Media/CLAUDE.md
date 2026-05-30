@@ -87,7 +87,7 @@ Escalation Media/
 
 ## Current Status
 
-> **Last updated:** 2026-05-26
+> **Last updated:** 2026-05-30
 > **Status:** Active — videographer (Pixel City Visuals) contract terms agreed, signing call Thursday 12PM. Production workflow formalized. Wednesday meeting with real estate client (AI work).
 
 Open action items:
@@ -112,3 +112,4 @@ Open action items:
 - [ ] Confirm Canon C-Log footage can be color graded before committing to Canon workflow
 - [ ] E-transfer Ahmed
 - [ ] Refine Editor Onboarding Process
+- [ ] Refine videographer Onboarding Process

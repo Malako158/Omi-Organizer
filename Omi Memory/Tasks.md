@@ -1,17 +1,17 @@
 # Tasks
 
-_Last updated: 2026-05-29_
+_Last updated: 2026-05-30_
 
 ---
 
 ## Notion Tasks
-_Synced: 2026-05-29 09:00_
+_Synced: 2026-05-30 09:00_
 
 ### 🔴 Doing
 - [ ] Give Editor All the assets
 - [ ] Improve Drone Videography
+- [ ] Improve Videography & Editing _(Medium)_
 - [ ] Improve Videography & Editing
-- [ ] Improve Videography & Editing _(due 2026-01-28)_
 - [ ] Learn how to use Dji mini 5 Drone _(High)_
 - [ ] Deep Dive Claude Work Flow
 
@@ -44,6 +44,7 @@ _Synced: 2026-05-29 09:00_
 - [ ] Start Learning Apple Motions
 - [ ] Review Frame.io
 - [ ] Adjust Rion (Videographers) Contract
+- [ ] Refine videographer Onboarding Process
 
 ### ⏳ Waiting
 - [ ] Oakville Chamber Edit _(High)_
