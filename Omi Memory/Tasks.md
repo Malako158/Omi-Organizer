@@ -1,11 +1,11 @@
 # Tasks
 
-_Last updated: 2026-05-29_
+_Last updated: 2026-05-30_
 
 ---
 
 ## Notion Tasks
-_Synced: 2026-05-29 09:00_
+_Synced: 2026-05-30 12:00_
 
 ### 🔴 Doing
 - [ ] Give Editor All the assets
@@ -34,7 +34,7 @@ _Synced: 2026-05-29 09:00_
 - [ ] Split / Organize the 4 prospect videos
 - [ ] Create ALVION website
 - [ ] Make a Escalation Media Edit (Talking Video)
-- [ ] Create a agent for social media competitor and content research.
+- [ ] Create a agent for social media competitor and content research
 - [ ] Improve Real-Estate color grade
 - [ ] Make a Reel for Prospect Lab (Malechie not making the jump to making the jump.)
 - [ ] Drone Shot of the Pear in Burlington
