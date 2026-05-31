@@ -1,50 +1,42 @@
 # Tasks
 
-_Last updated: 2026-05-30_
+_Last updated: 2026-05-31_
 
 ---
 
 ## Notion Tasks
-_Synced: 2026-05-30 09:00_
+_Synced: 2026-05-31 09:00_
 
 ### 🔴 Doing
+- [ ] Learn how to use Dji mini 5 Drone _(High)_
 - [ ] Give Editor All the assets
 - [ ] Improve Drone Videography
 - [ ] Improve Videography & Editing _(Medium)_
 - [ ] Improve Videography & Editing
-- [ ] Learn how to use Dji mini 5 Drone _(High)_
 - [ ] Deep Dive Claude Work Flow
 
 ### 🟡 To-Do
 - [ ] Break down Escalation Media Website then get on a call. Then contact web designer. _(High)_
 - [ ] Create Weekly Schedule _(High)_
 - [ ] Create Delivery SOP's _(High)_
-- [ ] Reschedule Line Of Credit Application With The bank and get the proper documents _(High)_
 - [ ] E-transfer Ahmed _(High)_
+- [ ] Reschedule Line Of Credit Application With The bank and get the proper documents _(High)_
 - [ ] Refine Editor Onboarding Process _(Medium)_
-- [ ] Claude Cowork Learning _(Medium)_
 - [ ] SMMA Study (Branding) _(Medium)_
+- [ ] Adjust Rion (Videographers) Contract
+- [ ] Create ALVION website
+- [ ] Drone Shot of the Pear in Burlington
 - [ ] Figure out all legal information about going to miami
 - [ ] Get Boating License
-- [ ] Answer Question Lisa sent for Lawyer meeting
-- [ ] Organize Resimate files
-- [ ] Send Raw Footage to the Home Building Company (Person gave you a card)
-- [ ] Setup Greening Homes in Click up
-- [ ] Schedule in Updated Resimate Shoots
-- [ ] Split / Organize the 4 prospect videos
-- [ ] Create ALVION website
 - [ ] Make a Escalation Media Edit (Talking Video)
-- [ ] Create a agent for social media competitor and content research.
-- [ ] Improve Real-Estate color grade
-- [ ] Make a Reel for Prospect Lab (Malechie not making the jump to making the jump.)
-- [ ] Drone Shot of the Pear in Burlington
-- [ ] Study 910 Academy course
+- [ ] Organize Resimate files
+- [ ] Review Frame.io
+- [ ] Schedule in Updated Resimate Shoots
 - [ ] Send Raw Footage to Volpe Financial
+- [ ] Setup Greening Homes in Click up
 - [ ] Start Building Out Alvion content Style
 - [ ] Start Learning Apple Motions
-- [ ] Review Frame.io
-- [ ] Adjust Rion (Videographers) Contract
-- [ ] Refine videographer Onboarding Process
+- [ ] Study 910 Academy course
 
 ### ⏳ Waiting
 - [ ] Oakville Chamber Edit _(High)_
