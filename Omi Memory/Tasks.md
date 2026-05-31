@@ -1,11 +1,11 @@
 # Tasks
 
-_Last updated: 2026-05-30_
+_Last updated: 2026-05-31_
 
 ---
 
 ## Notion Tasks
-_Synced: 2026-05-30 09:00_
+_Synced: 2026-05-31 08:00_
 
 ### 🔴 Doing
 - [ ] Give Editor All the assets
