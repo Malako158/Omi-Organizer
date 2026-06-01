@@ -1,41 +1,28 @@
 # Tasks
 
-_Last updated: 2026-05-31_
+_Last updated: 2026-06-01_
 
 ---
 
 ## Notion Tasks
-_Synced: 2026-05-31 09:00_
+_Synced: 2026-06-01 09:00_
 
 ### 🔴 Doing
-- [ ] Learn how to use Dji mini 5 Drone _(High)_
-- [ ] Give Editor All the assets
-- [ ] Improve Drone Videography
-- [ ] Improve Videography & Editing _(Medium)_
-- [ ] Improve Videography & Editing
 - [ ] Deep Dive Claude Work Flow
 
 ### 🟡 To-Do
-- [ ] Break down Escalation Media Website then get on a call. Then contact web designer. _(High)_
-- [ ] Create Weekly Schedule _(High)_
-- [ ] Create Delivery SOP's _(High)_
 - [ ] E-transfer Ahmed _(High)_
-- [ ] Reschedule Line Of Credit Application With The bank and get the proper documents _(High)_
+- [ ] Create Weekly Schedule _(High)_
 - [ ] Refine Editor Onboarding Process _(Medium)_
-- [ ] SMMA Study (Branding) _(Medium)_
 - [ ] Adjust Rion (Videographers) Contract
 - [ ] Create ALVION website
 - [ ] Drone Shot of the Pear in Burlington
-- [ ] Figure out all legal information about going to miami
 - [ ] Get Boating License
-- [ ] Make a Escalation Media Edit (Talking Video)
 - [ ] Organize Resimate files
 - [ ] Review Frame.io
 - [ ] Schedule in Updated Resimate Shoots
-- [ ] Send Raw Footage to Volpe Financial
 - [ ] Setup Greening Homes in Click up
 - [ ] Start Building Out Alvion content Style
-- [ ] Start Learning Apple Motions
 - [ ] Study 910 Academy course
 
 ### ⏳ Waiting
