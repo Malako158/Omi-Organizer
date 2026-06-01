@@ -1,11 +1,11 @@
 # Tasks
 
-_Last updated: 2026-05-31_
+_Last updated: 2026-06-01_
 
 ---
 
 ## Notion Tasks
-_Synced: 2026-05-31 09:00_
+_Synced: 2026-06-01 09:00_
 
 ### 🔴 Doing
 - [ ] Learn how to use Dji mini 5 Drone _(High)_
@@ -32,6 +32,7 @@ _Synced: 2026-05-31 09:00_
 - [ ] Organize Resimate files
 - [ ] Review Frame.io
 - [ ] Schedule in Updated Resimate Shoots
+- [ ] Send Raw Footage to the Home Building Company (Person gave you a card)
 - [ ] Send Raw Footage to Volpe Financial
 - [ ] Setup Greening Homes in Click up
 - [ ] Start Building Out Alvion content Style
