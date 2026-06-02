@@ -1,11 +1,11 @@
 # Tasks
 
-_Last updated: 2026-06-01_
+_Last updated: 2026-06-02_
 
 ---
 
 ## Notion Tasks
-_Synced: 2026-06-01 09:00_
+_Synced: 2026-06-02 09:00_
 
 ### 🔴 Doing
 - [ ] Learn how to use Dji mini 5 Drone _(High)_
@@ -28,6 +28,7 @@ _Synced: 2026-06-01 09:00_
 - [ ] Drone Shot of the Pear in Burlington
 - [ ] Figure out all legal information about going to miami
 - [ ] Get Boating License
+- [ ] Invite Rion to Resimage Calendar Shoots
 - [ ] Make a Escalation Media Edit (Talking Video)
 - [ ] Organize Resimate files
 - [ ] Review Frame.io
