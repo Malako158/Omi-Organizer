@@ -1,11 +1,11 @@
 # Tasks
 
-_Last updated: 2026-06-02_
+_Last updated: 2026-06-03_
 
 ---
 
 ## Notion Tasks
-_Synced: 2026-06-02 22:10_
+_Synced: 2026-06-03 22:00_
 
 ### 🔴 Doing
 - [ ] Learn how to use Dji mini 5 Drone _(High)_
@@ -19,7 +19,6 @@ _Synced: 2026-06-02 22:10_
 - [ ] Break down Escalation Media Website then get on a call. Then contact web designer. _(High)_
 - [ ] Create Weekly Schedule _(High)_
 - [ ] Create Delivery SOP's _(High)_
-- [ ] E-transfer Ahmed _(High)_
 - [ ] Reschedule Line Of Credit Application With The bank and get the proper documents _(High)_
 - [ ] Refine Editor Onboarding Process _(Medium)_
 - [ ] SMMA Study (Branding) _(Medium)_
