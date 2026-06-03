@@ -31,7 +31,7 @@ or just keeping us busy?"
 | **Ryan (Pixel City Visuals)** | Videographer — contract being finalized, signing call Thu 12PM |
 | **Maverick**   | Short-form editor                                  |
 | **Ahmed**      | YouTube editor (leads India-based editing team)    |
-| **Helen**      | Editor (contract being finalized)                  |
+| **Helen**      | Editor — contract sent                             |
 | **Cassandra**  | Bookkeeper — QuickBooks                            |
 
 <!-- TODO: Create individual profile notes for each team member in 05 Team/ -->
@@ -87,7 +87,7 @@ Escalation Media/
 
 ## Current Status
 
-> **Last updated:** 2026-05-30
+> **Last updated:** 2026-06-03
 > **Status:** Active — videographer (Pixel City Visuals) contract terms agreed, signing call Thursday 12PM. Production workflow formalized. Wednesday meeting with real estate client (AI work).
 
 Open action items:
@@ -95,8 +95,8 @@ Open action items:
 - [ ] Finalize calendar and connect it to Claude
 - [ ] Send Project Three footage to client for script approval
 - [ ] Review contract created by Chris
-- [ ] Send Helen a contract
 - [ ] Organize Resimate and Prospect Labs files
+- [ ] Organize prospect labs files asap
 - [ ] Send Greening Homes photos to client
 - [ ] Get Greening Homes client on a call to define project direction
 - [ ] Create group chat with new videographer after onboarding
@@ -113,3 +113,4 @@ Open action items:
 - [ ] E-transfer Ahmed
 - [ ] Refine Editor Onboarding Process
 - [ ] Refine videographer Onboarding Process
+- [ ] Send Zach Editors SAAS video example

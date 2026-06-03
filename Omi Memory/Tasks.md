@@ -1,18 +1,17 @@
 # Tasks
 
-_Last updated: 2026-06-02_
+_Last updated: 2026-06-03_
 
 ---
 
 ## Notion Tasks
-_Synced: 2026-06-02 22:10_
+_Synced: 2026-06-03 09:00_
 
 ### 🔴 Doing
 - [ ] Learn how to use Dji mini 5 Drone _(High)_
+- [ ] Improve Videography & Editing _(Medium)_
 - [ ] Give Editor All the assets
 - [ ] Improve Drone Videography
-- [ ] Improve Videography & Editing _(Medium)_
-- [ ] Improve Videography & Editing
 - [ ] Deep Dive Claude Work Flow
 
 ### 🟡 To-Do
@@ -30,12 +29,14 @@ _Synced: 2026-06-02 22:10_
 - [ ] Get Boating License
 - [ ] Invite Rion to Resimage Calendar Shoots
 - [ ] Make a Escalation Media Edit (Talking Video)
+- [ ] Organize prospect labs files asap
 - [ ] Organize Resimate files
 - [ ] Refine videographer Onboarding Process
 - [ ] Review Frame.io
 - [ ] Schedule in Updated Resimate Shoots
 - [ ] Send Raw Footage to the Home Building Company (Person gave you a card)
 - [ ] Send Raw Footage to Volpe Financial
+- [ ] Send Zach Editors SAAS video example
 - [ ] Setup Greening Homes in Click up
 - [ ] Start Building Out Alvion content Style
 - [ ] Start Learning Apple Motions
