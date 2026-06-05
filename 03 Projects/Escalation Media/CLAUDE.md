@@ -87,8 +87,8 @@ Escalation Media/
 
 ## Current Status
 
-> **Last updated:** 2026-05-30
-> **Status:** Active — videographer (Pixel City Visuals) contract terms agreed, signing call Thursday 12PM. Production workflow formalized. Wednesday meeting with real estate client (AI work).
+> **Last updated:** 2026-06-05
+> **Status:** Active — videographer (Pixel City Visuals) contract terms agreed, signing call Thursday 12PM. Production workflow formalized. New client work: Zach (hero + founders videos), Leanne (AI clone process). Maverick assigned Greening Homes next edit.
 
 Open action items:
 - [ ] Create team profiles for Ryan, Maverick, Ahmed, Chris
@@ -110,6 +110,9 @@ Open action items:
 - [ ] Send drone registration and pilot certificate links to videographer
 - [ ] Lock in weekly Monday noon check-ins with videographer
 - [ ] Confirm Canon C-Log footage can be color graded before committing to Canon workflow
-- [ ] E-transfer Ahmed
 - [ ] Refine Editor Onboarding Process
 - [ ] Refine videographer Onboarding Process
+- [ ] Create Zach's Hero video
+- [ ] Make Zach's Founders Video
+- [ ] Outline the next edit for Maverick (Greening Homes)
+- [ ] Fully refine Leanne's AI clone creation process in a video for editor

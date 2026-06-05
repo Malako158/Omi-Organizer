@@ -1,11 +1,11 @@
 # Tasks
 
-_Last updated: 2026-06-04_
+_Last updated: 2026-06-05_
 
 ---
 
 ## Notion Tasks
-_Synced: 2026-06-04 22:08_
+_Synced: 2026-06-05 00:00_
 
 ### 🔴 Doing
 - [ ] Learn how to use Dji mini 5 Drone _(High)_
@@ -24,12 +24,16 @@ _Synced: 2026-06-04 22:08_
 - [ ] SMMA Study (Branding) _(Medium)_
 - [ ] Adjust Rion (Videographers) Contract
 - [ ] Create ALVION website
+- [ ] Create Zach's Hero video
 - [ ] Drone Shot of the Pear in Burlington
 - [ ] Figure out all legal information about going to miami
+- [ ] Fully refine Leanne's Ai clone creation process in a video for editor
 - [ ] Get Boating License
 - [ ] Invite Rion to Resimage Calendar Shoots
 - [ ] Make a Escalation Media Edit (Talking Video)
+- [ ] Make Zach's Founders Video
 - [ ] Organize Resimate files
+- [ ] Outline the next edit for Maverick (Greening Homes)
 - [ ] Refine videographer Onboarding Process
 - [ ] Review Frame.io
 - [ ] Schedule in Updated Resimate Shoots
