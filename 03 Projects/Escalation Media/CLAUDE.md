@@ -87,7 +87,7 @@ Escalation Media/
 
 ## Current Status
 
-> **Last updated:** 2026-05-30
+> **Last updated:** 2026-06-06
 > **Status:** Active — videographer (Pixel City Visuals) contract terms agreed, signing call Thursday 12PM. Production workflow formalized. Wednesday meeting with real estate client (AI work).
 
 Open action items:
@@ -110,6 +110,9 @@ Open action items:
 - [ ] Send drone registration and pilot certificate links to videographer
 - [ ] Lock in weekly Monday noon check-ins with videographer
 - [ ] Confirm Canon C-Log footage can be color graded before committing to Canon workflow
-- [ ] E-transfer Ahmed
+- [x] E-transfer Ahmed
 - [ ] Refine Editor Onboarding Process
 - [ ] Refine videographer Onboarding Process
+- [ ] Color grade Greening Homes Drone Video
+- [ ] Outline greening homes edits
+- [ ] Outline the next edit for Maverick (Greening Homes)

@@ -1,11 +1,11 @@
 # Tasks
 
-_Last updated: 2026-06-05_
+_Last updated: 2026-06-06_
 
 ---
 
 ## Notion Tasks
-_Synced: 2026-06-05 00:00_
+_Synced: 2026-06-06 03:10_
 
 ### 🔴 Doing
 - [ ] Learn how to use Dji mini 5 Drone _(High)_
@@ -23,6 +23,7 @@ _Synced: 2026-06-05 00:00_
 - [ ] Refine Editor Onboarding Process _(Medium)_
 - [ ] SMMA Study (Branding) _(Medium)_
 - [ ] Adjust Rion (Videographers) Contract
+- [ ] Color grade Greening Homes Drone Video
 - [ ] Create ALVION website
 - [ ] Create Client Style Output standards video for editors
 - [ ] Drone Shot of the Pear in Burlington
@@ -32,6 +33,8 @@ _Synced: 2026-06-05 00:00_
 - [ ] Invite Rion to Resimage Calendar Shoots
 - [ ] Make a Escalation Media Edit (Talking Video)
 - [ ] Organize Resimate files
+- [ ] Outline greening homes edits
+- [ ] Outline the next edit for Maverick (Greening Homes)
 - [ ] Refine videographer Onboarding Process
 - [ ] Review Frame.io
 - [ ] Schedule in Updated Resimate Shoots
