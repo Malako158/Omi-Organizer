@@ -1,53 +1,29 @@
 # Tasks
 
-_Last updated: 2026-06-06_
+_Last updated: 2026-06-07_
 
 ---
 
 ## Notion Tasks
-_Synced: 2026-06-06 03:10_
+_Synced: 2026-06-07 10:34_
 
 ### 🔴 Doing
 - [ ] Learn how to use Dji mini 5 Drone _(High)_
-- [ ] Give Editor All the assets
 - [ ] Improve Drone Videography
-- [ ] Improve Videography & Editing _(Medium)_
-- [ ] Improve Videography & Editing
-- [ ] Deep Dive Claude Work Flow
 
 ### 🟡 To-Do
-- [ ] Break down Escalation Media Website then get on a call. Then contact web designer. _(High)_
-- [ ] Create Delivery SOP's _(High)_
 - [ ] Create Weekly Schedule _(High)_
-- [ ] Reschedule Line Of Credit Application With The bank and get the proper documents _(High)_
-- [ ] Refine Editor Onboarding Process _(Medium)_
-- [ ] SMMA Study (Branding) _(Medium)_
-- [ ] Adjust Rion (Videographers) Contract
-- [ ] Color grade Greening Homes Drone Video
-- [ ] Create ALVION website
-- [ ] Create Client Style Output standards video for editors
-- [ ] Drone Shot of the Pear in Burlington
-- [ ] Figure out all legal information about going to miami
-- [ ] Fully refine Leanne's Ai clone creation process in a video for editor
-- [ ] Get Boating License
-- [ ] Invite Rion to Resimage Calendar Shoots
-- [ ] Make a Escalation Media Edit (Talking Video)
-- [ ] Organize Resimate files
-- [ ] Outline greening homes edits
-- [ ] Outline the next edit for Maverick (Greening Homes)
-- [ ] Refine videographer Onboarding Process
-- [ ] Review Frame.io
-- [ ] Schedule in Updated Resimate Shoots
-- [ ] Send Raw Footage to the Home Building Company (Person gave you a card)
-- [ ] Send Raw Footage to Volpe Financial
-- [ ] Setup Greening Homes in Click up
 - [ ] Start Building Out Alvion content Style
-- [ ] Start Learning Apple Motions
+- [ ] Create ALVION website
+- [ ] Setup Greening Homes in Click up
 - [ ] Study 910 Academy course
+- [ ] Organize Resimate files
+- [ ] Invite Rion to Resimage Calendar Shoots
+- [ ] Review Frame.io
+- [ ] Get Boating License
 
 ### ⏳ Waiting
 - [ ] Oakville Chamber Edit _(High)_
-- [ ] Send Reference Video / Raw Footage to Potential Video Editor
 
 ---
 
