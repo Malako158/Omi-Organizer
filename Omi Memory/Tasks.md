@@ -1,11 +1,11 @@
 # Tasks
 
-_Last updated: 2026-06-06_
+_Last updated: 2026-06-07_
 
 ---
 
 ## Notion Tasks
-_Synced: 2026-06-06 03:10_
+_Synced: 2026-06-07 22:05_
 
 ### 🔴 Doing
 - [ ] Learn how to use Dji mini 5 Drone _(High)_
