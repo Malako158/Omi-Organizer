@@ -1,11 +1,11 @@
 # Tasks
 
-_Last updated: 2026-06-07_
+_Last updated: 2026-06-08_
 
 ---
 
 ## Notion Tasks
-_Synced: 2026-06-07 22:05_
+_Synced: 2026-06-08 22:06_
 
 ### 🔴 Doing
 - [ ] Learn how to use Dji mini 5 Drone _(High)_
@@ -32,12 +32,14 @@ _Synced: 2026-06-07 22:05_
 - [ ] Get Boating License
 - [ ] Invite Rion to Resimage Calendar Shoots
 - [ ] Make a Escalation Media Edit (Talking Video)
+- [ ] Make a edit With the Yacht Footage
 - [ ] Organize Resimate files
 - [ ] Outline greening homes edits
 - [ ] Outline the next edit for Maverick (Greening Homes)
 - [ ] Refine videographer Onboarding Process
 - [ ] Review Frame.io
 - [ ] Schedule in Updated Resimate Shoots
+- [ ] Send Eleven Lab login + 1 hour script to Leanne
 - [ ] Send Raw Footage to the Home Building Company (Person gave you a card)
 - [ ] Send Raw Footage to Volpe Financial
 - [ ] Setup Greening Homes in Click up
