@@ -1,11 +1,11 @@
 # Tasks
 
-_Last updated: 2026-06-10_
+_Last updated: 2026-06-11_
 
 ---
 
 ## Notion Tasks
-_Synced: 2026-06-10 13:00_
+_Synced: 2026-06-11 09:00_
 
 ### 🔴 Doing
 - [ ] Learn how to use Dji mini 5 Drone _(High)_
@@ -53,6 +53,7 @@ _Synced: 2026-06-10 13:00_
 - [ ] Start Building Out Alvion content Style
 - [ ] Start Learning Apple Motions
 - [ ] Study 910 Academy course
+- [ ] Track this month / last month expense vs income
 
 ### ⏳ Waiting
 - [ ] Oakville Chamber Edit _(High)_
