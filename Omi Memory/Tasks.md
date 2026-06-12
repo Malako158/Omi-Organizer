@@ -1,11 +1,11 @@
 # Tasks
 
-_Last updated: 2026-06-11_
+_Last updated: 2026-06-12_
 
 ---
 
 ## Notion Tasks
-_Synced: 2026-06-11 00:00_
+_Synced: 2026-06-12 00:00_
 
 ### 🔴 Doing
 - [ ] Learn how to use Dji mini 5 Drone _(High)_
@@ -28,6 +28,7 @@ _Synced: 2026-06-11 00:00_
 - [ ] Color Grade and send over drone footage to Greening Homes
 - [ ] Create a brand editing style checklist
 - [ ] Create a job brief template for videographer. When shoots are booked
+- [ ] Create ALVION website
 - [ ] Create Client Style Output standards video for editors
 - [ ] Create Leannes Click upboard
 - [ ] Create Revision Checklist for resimate

@@ -42,7 +42,8 @@ or just keeping us busy?"
 | ------------------------------- | ------------------------------------------ |
 | **Resimate**                    | Active — files being organized             |
 | **Prospect Labs / FitKit Labs** | Active — files being organized             |
-| **Greening Homes**              | Onboarding — ClickUp file being set up     |
+| **Greening Homes**              | Active — drone footage to color grade and deliver |
+| **Leanne**                      | New — AI clone creation, ClickUp setup, contract pending |
 
 
 **Potential leads:** Realtor, architect, homebuilder in pipeline.
@@ -87,8 +88,8 @@ Escalation Media/
 
 ## Current Status
 
-> **Last updated:** 2026-06-06
-> **Status:** Active — videographer (Pixel City Visuals) contract terms agreed, signing call Thursday 12PM. Production workflow formalized. Wednesday meeting with real estate client (AI work).
+> **Last updated:** 2026-06-12
+> **Status:** Active — videographer (Pixel City Visuals) contract terms agreed, signing call Thursday 12PM. Production workflow formalized. Leanne added as new client (AI clone creation). Greening Homes drone footage pending delivery.
 
 Open action items:
 - [ ] Create team profiles for Ryan, Maverick, Ahmed, Chris
@@ -97,6 +98,7 @@ Open action items:
 - [ ] Review contract created by Chris
 - [ ] Send Helen a contract
 - [ ] Organize Resimate and Prospect Labs files
+- [ ] Organize prospect labs files asap
 - [ ] Send Greening Homes photos to client
 - [ ] Get Greening Homes client on a call to define project direction
 - [ ] Create group chat with new videographer after onboarding
@@ -114,5 +116,18 @@ Open action items:
 - [ ] Refine Editor Onboarding Process
 - [ ] Refine videographer Onboarding Process
 - [ ] Color grade Greening Homes Drone Video
+- [ ] Color Grade and send over drone footage to Greening Homes
 - [ ] Outline greening homes edits
 - [ ] Outline the next edit for Maverick (Greening Homes)
+- [ ] Re-register drone
+- [ ] Get Full Drone License
+- [ ] Invite Rion to Resimage Calendar Shoots
+- [ ] Create a brand editing style checklist
+- [ ] Create Revision Checklist for resimate
+- [ ] Create Client Style Output standards video for editors
+- [ ] Make a edit With the Yacht Footage
+- [ ] Message Leanne for pictures and contract
+- [ ] Send Eleven Lab login + 1 hour script to Leanne
+- [ ] Fully refine Leanne's Ai clone creation process in a video for editor
+- [ ] Create Leannes Click upboard
+- [ ] Build out Content Idea / Script Ai creator for Leanne's content
