@@ -1,63 +1,30 @@
 # Tasks
 
-_Last updated: 2026-06-12_
+_Last updated: 2026-06-13_
 
 ---
 
 ## Notion Tasks
-_Synced: 2026-06-12 00:00_
+_Synced: 2026-06-13 00:00_
 
 ### 🔴 Doing
-- [ ] Learn how to use Dji mini 5 Drone _(High)_
-- [ ] Give Editor All the assets
-- [ ] Improve Drone Videography
-- [ ] Improve Videography & Editing _(Medium)_
 - [ ] Improve Videography & Editing
-- [ ] Deep Dive Claude Work Flow
 
 ### 🟡 To-Do
-- [ ] Break down Escalation Media Website then get on a call. Then contact web designer. _(High)_
-- [ ] Create Delivery SOP's _(High)_
 - [ ] Create Weekly Schedule _(High)_
-- [ ] Reschedule Line Of Credit Application With The bank and get the proper documents _(High)_
 - [ ] Refine Editor Onboarding Process _(Medium)_
-- [ ] SMMA Study (Branding) _(Medium)_
-- [ ] Adjust Rion (Videographers) Contract
-- [ ] Build out Content Idea / Script Ai creator for Leanne's content
 - [ ] Color grade Greening Homes Drone Video
-- [ ] Color Grade and send over drone footage to Greening Homes
-- [ ] Create a brand editing style checklist
-- [ ] Create a job brief template for videographer. When shoots are booked
-- [ ] Create ALVION website
-- [ ] Create Client Style Output standards video for editors
-- [ ] Create Leannes Click upboard
-- [ ] Create Revision Checklist for resimate
-- [ ] Drone Shot of the Pear in Burlington
-- [ ] Fully refine Leanne's Ai clone creation process in a video for editor
 - [ ] Get Boating License
-- [ ] Get Full Drone License
-- [ ] Go through the courses Leanne's sent over
+- [ ] Get boating license
 - [ ] Invite Rion to Resimage Calendar Shoots
-- [ ] Make a edit With the Yacht Footage
-- [ ] Make a Escalation Media Edit (Talking Video)
-- [ ] Message Leanne tomorrow for pictures and contract
-- [ ] Organize prospect labs files asap
 - [ ] Organize Resimate files
-- [ ] Outline greening homes edits
-- [ ] Outline the next edit for Maverick (Greening Homes)
-- [ ] Re-register drone
-- [ ] Refine videographer Onboarding Process
 - [ ] Review Frame.io
-- [ ] Schedule in Updated Resimate Shoots
 - [ ] Send Eleven Lab login + 1 hour script to Leanne
-- [ ] Send Raw Footage to Volpe Financial
-- [ ] Split / Organize the 4 prospect videos
 - [ ] Start Building Out Alvion content Style
 - [ ] Study 910 Academy course
 
 ### ⏳ Waiting
 - [ ] Oakville Chamber Edit _(High)_
-- [ ] Send Reference Video / Raw Footage to Potential Video Editor
 
 ---
 
