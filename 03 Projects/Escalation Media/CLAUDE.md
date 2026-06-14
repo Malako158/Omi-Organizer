@@ -88,7 +88,7 @@ Escalation Media/
 
 ## Current Status
 
-> **Last updated:** 2026-06-12
+> **Last updated:** 2026-06-14
 > **Status:** Active — videographer (Pixel City Visuals) contract terms agreed, signing call Thursday 12PM. Production workflow formalized. Leanne added as new client (AI clone creation). Greening Homes drone footage pending delivery.
 
 Open action items:
@@ -131,3 +131,5 @@ Open action items:
 - [ ] Fully refine Leanne's Ai clone creation process in a video for editor
 - [ ] Create Leannes Click upboard
 - [ ] Build out Content Idea / Script Ai creator for Leanne's content
+- [ ] Create a job brief template for videographer (when shoots are booked)
+- [ ] Go through the courses Leanne's sent over
