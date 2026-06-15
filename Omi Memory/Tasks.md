@@ -1,11 +1,11 @@
 # Tasks
 
-_Last updated: 2026-06-14_
+_Last updated: 2026-06-15_
 
 ---
 
 ## Notion Tasks
-_Synced: 2026-06-14 10:00_
+_Synced: 2026-06-15 10:00_
 
 ### 🔴 Doing
 - [ ] Learn how to use Dji mini 5 Drone _(High)_
@@ -25,6 +25,7 @@ _Synced: 2026-06-14 10:00_
 - [ ] Color grade Greening Homes Drone Video
 - [ ] Create a job brief template for videographer. When shoots are booked
 - [ ] Create Leannes Click upboard
+- [ ] Create Revision Checklist for resimate
 - [ ] Fully refine Leanne's Ai clone creation process in a video for editor.
 - [ ] Get Boating License
 - [ ] Get Full Drone License
