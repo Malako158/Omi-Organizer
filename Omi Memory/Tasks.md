@@ -1,11 +1,11 @@
 # Tasks
 
-_Last updated: 2026-06-15_
+_Last updated: 2026-06-16_
 
 ---
 
 ## Notion Tasks
-_Synced: 2026-06-15 06:00_
+_Synced: 2026-06-16 06:00_
 
 ### 🔴 Doing
 - [ ] Learn how to use Dji mini 5 Drone _(High)_
@@ -14,21 +14,21 @@ _Synced: 2026-06-15 06:00_
 
 ### 🟡 To-Do
 - [ ] Create Delivery SOP's _(High)_
-- [ ] Refine Editor Onboarding Process _(Medium)_
+- [ ] Create Weekly Schedule _(High)_
 - [ ] SMMA Study (Branding) _(Medium)_
 - [ ] Adjust Rion (Videographers) Contract
 - [ ] Build out Content Idea / Script Ai creator for Leanne's content
 - [ ] Color Grade and send over drone footage to Greening Homes
 - [ ] Color grade Greening Homes Drone Video
 - [ ] Create a agent for social media competitor and content research
-- [ ] Create a job brief template for videographer. When shoots are booked
 - [ ] Create ALVION website
 - [ ] Create Leannes Click upboard
 - [ ] Drone Shot of the Pear in Burlington
 - [ ] Fully refine Leanne's Ai clone creation process in a video for editor
-- [ ] Get boating license
+- [ ] Get Boating License
 - [ ] Get Full Drone License
 - [ ] Go through the courses Leanne's sent over
+- [ ] Improve Real-Estate color grade
 - [ ] Invite Rion to Resimage Calendar Shoots
 - [ ] Make a edit With the Yacht Footage
 - [ ] Make a Escalation Media Edit (Talking Video)
@@ -36,10 +36,8 @@ _Synced: 2026-06-15 06:00_
 - [ ] Plan Tianna's Birthday
 - [ ] Re-register drone
 - [ ] Review Frame.io
-- [ ] Schedule in Updated Resimate Shoots
 - [ ] Send Eleven Lab login + 1 hour script to Leanne
-- [ ] Send Raw Footage to Volpe Financial
-- [ ] Split / Organize the 4 prospect videos
+- [ ] Setup Greening Homes in Click up
 - [ ] Start Building Out Alvion content Style
 - [ ] Study 910 Academy course
 
