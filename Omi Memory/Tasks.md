@@ -1,11 +1,11 @@
 # Tasks
 
-_Last updated: 2026-06-16_
+_Last updated: 2026-06-17_
 
 ---
 
 ## Notion Tasks
-_Synced: 2026-06-16 06:00_
+_Synced: 2026-06-17 14:00_
 
 ### 🔴 Doing
 - [ ] Learn how to use Dji mini 5 Drone _(High)_
@@ -26,6 +26,7 @@ _Synced: 2026-06-16 06:00_
 - [ ] Drone Shot of the Pear in Burlington
 - [ ] Fully refine Leanne's Ai clone creation process in a video for editor
 - [ ] Get Boating License
+- [ ] Get boating license
 - [ ] Get Full Drone License
 - [ ] Go through the courses Leanne's sent over
 - [ ] Improve Real-Estate color grade
@@ -33,6 +34,8 @@ _Synced: 2026-06-16 06:00_
 - [ ] Make a edit With the Yacht Footage
 - [ ] Make a Escalation Media Edit (Talking Video)
 - [ ] Message Leanne tomorrow for pictures and contract
+- [ ] Outline greening homes edits
+- [ ] Outline the next edit for Maverick (Greening Homes)
 - [ ] Plan Tianna's Birthday
 - [ ] Re-register drone
 - [ ] Review Frame.io
