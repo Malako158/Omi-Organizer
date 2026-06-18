@@ -33,6 +33,7 @@ _Synced: 2026-06-18 00:00_
 - [ ] Make a edit With the Yacht Footage
 - [ ] Make a Escalation Media Edit (Talking Video)
 - [ ] Message Leanne tomorrow for pictures and contract
+- [ ] Outline greening homes edits
 - [ ] Outline the next edit for Maverick (Greening Homes)
 - [ ] Plan Tianna's Birthday
 - [ ] Re-register drone
