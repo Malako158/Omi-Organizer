@@ -1,11 +1,11 @@
 # Tasks
 
-_Last updated: 2026-06-17_
+_Last updated: 2026-06-18_
 
 ---
 
 ## Notion Tasks
-_Synced: 2026-06-17 14:00_
+_Synced: 2026-06-18 07:00_
 
 ### 🔴 Doing
 - [ ] Learn how to use Dji mini 5 Drone _(High)_
@@ -40,12 +40,15 @@ _Synced: 2026-06-17 14:00_
 - [ ] Re-register drone
 - [ ] Review Frame.io
 - [ ] Send Eleven Lab login + 1 hour script to Leanne
+- [ ] Send Raw Footage to the Home Building Company (Person gave you a card)
+- [ ] Send Raw Footage to Volpe Financial
 - [ ] Setup Greening Homes in Click up
 - [ ] Start Building Out Alvion content Style
 - [ ] Study 910 Academy course
 
 ### ⏳ Waiting
 - [ ] Oakville Chamber Edit _(High)_
+- [ ] Send Reference Video / Raw Footage to Potential Video Editor.
 
 ---
 
