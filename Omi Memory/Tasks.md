@@ -1,11 +1,11 @@
 # Tasks
 
-_Last updated: 2026-06-18_
+_Last updated: 2026-06-19_
 
 ---
 
 ## Notion Tasks
-_Synced: 2026-06-18 07:00_
+_Synced: 2026-06-19 07:00_
 
 ### 🔴 Doing
 - [ ] Learn how to use Dji mini 5 Drone _(High)_
@@ -15,29 +15,34 @@ _Synced: 2026-06-18 07:00_
 ### 🟡 To-Do
 - [ ] Create Delivery SOP's _(High)_
 - [ ] Create Weekly Schedule _(High)_
+- [ ] Refine Editor Onboarding Process _(Medium)_
 - [ ] SMMA Study (Branding) _(Medium)_
 - [ ] Adjust Rion (Videographers) Contract
 - [ ] Build out Content Idea / Script Ai creator for Leanne's content
 - [ ] Color Grade and send over drone footage to Greening Homes
 - [ ] Color grade Greening Homes Drone Video
 - [ ] Create a agent for social media competitor and content research
+- [ ] Create a brand editing style checklist
 - [ ] Create ALVION website
-- [ ] Create Leannes Click upboard
+- [ ] Create Client Style Output standards video for editors
+- [ ] Create Leannes Click up board
 - [ ] Drone Shot of the Pear in Burlington
+- [ ] Figure out all legal information about going to miami
 - [ ] Fully refine Leanne's Ai clone creation process in a video for editor
 - [ ] Get Boating License
-- [ ] Get boating license
 - [ ] Get Full Drone License
 - [ ] Go through the courses Leanne's sent over
 - [ ] Improve Real-Estate color grade
 - [ ] Invite Rion to Resimage Calendar Shoots
 - [ ] Make a edit With the Yacht Footage
 - [ ] Make a Escalation Media Edit (Talking Video)
+- [ ] Make Zach's Founders Video
 - [ ] Message Leanne tomorrow for pictures and contract
 - [ ] Outline greening homes edits
 - [ ] Outline the next edit for Maverick (Greening Homes)
 - [ ] Plan Tianna's Birthday
 - [ ] Re-register drone
+- [ ] Refine videographer Onboarding Process
 - [ ] Review Frame.io
 - [ ] Send Eleven Lab login + 1 hour script to Leanne
 - [ ] Send Raw Footage to the Home Building Company (Person gave you a card)
@@ -48,7 +53,7 @@ _Synced: 2026-06-18 07:00_
 
 ### ⏳ Waiting
 - [ ] Oakville Chamber Edit _(High)_
-- [ ] Send Reference Video / Raw Footage to Potential Video Editor.
+- [ ] Send Reference Video / Raw Footage to Potential Video Editor
 
 ---
 
