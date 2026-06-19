@@ -1,11 +1,11 @@
 # Tasks
 
-_Last updated: 2026-06-18_
+_Last updated: 2026-06-19_
 
 ---
 
 ## Notion Tasks
-_Synced: 2026-06-18 07:00_
+_Synced: 2026-06-19 07:00_
 
 ### 🔴 Doing
 - [ ] Learn how to use Dji mini 5 Drone _(High)_
@@ -22,6 +22,7 @@ _Synced: 2026-06-18 07:00_
 - [ ] Color grade Greening Homes Drone Video
 - [ ] Create a agent for social media competitor and content research
 - [ ] Create ALVION website
+- [ ] Create a brand editing style checklist
 - [ ] Create Leannes Click upboard
 - [ ] Drone Shot of the Pear in Burlington
 - [ ] Fully refine Leanne's Ai clone creation process in a video for editor
