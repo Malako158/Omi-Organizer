@@ -1,11 +1,11 @@
 # Tasks
 
-_Last updated: 2026-06-19_
+_Last updated: 2026-06-20_
 
 ---
 
 ## Notion Tasks
-_Synced: 2026-06-19 07:00_
+_Synced: 2026-06-20 07:00_
 
 ### 🔴 Doing
 - [ ] Learn how to use Dji mini 5 Drone _(High)_
@@ -23,20 +23,20 @@ _Synced: 2026-06-19 07:00_
 - [ ] Color grade Greening Homes Drone Video
 - [ ] Create a agent for social media competitor and content research
 - [ ] Create a brand editing style checklist
+- [ ] Create a job brief template for videographer (when shoots are booked)
 - [ ] Create ALVION website
 - [ ] Create Client Style Output standards video for editors
-- [ ] Create Leannes Click up board
+- [ ] Create Leannes Click upboard
+- [ ] Create Revision Checklist for resimate
 - [ ] Drone Shot of the Pear in Burlington
 - [ ] Figure out all legal information about going to miami
 - [ ] Fully refine Leanne's Ai clone creation process in a video for editor
 - [ ] Get Boating License
 - [ ] Get Full Drone License
 - [ ] Go through the courses Leanne's sent over
-- [ ] Improve Real-Estate color grade
 - [ ] Invite Rion to Resimage Calendar Shoots
 - [ ] Make a edit With the Yacht Footage
 - [ ] Make a Escalation Media Edit (Talking Video)
-- [ ] Make Zach's Founders Video
 - [ ] Message Leanne tomorrow for pictures and contract
 - [ ] Outline greening homes edits
 - [ ] Outline the next edit for Maverick (Greening Homes)
